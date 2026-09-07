@@ -1,0 +1,13 @@
+package com.poshan;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class PoshanApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

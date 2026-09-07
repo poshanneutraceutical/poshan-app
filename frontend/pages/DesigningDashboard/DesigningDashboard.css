@@ -1,0 +1,851 @@
+/*
+==================================================
+DESIGNING DASHBOARD
+==================================================
+*/
+
+.designing-dashboard {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 28px;
+
+    background: #f4f7fb;
+
+}
+
+/*
+==================================================
+HEADER
+==================================================
+*/
+
+.designing-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-bottom: 35px;
+
+}
+
+.designing-header-left h1 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+.designing-header-left p {
+
+    margin-top: 8px;
+
+    color: #6b7280;
+
+    font-size: 15px;
+
+}
+
+.designing-header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+.designing-refresh-btn {
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    cursor: pointer;
+
+    transition: .30s;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+}
+
+.designing-refresh-btn:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+}
+
+/*
+==================================================
+SUMMARY CARDS
+==================================================
+*/
+
+.designing-summary-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+
+    gap: 24px;
+
+    margin-bottom: 35px;
+
+}
+
+.designing-card {
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid #edf2f7;
+
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+
+    transition: .35s;
+
+}
+
+.designing-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(90deg,#2563eb,#60a5fa);
+
+}
+
+.designing-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 16px 30px rgba(0,0,0,.12);
+
+}
+
+.designing-card-info h4{
+
+    margin:0;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.designing-card-info h2{
+
+    margin-top:14px;
+
+    font-size:36px;
+
+    color:#111827;
+
+    font-weight:700;
+
+}
+
+.designing-card-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+
+    color:white;
+
+    box-shadow:0 10px 24px rgba(37,99,235,.28);
+
+}
+
+.designing-card-icon svg{
+
+    width:34px;
+
+    height:34px;
+
+}
+
+/*
+==================================================
+CONTENT GRID
+==================================================
+*/
+
+.designing-content-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+    margin-bottom:30px;
+
+}
+/*
+==================================================
+SECTION
+==================================================
+*/
+
+.designing-section{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.30s;
+
+}
+
+.designing-section:hover{
+
+    box-shadow:0 16px 30px rgba(0,0,0,.10);
+
+}
+
+.designing-section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px 24px;
+
+    border-bottom:1px solid #edf2f7;
+
+    background:#fafcff;
+
+}
+
+.designing-section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.designing-section-title svg{
+
+    color:#2563eb;
+
+}
+
+.designing-section-title h2{
+
+    margin:0;
+
+    color:#1f2937;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+/*
+==================================================
+RECENT ACTIVITY
+==================================================
+*/
+
+.activity-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    padding:22px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    transition:.30s;
+
+}
+
+.activity-item:hover{
+
+    background:#eff6ff;
+
+}
+
+.activity-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.activity-icon{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+.activity-text h4{
+
+    margin:0;
+
+    color:#111827;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.activity-text p{
+
+    margin-top:5px;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+.activity-time{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+}
+
+/*
+==================================================
+REPORT CARD
+==================================================
+*/
+
+.report-card{
+
+    padding:24px;
+
+}
+
+.report-placeholder{
+
+    height:320px;
+
+    border:2px dashed #d1d5db;
+
+    border-radius:16px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:#fafcff;
+
+}
+
+.report-placeholder svg{
+
+    width:60px;
+
+    height:60px;
+
+    color:#cbd5e1;
+
+    margin-bottom:18px;
+
+}
+
+.report-placeholder h3{
+
+    margin:0;
+
+    font-size:22px;
+
+    color:#374151;
+
+}
+
+.report-placeholder p{
+
+    margin-top:10px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+/*
+==================================================
+STATISTICS
+==================================================
+*/
+
+.design-statistics{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:25px;
+
+}
+
+.stat-box{
+
+    background:#f8fafc;
+
+    border-radius:14px;
+
+    padding:20px;
+
+    text-align:center;
+
+    transition:.30s;
+
+}
+
+.stat-box:hover{
+
+    background:#eff6ff;
+
+}
+
+.stat-box h4{
+
+    margin:0;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+.stat-box h2{
+
+    margin-top:12px;
+
+    color:#111827;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+/*
+==================================================
+EMPTY STATE
+==================================================
+*/
+
+.designing-empty{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:55px 20px;
+
+}
+
+.designing-empty svg{
+
+    width:64px;
+
+    height:64px;
+
+    color:#cbd5e1;
+
+    margin-bottom:18px;
+
+}
+
+.designing-empty h3{
+
+    margin:0;
+
+    color:#374151;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.designing-empty p{
+
+    margin-top:10px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+/*
+==================================================
+LOADING
+==================================================
+*/
+
+.designing-loading{
+
+    width:100%;
+
+    height:70vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    color:#2563eb;
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+.designing-loading svg{
+
+    width:48px;
+
+    height:48px;
+
+    animation:designSpin 1s linear infinite;
+
+}
+
+@keyframes designSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/*
+==================================================
+ANIMATION
+==================================================
+*/
+
+@keyframes designFadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.designing-card{
+
+    animation:designFadeUp .45s ease;
+
+}
+
+.designing-section{
+
+    animation:designFadeUp .55s ease;
+
+}
+
+/*
+==================================================
+SCROLLBAR
+==================================================
+*/
+
+.designing-section::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.designing-section::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+.designing-section::-webkit-scrollbar-track{
+
+    background:#f8fafc;
+
+}
+
+/*
+==================================================
+RESPONSIVE
+==================================================
+*/
+
+@media (max-width:1200px){
+
+    .designing-content-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .designing-summary-grid{
+
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .designing-dashboard{
+
+        padding:18px;
+
+    }
+
+    .designing-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .designing-header-left h1{
+
+        font-size:28px;
+
+    }
+
+    .designing-card{
+
+        padding:20px;
+
+    }
+
+    .designing-card-info h2{
+
+        font-size:30px;
+
+    }
+
+    .designing-card-icon{
+
+        width:62px;
+
+        height:62px;
+
+    }
+
+    .designing-card-icon svg{
+
+        width:30px;
+
+        height:30px;
+
+    }
+
+    .design-statistics{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .designing-summary-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .designing-dashboard{
+
+        padding:15px;
+
+    }
+
+    .designing-section-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+    .activity-item{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+}
+
+/*
+==================================================
+END OF FILE
+==================================================
+*/

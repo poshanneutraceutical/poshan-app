@@ -1,0 +1,607 @@
+/* =========================================================
+   APPROVALS MODULE
+   PREMIUM POSHAN ERP DESIGN
+   CSS ONLY — EXISTING TABLE/BUTTON COMPONENT COMPATIBLE
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL BOX SIZING
+========================================================= */
+
+.approvals-module,
+.approvals-module *,
+.approvals-module *::before,
+.approvals-module *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.approvals-module {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 30px 36px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1) 0%,
+            rgba(244, 247, 251, 1) 100%
+        );
+
+    color: rgba(30, 41, 59, 1);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.approvals-module > h1 {
+    margin: 0 0 24px;
+
+    color: rgba(23, 32, 51, 1);
+
+    font-size: 29px;
+    line-height: 1.2;
+
+    font-weight: 750;
+
+    letter-spacing: -0.55px;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.approvals-module > div:not(.some-unused-class) {
+    width: 100%;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.approvals-module table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: rgba(255, 255, 255, 1);
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, .035),
+        0 12px 30px rgba(15, 23, 42, .035);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.approvals-module table thead th {
+    height: 55px;
+
+    padding: 15px 18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1),
+            rgba(241, 245, 249, 1)
+        );
+
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    text-align: left;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    letter-spacing: .55px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FIRST HEADER CELL
+========================================================= */
+
+.approvals-module table thead th:first-child {
+    padding-left: 22px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.approvals-module table tbody td {
+    min-height: 64px;
+
+    padding: 15px 18px;
+
+    background: rgba(255, 255, 255, 1);
+
+    border-bottom: 1px solid rgba(237, 241, 245, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FIRST BODY CELL
+========================================================= */
+
+.approvals-module table tbody td:first-child {
+    padding-left: 22px;
+
+    color: rgba(23, 32, 51, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   PR NUMBER
+========================================================= */
+
+.approvals-module table tbody td:nth-child(2) {
+    color: rgba(30, 41, 59, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   BOX TYPE
+========================================================= */
+
+.approvals-module table tbody td:nth-child(3) {
+    color: rgba(51, 65, 85, 1);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+.approvals-module table tbody td:nth-child(4) {
+    color: rgba(30, 41, 59, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   REQUESTED BY
+========================================================= */
+
+.approvals-module table tbody td:nth-child(5) {
+    color: rgba(71, 85, 105, 1);
+}
+
+
+/* =========================================================
+   DEPARTMENT
+========================================================= */
+
+.approvals-module table tbody td:nth-child(6) {
+    color: rgba(71, 85, 105, 1);
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.approvals-module table tbody td:nth-child(7) {
+    color: rgba(51, 65, 85, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.approvals-module table tbody td:nth-child(8) {
+    color: rgba(37, 99, 235, 1);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ROW HOVER
+========================================================= */
+
+.approvals-module table tbody tr {
+    transition:
+        background .18s ease;
+}
+
+
+.approvals-module table tbody tr:hover td {
+    background: rgba(248, 251, 255, 1);
+}
+
+
+/* =========================================================
+   LAST ROW
+========================================================= */
+
+.approvals-module table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ACTION COLUMN
+========================================================= */
+
+.approvals-module table th:last-child,
+.approvals-module table td:last-child {
+    width: 1%;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTION CONTAINER
+========================================================= */
+
+.approvals-module table td:last-child > div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   ALL ACTION BUTTONS
+========================================================= */
+
+.approvals-module table td:last-child button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 36px;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        color .18s ease;
+}
+
+
+/* =========================================================
+   APPROVE BUTTON
+========================================================= */
+
+.approvals-module table td:last-child button:first-child {
+    border: 1px solid rgba(5, 150, 105, 1);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16, 185, 129, 1),
+            rgba(5, 150, 105, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 4px 10px rgba(5, 150, 105, .14);
+}
+
+
+.approvals-module table td:last-child button:first-child:hover {
+    border-color: rgba(4, 120, 87, 1);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 150, 105, 1),
+            rgba(4, 120, 87, 1)
+        );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 15px rgba(5, 150, 105, .20);
+}
+
+
+/* =========================================================
+   REJECT BUTTON
+========================================================= */
+
+.approvals-module table td:last-child button:last-child {
+    border: 1px solid rgba(220, 38, 38, 1);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239, 68, 68, 1),
+            rgba(220, 38, 38, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, .14);
+}
+
+
+.approvals-module table td:last-child button:last-child:hover {
+    border-color: rgba(185, 28, 28, 1);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220, 38, 38, 1),
+            rgba(185, 28, 28, 1)
+        );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 15px rgba(220, 38, 38, .20);
+}
+
+
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
+
+.approvals-module table td:last-child button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   BUTTON FOCUS
+========================================================= */
+
+.approvals-module table td:last-child button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12),
+        0 4px 10px rgba(15, 23, 42, .06);
+}
+
+
+/* =========================================================
+   EMPTY TABLE
+========================================================= */
+
+.approvals-module table tbody td[colspan] {
+    height: 200px;
+
+    text-align: center;
+
+    color: rgba(100, 116, 139, 1);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TABLE SCROLL CONTAINER
+========================================================= */
+
+.approvals-module {
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(203, 213, 225, 1)
+        transparent;
+}
+
+
+.approvals-module::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+.approvals-module::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 1);
+}
+
+
+.approvals-module::-webkit-scrollbar-thumb {
+    background: rgba(203, 213, 225, 1);
+
+    border-radius: 10px;
+}
+
+
+.approvals-module::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .approvals-module {
+        padding: 28px;
+    }
+
+    .approvals-module > h1 {
+        font-size: 27px;
+    }
+
+    .approvals-module table {
+        min-width: 1050px;
+    }
+
+    .approvals-module table th,
+    .approvals-module table td {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .approvals-module {
+        padding: 24px;
+    }
+
+    .approvals-module > h1 {
+        font-size: 26px;
+    }
+
+    .approvals-module table {
+        min-width: 1050px;
+    }
+
+    .approvals-module > div {
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: thin;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .approvals-module {
+        padding: 18px 14px;
+    }
+
+    .approvals-module > h1 {
+        margin-bottom: 18px;
+
+        font-size: 23px;
+    }
+
+    .approvals-module table {
+        min-width: 1000px;
+    }
+
+    .approvals-module table th,
+    .approvals-module table td {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .approvals-module table td:last-child > div {
+        gap: 6px;
+    }
+
+    .approvals-module table td:last-child button {
+        min-height: 34px;
+
+        padding: 7px 12px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .approvals-module {
+        padding: 14px 12px;
+    }
+
+    .approvals-module > h1 {
+        font-size: 21px;
+    }
+
+    .approvals-module table {
+        min-width: 960px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .approvals-module *,
+    .approvals-module *::before,
+    .approvals-module *::after {
+        animation: none !important;
+
+        transition: none !important;
+    }
+}

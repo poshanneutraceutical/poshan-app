@@ -1,0 +1,20 @@
+.common-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.common-table th,
+.common-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.common-table th {
+    background: #2563eb;
+    color: white;
+}
+
+.common-table tr:hover {
+    background: #f9fafb;
+}

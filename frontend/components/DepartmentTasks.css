@@ -1,0 +1,787 @@
+/* =========================================================
+   DEPARTMENT TASKS
+   SHARED COMPONENT
+========================================================= */
+
+.department-tasks-section {
+    width: 100%;
+
+    margin-top: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, .035),
+        0 12px 30px rgba(15, 23, 42, .025);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.department-tasks-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f8fafc 100%
+        );
+}
+
+
+.department-tasks-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    color: #2563eb;
+}
+
+
+.department-tasks-title > svg {
+    flex-shrink: 0;
+}
+
+
+.department-tasks-title h2 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    line-height: 1.3;
+
+    font-weight: 750;
+
+    letter-spacing: -.3px;
+}
+
+
+.department-tasks-title p {
+    margin: 4px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+.department-tasks-refresh {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 38px;
+
+    padding: 8px 13px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 9px;
+
+    background: #eff6ff;
+
+    color: #1d4ed8;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.department-tasks-refresh:hover:not(:disabled) {
+    background: #dbeafe;
+
+    border-color: #93c5fd;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, .10);
+}
+
+
+.department-tasks-refresh:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+.department-tasks-refresh:disabled {
+    opacity: .6;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.department-tasks-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.department-tasks-table {
+    width: 100%;
+
+    min-width: 900px;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.department-tasks-table th {
+    height: 52px;
+
+    padding: 13px 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f8fafc 0%,
+            #f1f5f9 100%
+        );
+
+    border-bottom: 1px solid #e2e8f0;
+
+    color: #475569;
+
+    text-align: left;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    line-height: 1.25;
+
+    letter-spacing: .55px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.department-tasks-table th:first-child {
+    padding-left: 20px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.department-tasks-table td {
+    height: 64px;
+
+    padding: 13px 16px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf1f5;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+
+.department-tasks-table td:first-child {
+    padding-left: 20px;
+
+    color: #172033;
+
+    font-weight: 700;
+}
+
+
+.department-tasks-table tbody tr {
+    transition:
+        background .18s ease;
+}
+
+
+.department-tasks-table tbody tr:hover td {
+    background: #f8fbff;
+}
+
+
+.department-tasks-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   TASK TITLE
+========================================================= */
+
+.department-tasks-table td:nth-child(2) {
+    color: #172033;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   ASSIGNED TO
+========================================================= */
+
+.department-tasks-table td:nth-child(3) {
+    color: #334155;
+
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.department-task-priority {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 70px;
+
+    padding: 5px 10px;
+
+    border: 1px solid transparent;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 750;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+
+.department-task-priority.low {
+    background: #f1f5f9;
+
+    border-color: #e2e8f0;
+
+    color: #475569;
+}
+
+
+.department-task-priority.medium {
+    background: #fef3c7;
+
+    border-color: #fde68a;
+
+    color: #92400e;
+}
+
+
+.department-task-priority.high {
+    background: #ffedd5;
+
+    border-color: #fed7aa;
+
+    color: #c2410c;
+}
+
+
+.department-task-priority.urgent {
+    background: #fee2e2;
+
+    border-color: #fecaca;
+
+    color: #b91c1c;
+}
+
+
+.department-task-priority.default {
+    background: #f3f4f6;
+
+    border-color: #e5e7eb;
+
+    color: #4b5563;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.department-task-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 6px 11px;
+
+    border: 1px solid transparent;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 750;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.department-task-status.pending {
+    background: #fef3c7;
+
+    border-color: #fde68a;
+
+    color: #92400e;
+}
+
+
+.department-task-status.in-progress {
+    background: #dbeafe;
+
+    border-color: #bfdbfe;
+
+    color: #1d4ed8;
+}
+
+
+.department-task-status.complete {
+    background: #dcfce7;
+
+    border-color: #bbf7d0;
+
+    color: #15803d;
+}
+
+
+.department-task-status.on-hold {
+    background: #f3f4f6;
+
+    border-color: #e5e7eb;
+
+    color: #4b5563;
+}
+
+
+.department-task-status.cancel {
+    background: #fee2e2;
+
+    border-color: #fecaca;
+
+    color: #b91c1c;
+}
+
+
+.department-task-status.delivered {
+    background: #ede9fe;
+
+    border-color: #ddd6fe;
+
+    color: #6d28d9;
+}
+
+
+.department-task-status.default {
+    background: #f3f4f6;
+
+    border-color: #e5e7eb;
+
+    color: #4b5563;
+}
+
+
+/* =========================================================
+   DUE DATE
+========================================================= */
+
+.department-tasks-table td:nth-child(6) {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   VIEW TASK BUTTON
+========================================================= */
+
+.department-task-view-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f0f7ff,
+            #e5f0ff
+        );
+
+    color: #1d4ed8;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, .08);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.department-task-view-btn:hover {
+    background: #dbeafe;
+
+    border-color: #93c5fd;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .14);
+}
+
+
+.department-task-view-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.department-tasks-empty {
+    min-height: 185px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #94a3b8;
+
+    background: #ffffff;
+}
+
+
+.department-tasks-empty svg {
+    color: #94a3b8;
+}
+
+
+.department-tasks-empty h3 {
+    margin: 4px 0 0;
+
+    color: #334155;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.department-tasks-empty p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   LOADING ICON
+========================================================= */
+
+.department-tasks-loading-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #2563eb;
+}
+
+
+.department-tasks-loading-icon svg {
+    animation:
+        departmentTasksSpin 1.1s linear infinite;
+}
+
+
+@keyframes departmentTasksSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.department-tasks-error {
+    margin: 16px;
+
+    padding: 13px 15px;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 10px;
+
+    background: #fef2f2;
+
+    color: #b91c1c;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.department-tasks-section button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, .18);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TABLE SCROLLBAR
+========================================================= */
+
+.department-tasks-table-wrapper::-webkit-scrollbar {
+    width: 7px;
+
+    height: 7px;
+}
+
+
+.department-tasks-table-wrapper::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+
+.department-tasks-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+
+.department-tasks-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .department-tasks-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 17px;
+    }
+
+
+    .department-tasks-refresh {
+        width: 100%;
+    }
+
+
+    .department-tasks-table {
+        min-width: 850px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .department-tasks-section {
+        margin-top: 20px;
+
+        border-radius: 13px;
+    }
+
+
+    .department-tasks-header {
+        padding: 15px;
+    }
+
+
+    .department-tasks-title h2 {
+        font-size: 18px;
+    }
+
+
+    .department-tasks-title p {
+        font-size: 11px;
+    }
+
+
+    .department-tasks-table {
+        min-width: 820px;
+    }
+
+
+    .department-tasks-empty {
+        min-height: 160px;
+
+        padding: 24px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .department-tasks-section *,
+    .department-tasks-section *::before,
+    .department-tasks-section *::after {
+        animation: none !important;
+
+        transition: none !important;
+    }
+
+}

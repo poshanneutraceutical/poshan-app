@@ -1,0 +1,1516 @@
+/* =========================================================
+   VENDOR MODULE
+   PREMIUM POSHAN ERP DESIGN
+   OPTIMIZED — EXISTING JSX COMPATIBLE
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL BOX SIZING
+========================================================= */
+
+.vendor-module,
+.vendor-module *,
+.vendor-module *::before,
+.vendor-module *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.vendor-module {
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 36px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1) 0%,
+            rgba(244, 247, 251, 1) 100%
+        );
+
+    color: rgba(30, 41, 59, 1);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   COMMON HEADERS
+========================================================= */
+
+.vendor-header,
+.vendor-details-header,
+.vendor-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+    margin-bottom: 24px;
+
+    flex-wrap: wrap;
+}
+
+
+.vendor-header h1,
+.vendor-header h2,
+.vendor-details-header h2,
+.vendor-form-title h1 {
+    margin: 0;
+
+    color: rgba(17, 24, 39, 1);
+
+    font-size: 29px;
+    line-height: 1.2;
+
+    font-weight: 750;
+
+    letter-spacing: -.55px;
+}
+
+
+.vendor-header p,
+.vendor-details-header p,
+.vendor-form-title p {
+    margin: 6px 0 0;
+
+    color: rgba(100, 116, 139, 1);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ADD VENDOR BUTTON
+========================================================= */
+
+.vendor-module .add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 10px 18px;
+
+    border: 1px solid rgba(29, 78, 216, 1);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 1),
+            rgba(29, 78, 216, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    text-decoration: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, .18);
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-module .add-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(29, 78, 216, 1),
+            rgba(30, 64, 175, 1)
+        );
+
+    border-color: rgba(30, 64, 175, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, .24);
+}
+
+
+.vendor-module .add-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.vendor-module .search-box {
+    position: relative;
+
+    width: min(520px, 100%);
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+    padding: 0;
+
+    border: 1px solid rgba(216, 224, 233, 1);
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, .025);
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-module .search-box:focus-within {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .09);
+}
+
+
+.vendor-module .search-box svg {
+    flex-shrink: 0;
+
+    margin-left: 14px;
+
+    color: rgba(71, 85, 105, 1);
+}
+
+
+.vendor-module .search-box input {
+    width: 100%;
+    height: 100%;
+
+    padding: 0 14px 0 11px;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+.vendor-module .search-box input::placeholder {
+    color: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   VENDOR TABLE
+========================================================= */
+
+.vendor-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: rgba(255, 255, 255, 1);
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, .035),
+        0 12px 30px rgba(15, 23, 42, .035);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.vendor-table th {
+    height: 55px;
+
+    padding: 15px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1),
+            rgba(241, 245, 249, 1)
+        );
+
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    text-align: left;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    letter-spacing: .55px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+.vendor-table th:first-child {
+    padding-left: 24px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.vendor-table td {
+    height: 68px;
+
+    padding: 14px 20px;
+
+    background: rgba(255, 255, 255, 1);
+
+    border-bottom: 1px solid rgba(237, 241, 245, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    font-size: 14px;
+    line-height: 1.45;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+
+.vendor-table td:first-child {
+    padding-left: 24px;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+.vendor-table tbody tr {
+    transition: background .18s ease;
+}
+
+
+.vendor-table tbody tr:hover td {
+    background: rgba(248, 251, 255, 1);
+}
+
+
+.vendor-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   TABLE COLUMN STYLING
+========================================================= */
+
+.vendor-table td:nth-child(1) {
+    color: rgba(30, 41, 59, 1);
+    font-weight: 650;
+}
+
+
+.vendor-table td:nth-child(2) {
+    color: rgba(71, 85, 105, 1);
+}
+
+
+.vendor-table td:nth-child(3) {
+    color: rgba(51, 65, 85, 1);
+    font-weight: 600;
+}
+
+
+.vendor-table td:nth-child(4) {
+    color: rgba(71, 85, 105, 1);
+}
+
+
+.vendor-table td:last-child {
+    width: 1%;
+}
+
+
+/* =========================================================
+   TABLE ACTIONS
+========================================================= */
+
+.vendor-table .table-action {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+
+.vendor-table .table-action a,
+.vendor-table .table-action button {
+    width: 34px;
+    height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 1px solid rgba(219, 226, 234, 1);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 1);
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        color .18s ease;
+}
+
+
+/* =========================================================
+   VIEW — BLUE
+========================================================= */
+
+.vendor-table .table-action a:first-child {
+    color: rgba(37, 99, 235, 1);
+}
+
+
+.vendor-table .table-action a:first-child:hover {
+    background: rgba(239, 246, 255, 1);
+    border-color: rgba(191, 219, 254, 1);
+    color: rgba(29, 78, 216, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(37, 99, 235, .10);
+}
+
+
+/* =========================================================
+   EDIT — BLACK
+========================================================= */
+
+.vendor-table .table-action a:nth-child(2) {
+    color: rgba(0, 0, 0, 1);
+}
+
+
+.vendor-table .table-action a:nth-child(2):hover {
+    background: rgba(243, 244, 246, 1);
+    border-color: rgba(156, 163, 175, 1);
+    color: rgba(0, 0, 0, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(0, 0, 0, .10);
+}
+
+
+/* =========================================================
+   DELETE — RED
+========================================================= */
+
+.vendor-table .table-action button {
+    color: rgba(220, 38, 38, 1);
+}
+
+
+.vendor-table .table-action button:hover {
+    background: rgba(254, 242, 242, 1);
+    border-color: rgba(254, 202, 202, 1);
+    color: rgba(185, 28, 28, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(220, 38, 38, .10);
+}
+
+
+/* =========================================================
+   ACTION STATES
+========================================================= */
+
+.vendor-table .table-action a:active,
+.vendor-table .table-action button:active {
+    transform: translateY(0);
+}
+
+
+.vendor-table .table-action a:focus-visible,
+.vendor-table .table-action button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12),
+        0 4px 10px rgba(15, 23, 42, .06);
+}
+
+
+/* =========================================================
+   VENDOR FORM — COMPATIBLE WITH EXISTING JSX
+========================================================= */
+
+.vendor-module .form-container {
+    width: 100%;
+    max-width: 1100px;
+
+    padding: 30px;
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, .035),
+        0 12px 30px rgba(15, 23, 42, .035);
+}
+
+
+.vendor-module .form-container h2 {
+    margin: 0 0 24px;
+
+    color: rgba(31, 41, 55, 1);
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.vendor-module .form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.vendor-module .form-grid input,
+.vendor-module .form-container textarea,
+.vendor-module .form-container select {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    border: 1px solid rgba(209, 217, 227, 1);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 1);
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+
+    outline: none;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+
+.vendor-module .form-grid input:hover,
+.vendor-module .form-container textarea:hover,
+.vendor-module .form-container select:hover {
+    border-color: rgba(184, 195, 208, 1);
+}
+
+
+.vendor-module .form-grid input:focus,
+.vendor-module .form-container textarea:focus,
+.vendor-module .form-container select:focus {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+.vendor-module .form-grid input::placeholder,
+.vendor-module .form-container textarea::placeholder {
+    color: rgba(156, 163, 175, 1);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.vendor-module .form-container textarea {
+    min-height: 120px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
+
+.vendor-module .form-buttons {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 26px;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+========================================================= */
+
+.vendor-module .save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 42px;
+
+    padding: 9px 19px;
+
+    border: 1px solid rgba(29, 78, 216, 1);
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 1),
+            rgba(29, 78, 216, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, .18);
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-module .save-btn:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(29, 78, 216, 1),
+            rgba(30, 64, 175, 1)
+        );
+
+    border-color: rgba(30, 64, 175, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, .24);
+}
+
+
+.vendor-module .save-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+.vendor-module .save-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.vendor-module .cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 9px 18px;
+
+    border: 1px solid rgba(203, 213, 225, 1);
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-module .cancel-btn:hover {
+    background: rgba(248, 250, 252, 1);
+
+    border-color: rgba(148, 163, 184, 1);
+
+    color: rgba(30, 41, 59, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(15, 23, 42, .07);
+}
+
+
+/* =========================================================
+   PREMIUM VENDOR FORM CLASSES
+   KEPT FOR COMPATIBILITY
+========================================================= */
+
+.vendor-form-container {
+    width: 100%;
+    min-height: 100%;
+    color: rgba(30, 41, 59, 1);
+}
+
+
+.vendor-form-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.vendor-form-title-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid rgba(191, 219, 254, 1);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239, 246, 255, 1),
+            rgba(219, 234, 254, 1)
+        );
+
+    color: rgba(37, 99, 235, 1);
+}
+
+
+.vendor-form-title p {
+    margin: 5px 0 0;
+}
+
+
+.vendor-form-header .back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 9px 16px;
+
+    border: 1px solid rgba(216, 224, 233, 1);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 1);
+    color: rgba(51, 65, 85, 1);
+
+    text-decoration: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, .04);
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-form-header .back-btn:hover {
+    background: rgba(248, 250, 252, 1);
+
+    border-color: rgba(203, 213, 225, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, .08);
+}
+
+
+.vendor-form-card {
+    width: 100%;
+
+    padding: 30px;
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, .035),
+        0 12px 30px rgba(15, 23, 42, .035);
+}
+
+
+.vendor-form-section-header {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+}
+
+
+.vendor-form-section-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: rgba(239, 246, 255, 1);
+    color: rgba(37, 99, 235, 1);
+}
+
+
+.vendor-form-section-header h2 {
+    margin: 0;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.vendor-form-section-header p {
+    margin: 3px 0 0;
+
+    color: rgba(148, 163, 184, 1);
+
+    font-size: 12px;
+}
+
+
+.vendor-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 21px;
+}
+
+
+.vendor-form-group {
+    min-width: 0;
+}
+
+
+.vendor-form-group-full {
+    grid-column: 1 / -1;
+}
+
+
+.vendor-form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: rgba(51, 65, 85, 1);
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+.vendor-form-group label span {
+    margin-left: 3px;
+    color: rgba(220, 38, 38, 1);
+}
+
+
+/* =========================================================
+   PREMIUM INPUT WRAPPERS
+========================================================= */
+
+.vendor-input-wrapper {
+    width: 100%;
+    min-height: 47px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid rgba(209, 217, 227, 1);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 1);
+
+    overflow: hidden;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-input-wrapper svg {
+    flex-shrink: 0;
+
+    margin-left: 13px;
+
+    color: rgba(100, 116, 139, 1);
+
+    transition: color .18s ease;
+}
+
+
+.vendor-input-wrapper input {
+    width: 100%;
+    height: 45px;
+
+    padding: 10px 14px 10px 10px;
+
+    border: 0 !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow: none !important;
+}
+
+
+.vendor-input-wrapper input::placeholder {
+    color: rgba(148, 163, 184, 1);
+}
+
+
+.vendor-input-wrapper:hover {
+    border-color: rgba(184, 195, 208, 1);
+}
+
+
+.vendor-input-wrapper:focus-within {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+.vendor-input-wrapper:focus-within svg {
+    color: rgba(37, 99, 235, 1);
+}
+
+
+/* =========================================================
+   PREMIUM TEXTAREA WRAPPER
+========================================================= */
+
+.vendor-textarea-wrapper {
+    width: 100%;
+    min-height: 125px;
+
+    display: flex;
+    align-items: flex-start;
+
+    border: 1px solid rgba(209, 217, 227, 1);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 1);
+
+    overflow: hidden;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-textarea-wrapper svg {
+    flex-shrink: 0;
+
+    margin-top: 14px;
+    margin-left: 13px;
+
+    color: rgba(100, 116, 139, 1);
+
+    transition: color .18s ease;
+}
+
+
+.vendor-textarea-wrapper textarea {
+    width: 100%;
+    min-height: 123px;
+
+    padding: 12px 14px 12px 10px;
+
+    border: 0 !important;
+    outline: none !important;
+
+    resize: vertical;
+
+    background: transparent !important;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+
+    box-shadow: none !important;
+}
+
+
+.vendor-textarea-wrapper textarea::placeholder {
+    color: rgba(148, 163, 184, 1);
+}
+
+
+.vendor-textarea-wrapper:hover {
+    border-color: rgba(184, 195, 208, 1);
+}
+
+
+.vendor-textarea-wrapper:focus-within {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+.vendor-textarea-wrapper:focus-within svg {
+    color: rgba(37, 99, 235, 1);
+}
+
+
+/* =========================================================
+   PREMIUM FORM FOOTER
+========================================================= */
+
+.vendor-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 28px;
+    padding-top: 22px;
+
+    border-top: 1px solid rgba(226, 232, 240, 1);
+}
+
+
+.vendor-cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    padding: 10px 18px;
+
+    border: 1px solid rgba(216, 224, 233, 1);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 1);
+    color: rgba(51, 65, 85, 1);
+
+    text-decoration: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.vendor-cancel-btn:hover {
+    background: rgba(248, 250, 252, 1);
+
+    border-color: rgba(203, 213, 225, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, .07);
+}
+
+
+.vendor-cancel-btn:active {
+    transform: translateY(0);
+}
+
+
+.vendor-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 10px 20px;
+
+    border: 1px solid rgba(29, 78, 216, 1);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 1),
+            rgba(29, 78, 216, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, .18);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+
+.vendor-save-btn:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(29, 78, 216, 1),
+            rgba(30, 64, 175, 1)
+        );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, .24);
+}
+
+
+.vendor-save-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+.vendor-save-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   VENDOR DETAILS
+========================================================= */
+
+.vendor-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.detail-card {
+    padding: 24px;
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, .035);
+}
+
+
+.detail-card h3 {
+    margin: 0 0 18px;
+
+    color: rgba(31, 41, 55, 1);
+
+    font-size: 17px;
+}
+
+
+.detail-card p {
+    margin: 12px 0;
+
+    color: rgba(75, 85, 99, 1);
+
+    font-size: 14px;
+}
+
+
+.detail-card strong {
+    color: rgba(17, 24, 39, 1);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.vendor-module::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+.vendor-module::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 1);
+}
+
+
+.vendor-module::-webkit-scrollbar-thumb {
+    background: rgba(203, 213, 225, 1);
+    border-radius: 10px;
+}
+
+
+.vendor-module::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .vendor-module {
+        padding: 24px;
+    }
+
+    .vendor-header h1,
+    .vendor-header h2,
+    .vendor-details-header h2,
+    .vendor-form-title h1 {
+        font-size: 26px;
+    }
+
+    .vendor-table {
+        display: block;
+
+        min-width: 850px;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: thin;
+    }
+
+    .vendor-module .form-grid,
+    .vendor-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vendor-form-group-full {
+        grid-column: auto;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vendor-form-card {
+        padding: 24px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .vendor-module {
+        padding: 18px 14px;
+    }
+
+    .vendor-header,
+    .vendor-details-header,
+    .vendor-form-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 17px;
+    }
+
+    .vendor-header h1,
+    .vendor-header h2,
+    .vendor-details-header h2,
+    .vendor-form-title h1 {
+        font-size: 23px;
+    }
+
+    .vendor-header p,
+    .vendor-details-header p,
+    .vendor-form-title p {
+        font-size: 13px;
+    }
+
+    .vendor-module .add-btn {
+        width: 100%;
+    }
+
+    .vendor-module .search-box {
+        width: 100%;
+    }
+
+    .vendor-table {
+        min-width: 850px;
+        border-radius: 12px;
+    }
+
+    .vendor-table th,
+    .vendor-table td {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .vendor-table th:first-child,
+    .vendor-table td:first-child {
+        padding-left: 16px;
+    }
+
+    .vendor-module .form-container {
+        padding: 20px;
+        border-radius: 13px;
+    }
+
+    .vendor-module .form-buttons,
+    .vendor-form-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .vendor-module .save-btn,
+    .vendor-module .cancel-btn,
+    .vendor-cancel-btn,
+    .vendor-save-btn {
+        width: 100%;
+    }
+
+    .vendor-form-title {
+        width: 100%;
+    }
+
+    .vendor-form-header .back-btn {
+        width: 100%;
+    }
+
+    .vendor-form-card {
+        padding: 20px;
+        border-radius: 13px;
+    }
+
+    .detail-card {
+        padding: 19px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .vendor-module {
+        padding: 14px 12px;
+    }
+
+    .vendor-header h1,
+    .vendor-header h2,
+    .vendor-details-header h2,
+    .vendor-form-title h1 {
+        font-size: 21px;
+    }
+
+    .vendor-table {
+        min-width: 820px;
+    }
+
+    .vendor-table .table-action {
+        gap: 5px;
+    }
+
+    .vendor-table .table-action a,
+    .vendor-table .table-action button {
+        width: 33px;
+        height: 33px;
+    }
+
+    .vendor-module .form-container,
+    .vendor-form-card {
+        padding: 17px;
+    }
+
+    .vendor-form-title-icon {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .vendor-module *,
+    .vendor-module *::before,
+    .vendor-module *::after,
+    .vendor-form-container *,
+    .vendor-form-container *::before,
+    .vendor-form-container *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,2520 @@
+/* =========================================================
+   PURCHASE REQUISITION
+   PREMIUM ENTERPRISE ERP DESIGN SYSTEM
+========================================================= */
+
+.purchase-requisition-module {
+    --pr-primary: #2563eb;
+    --pr-primary-dark: #1d4ed8;
+    --pr-primary-soft: #eff6ff;
+
+    --pr-success: #16a34a;
+    --pr-success-soft: #f0fdf4;
+
+    --pr-danger: #dc2626;
+    --pr-danger-soft: #fef2f2;
+
+    --pr-warning: #d97706;
+    --pr-warning-soft: #fffbeb;
+
+    --pr-text: #111827;
+    --pr-text-secondary: #374151;
+    --pr-text-muted: #6b7280;
+
+    --pr-border: #e5e7eb;
+    --pr-border-light: #eef0f3;
+
+    --pr-bg: #f5f7fb;
+    --pr-card: #ffffff;
+
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 30px 36px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(37, 99, 235, 0.035),
+            transparent 32%
+        ),
+        var(--pr-bg);
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+
+    color: var(--pr-text);
+}
+
+
+/* =========================================================
+   GLOBAL BOX SIZING
+========================================================= */
+
+.purchase-requisition-module *,
+.purchase-requisition-module *::before,
+.purchase-requisition-module *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.purchase-requisition-module button,
+.purchase-requisition-module input,
+.purchase-requisition-module select,
+.purchase-requisition-module textarea {
+    font-family: inherit;
+}
+
+.purchase-requisition-module button {
+    cursor: pointer;
+}
+
+.purchase-requisition-module a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.purchase-requisition-module .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 26px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.purchase-requisition-module .page-title {
+    margin: 0;
+
+    color: var(--pr-text);
+
+    font-size: 32px;
+    line-height: 1.2;
+
+    font-weight: 750;
+
+    letter-spacing: -0.65px;
+}
+
+
+/* =========================================================
+   PAGE SUBTITLE
+========================================================= */
+
+.purchase-requisition-module .page-subtitle {
+    margin: 7px 0 0;
+
+    color: var(--pr-text-muted);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.purchase-requisition-module .primary-btn,
+.purchase-requisition-module .add-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 44px;
+
+    padding: 11px 19px;
+
+    border: 1px solid #1d4ed8;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb 0%,
+            #1d4ed8 100%
+        );
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.purchase-requisition-module .primary-btn:hover,
+.purchase-requisition-module .add-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.03);
+
+    box-shadow:
+        0 9px 20px rgba(37, 99, 235, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.purchase-requisition-module .primary-btn:active,
+.purchase-requisition-module .add-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SEARCH AREA
+========================================================= */
+
+.purchase-requisition-module .filter-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   SEARCH WRAPPER
+========================================================= */
+
+.purchase-requisition-module .search-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   SEARCH ICON
+========================================================= */
+
+.purchase-requisition-module .search-icon {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    color: #9ca3af;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.purchase-requisition-module .search-box {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 16px 0 44px;
+
+    border: 1px solid #d9dee7;
+
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    color: var(--pr-text);
+
+    font-size: 14px;
+
+    outline: none;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.035);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.purchase-requisition-module .search-box::placeholder {
+    color: #9ca3af;
+}
+
+.purchase-requisition-module .search-box:hover {
+    border-color: #c4cbd6;
+}
+
+.purchase-requisition-module .search-box:focus {
+    background: #ffffff;
+
+    border-color: var(--pr-primary);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.purchase-requisition-module .card,
+.purchase-requisition-module .purchase-form-card,
+.purchase-requisition-module .details-card {
+    width: 100%;
+
+    background: var(--pr-card);
+
+    border: 1px solid var(--pr-border);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.045),
+        0 1px 3px rgba(15, 23, 42, 0.025);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.purchase-requisition-module .card-content {
+    padding: 24px;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.purchase-requisition-module .table-wrapper {
+    width: 100%;
+
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--pr-border);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.045);
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.purchase-requisition-module table {
+    width: 100%;
+
+    min-width: 1000px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.purchase-requisition-module th {
+    height: 53px;
+
+    padding: 14px 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fafbfc 0%,
+            #f6f8fb 100%
+        );
+
+    color: #596273;
+
+    border-bottom: 1px solid var(--pr-border);
+
+    text-align: left;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.65px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.purchase-requisition-module td {
+    padding: 16px;
+
+    background: #ffffff;
+
+    color: var(--pr-text-secondary);
+
+    border-bottom: 1px solid var(--pr-border-light);
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+.purchase-requisition-module tbody tr {
+    transition:
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.purchase-requisition-module tbody tr:hover td {
+    background: #f9fbff;
+}
+
+.purchase-requisition-module tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   PR NUMBER
+========================================================= */
+
+.purchase-requisition-module .pr-number {
+    color: #1d4ed8;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* =========================================================
+   PRIORITY BADGE
+========================================================= */
+
+.purchase-requisition-module .priority-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    background: #f3f4f6;
+
+    color: #4b5563;
+
+    border: 1px solid #e5e7eb;
+}
+
+.purchase-requisition-module .priority-badge.low {
+    background: #f8fafc;
+    color: #64748b;
+    border-color: #e2e8f0;
+}
+
+.purchase-requisition-module .priority-badge.normal {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #dbeafe;
+}
+
+.purchase-requisition-module .priority-badge.high {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+}
+
+.purchase-requisition-module .priority-badge.urgent {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.purchase-requisition-module .status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 82px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    border: 1px solid transparent;
+}
+
+.purchase-requisition-module .status-badge.pending {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+}
+
+.purchase-requisition-module .status-badge.approved {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #bbf7d0;
+}
+
+.purchase-requisition-module .status-badge.rejected {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+.purchase-requisition-module .status-badge.completed {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+
+.purchase-requisition-module .status-badge.cancelled {
+    background: #f8fafc;
+    color: #64748b;
+    border-color: #e2e8f0;
+}
+
+
+/* =========================================================
+   ACTION COLUMN
+========================================================= */
+
+.purchase-requisition-module th:last-child,
+.purchase-requisition-module td:last-child {
+    text-align: center;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.purchase-requisition-module .action-buttons {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    white-space: nowrap;
+}
+
+.purchase-requisition-module .action-buttons a,
+.purchase-requisition-module .action-buttons button {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* =========================================================
+   VIEW
+========================================================= */
+
+.purchase-requisition-module .action-view {
+    color: #2563eb;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f7fbff,
+            #edf5ff
+        );
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 2px 6px rgba(37, 99, 235, 0.08);
+}
+
+.purchase-requisition-module .action-view:hover {
+    color: #1d4ed8;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e8f2ff,
+            #dbeafe
+        );
+
+    border-color: #93c5fd;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(37, 99, 235, 0.16);
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+.purchase-requisition-module .action-edit {
+    color: #16a34a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f7fff9,
+            #ecfdf3
+        );
+
+    border-color: #bbf7d0;
+
+    box-shadow:
+        0 2px 6px rgba(22, 163, 74, 0.07);
+}
+
+.purchase-requisition-module .action-edit:hover {
+    color: #15803d;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e8f9ee,
+            #dcfce7
+        );
+
+    border-color: #86efac;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(22, 163, 74, 0.15);
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+.purchase-requisition-module .action-delete {
+    color: #dc2626;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffafa,
+            #fff1f2
+        );
+
+    border-color: #fecaca;
+
+    box-shadow:
+        0 2px 6px rgba(220, 38, 38, 0.07);
+}
+
+.purchase-requisition-module .action-delete:hover {
+    color: #b91c1c;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0f0,
+            #fee2e2
+        );
+
+    border-color: #fca5a5;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(220, 38, 38, 0.15);
+}
+
+.purchase-requisition-module .action-buttons button:active,
+.purchase-requisition-module .action-buttons a:active {
+    transform: scale(0.94);
+}
+
+.purchase-requisition-module .action-buttons svg {
+    width: 18px;
+    height: 18px;
+
+    stroke-width: 2.1;
+
+    transition: transform 0.2s ease;
+}
+
+.purchase-requisition-module .action-buttons a:hover svg,
+.purchase-requisition-module .action-buttons button:hover svg {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   FORM PAGE
+========================================================= */
+
+.purchase-requisition-module .purchase-requisition-form-page {
+    width: 100%;
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding: 3px 0 40px;
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.purchase-requisition-module .purchase-form-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 26px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   FORM TITLE ROW
+========================================================= */
+
+.purchase-requisition-module .purchase-form-title-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   FORM TITLE ICON
+========================================================= */
+
+.purchase-requisition-module .purchase-form-title-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    color: #2563eb;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f4f8ff,
+            #e2efff
+        );
+
+    border: 1px solid #bfdbfe;
+
+    box-shadow:
+        0 7px 18px rgba(37, 99, 235, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   FORM TITLE
+========================================================= */
+
+.purchase-requisition-module .purchase-form-title {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 750;
+
+    letter-spacing: -0.65px;
+}
+
+
+/* =========================================================
+   FORM SUBTITLE
+========================================================= */
+
+.purchase-requisition-module .purchase-form-subtitle {
+    margin: 6px 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.purchase-requisition-module .purchase-back-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 42px;
+
+    padding: 10px 17px;
+
+    border: 1px solid #d5dae2;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, 0.04);
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-back-btn:hover {
+    background: #f8fafc;
+
+    border-color: #aeb6c2;
+
+    color: #111827;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.purchase-requisition-module .purchase-requisition-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.purchase-requisition-module .purchase-form-card {
+    padding: 26px;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.purchase-requisition-module .purchase-section-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 23px;
+}
+
+
+/* =========================================================
+   SECTION ICON
+========================================================= */
+
+.purchase-requisition-module .purchase-section-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    color: #2563eb;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f2f7ff,
+            #e6f0ff
+        );
+
+    border: 1px solid #d5e6ff;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.06);
+}
+
+
+/* =========================================================
+   SECTION HEADER TEXT
+========================================================= */
+
+.purchase-requisition-module .purchase-section-header h2 {
+    margin: 0;
+
+    color: #1f2937;
+
+    font-size: 18px;
+
+    line-height: 1.3;
+
+    font-weight: 700;
+
+    letter-spacing: -0.2px;
+}
+
+.purchase-requisition-module .purchase-section-header p {
+    margin: 4px 0 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.purchase-requisition-module .purchase-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.purchase-requisition-module .purchase-field {
+    width: 100%;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.purchase-requisition-module .purchase-field label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #374151;
+
+    font-size: 13px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   REQUIRED
+========================================================= */
+
+.purchase-requisition-module .required-mark {
+    margin-left: 3px;
+
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.purchase-requisition-module .purchase-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   INPUT ICON
+========================================================= */
+
+.purchase-requisition-module .purchase-input-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    z-index: 2;
+
+    color: #9ca3af;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+
+    transition: color 0.2s ease;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.purchase-requisition-module .purchase-input-wrapper input,
+.purchase-requisition-module .purchase-input-wrapper select {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 11px 13px 11px 42px;
+
+    border: 1px solid #d5dae2;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-input-wrapper input::placeholder {
+    color: #9ca3af;
+}
+
+.purchase-requisition-module .purchase-input-wrapper input:hover,
+.purchase-requisition-module .purchase-input-wrapper select:hover {
+    border-color: #b9c2ce;
+}
+
+.purchase-requisition-module .purchase-input-wrapper input:focus,
+.purchase-requisition-module .purchase-input-wrapper select:focus {
+    background: #ffffff;
+
+    border-color: var(--pr-primary);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.075);
+}
+
+.purchase-requisition-module .purchase-input-wrapper input:focus + .purchase-input-icon,
+.purchase-requisition-module .purchase-input-wrapper select:focus + .purchase-input-icon {
+    color: var(--pr-primary);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.purchase-requisition-module .purchase-requisition-form textarea {
+    width: 100%;
+
+    min-height: 120px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d5dae2;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+
+    outline: none;
+
+    resize: vertical;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-requisition-form textarea::placeholder {
+    color: #9ca3af;
+}
+
+.purchase-requisition-module .purchase-requisition-form textarea:hover {
+    border-color: #b9c2ce;
+}
+
+.purchase-requisition-module .purchase-requisition-form textarea:focus {
+    border-color: var(--pr-primary);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.075);
+}
+
+
+/* =========================================================
+   ITEMS HEADER
+========================================================= */
+
+.purchase-requisition-module .purchase-items-header {
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   ITEMS TITLE GROUP
+========================================================= */
+
+.purchase-requisition-module .purchase-section-title-group {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+/* =========================================================
+   ADD ITEM BUTTON
+========================================================= */
+
+.purchase-requisition-module .purchase-add-item-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 40px;
+
+    padding: 9px 15px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f9ff,
+            #e7f1ff
+        );
+
+    color: #1d4ed8;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.07);
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-add-item-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #e7f1ff,
+            #dbeafe
+        );
+
+    border-color: #93c5fd;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 14px rgba(37, 99, 235, 0.13);
+}
+
+
+/* =========================================================
+   ITEMS TABLE HEADER
+========================================================= */
+
+.purchase-requisition-module .purchase-items-table-header {
+    display: grid;
+
+    grid-template-columns:
+        42px minmax(0, 1fr) 170px 70px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 43px;
+
+    padding: 0 13px;
+
+    border: 1px solid var(--pr-border);
+
+    border-radius: 10px 10px 0 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fafbfc,
+            #f6f8fb
+        );
+
+    color: #6b7280;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.55px;
+}
+
+
+/* =========================================================
+   ITEMS LIST
+========================================================= */
+
+.purchase-requisition-module .purchase-items-list {
+    display: flex;
+
+    flex-direction: column;
+
+    border-left: 1px solid var(--pr-border);
+    border-right: 1px solid var(--pr-border);
+    border-bottom: 1px solid var(--pr-border);
+
+    border-radius: 0 0 10px 10px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ITEM ROW
+========================================================= */
+
+.purchase-requisition-module .purchase-item-row {
+    display: grid;
+
+    grid-template-columns:
+        42px minmax(0, 1fr) 170px 70px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 12px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid var(--pr-border-light);
+
+    transition:
+        background 0.18s ease;
+}
+
+.purchase-requisition-module .purchase-item-row:last-child {
+    border-bottom: none;
+}
+
+.purchase-requisition-module .purchase-item-row:hover {
+    background: #fbfdff;
+}
+
+
+/* =========================================================
+   ITEM NUMBER
+========================================================= */
+
+.purchase-requisition-module .purchase-item-number {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f4f6f9,
+            #e9edf3
+        );
+
+    color: #64748b;
+
+    border: 1px solid #e2e8f0;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ITEM INPUTS
+========================================================= */
+
+.purchase-requisition-module .purchase-item-row .purchase-field {
+    margin: 0;
+}
+
+.purchase-requisition-module .purchase-item-row .purchase-field select,
+.purchase-requisition-module .purchase-item-row .purchase-field input {
+    width: 100%;
+
+    min-height: 43px;
+
+    padding: 10px 12px;
+
+    border: 1px solid #d5dae2;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-item-row .purchase-field select:hover,
+.purchase-requisition-module .purchase-item-row .purchase-field input:hover {
+    border-color: #b9c2ce;
+}
+
+.purchase-requisition-module .purchase-item-row .purchase-field select:focus,
+.purchase-requisition-module .purchase-item-row .purchase-field input:focus {
+    border-color: var(--pr-primary);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.07);
+}
+
+
+/* =========================================================
+   MOBILE ITEM LABEL
+========================================================= */
+
+.purchase-requisition-module .mobile-item-label {
+    display: none !important;
+}
+
+
+/* =========================================================
+   REMOVE ITEM
+========================================================= */
+
+.purchase-requisition-module .purchase-remove-item-btn {
+    width: 40px;
+    height: 40px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    justify-self: center;
+
+    padding: 0;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffafa,
+            #fff1f2
+        );
+
+    color: #dc2626;
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-remove-item-btn:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            145deg,
+            #fff0f0,
+            #fee2e2
+        );
+
+    border-color: #fca5a5;
+
+    color: #b91c1c;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 13px rgba(220, 38, 38, 0.13);
+}
+
+.purchase-requisition-module .purchase-remove-item-btn:disabled {
+    opacity: 0.38;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   ITEMS FOOTER
+========================================================= */
+
+.purchase-requisition-module .purchase-items-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-top: 10px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.purchase-requisition-module .purchase-form-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 11px;
+
+    padding-top: 3px;
+}
+
+
+/* =========================================================
+   CANCEL
+========================================================= */
+
+.purchase-requisition-module .purchase-cancel-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 45px;
+
+    padding: 10px 19px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #4b5563;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-cancel-btn:hover {
+    background: #f8fafc;
+
+    border-color: #aeb6c2;
+
+    color: #111827;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.purchase-requisition-module .purchase-submit-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 45px;
+
+    padding: 10px 20px;
+
+    border: 1px solid #1d4ed8;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.19);
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .purchase-submit-btn:hover:not(:disabled) {
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 18px rgba(37, 99, 235, 0.26);
+}
+
+.purchase-requisition-module .purchase-submit-btn:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   DETAILS PAGE
+========================================================= */
+
+.purchase-requisition-module .purchase-details-page {
+    width: 100%;
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding-bottom: 40px;
+}
+
+
+/* =========================================================
+   DETAILS HEADER
+========================================================= */
+
+.purchase-requisition-module .details-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 24px;
+
+    flex-wrap: wrap;
+}
+
+.purchase-requisition-module .details-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.purchase-requisition-module .details-title-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f4f8ff,
+            #e2efff
+        );
+
+    color: #2563eb;
+
+    border: 1px solid #bfdbfe;
+}
+
+.purchase-requisition-module .details-title {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 30px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.55px;
+}
+
+.purchase-requisition-module .details-pr-number {
+    margin: 5px 0 0;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   DETAILS ACTIONS
+========================================================= */
+
+.purchase-requisition-module .details-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.purchase-requisition-module .details-action {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 41px;
+
+    padding: 9px 14px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    transition: all 0.2s ease;
+}
+
+.purchase-requisition-module .details-action-back {
+    background: #ffffff;
+
+    color: #374151;
+
+    border: 1px solid #d1d5db;
+}
+
+.purchase-requisition-module .details-action-back:hover {
+    background: #f8fafc;
+
+    border-color: #aeb6c2;
+
+    transform: translateY(-1px);
+}
+
+.purchase-requisition-module .details-action-edit {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: #ffffff;
+
+    border: 1px solid #1d4ed8;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.16);
+}
+
+.purchase-requisition-module .details-action-edit:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 16px rgba(37, 99, 235, 0.23);
+}
+
+.purchase-requisition-module .details-action-approve {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #15803d
+        );
+
+    color: #ffffff;
+
+    border: 1px solid #15803d;
+
+    box-shadow:
+        0 4px 10px rgba(22, 163, 74, 0.14);
+}
+
+.purchase-requisition-module .details-action-approve:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 16px rgba(22, 163, 74, 0.21);
+}
+
+.purchase-requisition-module .details-action-reject,
+.purchase-requisition-module .details-action-delete {
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+    color: #ffffff;
+
+    border: 1px solid #dc2626;
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, 0.13);
+}
+
+.purchase-requisition-module .details-action-reject:hover,
+.purchase-requisition-module .details-action-delete:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 16px rgba(220, 38, 38, 0.20);
+}
+
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.purchase-requisition-module .details-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   DETAILS CARD
+========================================================= */
+
+.purchase-requisition-module .details-card {
+    padding: 25px;
+}
+
+
+/* =========================================================
+   DETAILS CARD HEADER
+========================================================= */
+
+.purchase-requisition-module .details-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-bottom: 17px;
+
+    margin-bottom: 19px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.purchase-requisition-module .details-card-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+}
+
+.purchase-requisition-module .details-card-header h2 {
+    margin: 0;
+
+    color: #1f2937;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DETAILS INFO ROW
+========================================================= */
+
+.purchase-requisition-module .details-info-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.purchase-requisition-module .details-info-row {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+.purchase-requisition-module .details-info-row-icon {
+    color: #2563eb;
+
+    margin-top: 1px;
+
+    flex-shrink: 0;
+}
+
+.purchase-requisition-module .details-info-label {
+    margin: 0 0 4px;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.45px;
+}
+
+.purchase-requisition-module .details-info-value {
+    margin: 0;
+
+    color: #1f2937;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   APPROVAL STATUS
+========================================================= */
+
+.purchase-requisition-module .details-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    border: 1px solid transparent;
+}
+
+.purchase-requisition-module .details-status.pending {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+}
+
+.purchase-requisition-module .details-status.approved {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #bbf7d0;
+}
+
+.purchase-requisition-module .details-status.rejected {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+
+/* =========================================================
+   DETAILS ITEMS TABLE
+========================================================= */
+
+.purchase-requisition-module .details-items-card {
+    padding: 25px;
+
+    margin-top: 20px;
+}
+
+.purchase-requisition-module .details-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--pr-border);
+
+    border-radius: 11px;
+}
+
+.purchase-requisition-module .details-items-table {
+    width: 100%;
+
+    min-width: 600px;
+
+    border-collapse: collapse;
+}
+
+.purchase-requisition-module .details-items-table th {
+    height: 45px;
+
+    padding: 12px 14px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.45px;
+}
+
+.purchase-requisition-module .details-items-table td {
+    padding: 14px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eef0f3;
+
+    color: #374151;
+
+    font-size: 13px;
+}
+
+.purchase-requisition-module .details-items-table tr:last-child td {
+    border-bottom: none;
+}
+
+.purchase-requisition-module .details-item-index {
+    width: 30px;
+    height: 30px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.purchase-requisition-module .details-quantity {
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.purchase-requisition-module .loading,
+.purchase-requisition-module .details-loading,
+.purchase-requisition-module .empty-state {
+    width: 100%;
+
+    padding: 55px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+    background: #ffffff;
+
+    border: 1px solid var(--pr-border);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.04);
+}
+
+.purchase-requisition-module .loading-spinner {
+    width: 25px;
+    height: 25px;
+
+    margin: 0 auto 12px;
+
+    border: 3px solid #dbeafe;
+
+    border-top-color: #2563eb;
+
+    border-radius: 50%;
+
+    animation: purchase-requisition-spin 0.8s linear infinite;
+}
+
+@keyframes purchase-requisition-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DETAILS NOTES
+========================================================= */
+
+.purchase-requisition-module .details-note {
+    padding: 14px 15px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    color: #4b5563;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   OLD CLASS COMPATIBILITY
+========================================================= */
+
+.purchase-requisition-module .form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.purchase-requisition-module .full-width {
+    grid-column: 1 / -1;
+}
+
+.purchase-requisition-module .form-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.purchase-requisition-module .rounded-xl {
+    border-radius: 14px;
+}
+
+.purchase-requisition-module .shadow-sm {
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.055);
+}
+
+.purchase-requisition-module .border {
+    border-color: #e5e7eb;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.purchase-requisition-module::-webkit-scrollbar,
+.purchase-requisition-module .table-wrapper::-webkit-scrollbar,
+.purchase-requisition-module .details-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.purchase-requisition-module::-webkit-scrollbar-track,
+.purchase-requisition-module .table-wrapper::-webkit-scrollbar-track,
+.purchase-requisition-module .details-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.purchase-requisition-module::-webkit-scrollbar-thumb,
+.purchase-requisition-module .table-wrapper::-webkit-scrollbar-thumb,
+.purchase-requisition-module .details-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+.purchase-requisition-module::-webkit-scrollbar-thumb:hover,
+.purchase-requisition-module .table-wrapper::-webkit-scrollbar-thumb:hover,
+.purchase-requisition-module .details-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .purchase-requisition-module {
+        padding: 26px;
+    }
+
+    .purchase-requisition-module .purchase-requisition-form-page,
+    .purchase-requisition-module .purchase-details-page {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .purchase-requisition-module {
+        padding: 18px;
+    }
+
+    .purchase-requisition-module .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .purchase-requisition-module .page-title {
+        font-size: 26px;
+    }
+
+    .purchase-requisition-module .primary-btn,
+    .purchase-requisition-module .add-btn {
+        width: 100%;
+    }
+
+    .purchase-requisition-module .purchase-form-grid,
+    .purchase-requisition-module .form-grid,
+    .purchase-requisition-module .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .purchase-requisition-module .purchase-form-card,
+    .purchase-requisition-module .details-card,
+    .purchase-requisition-module .details-items-card {
+        padding: 20px;
+    }
+
+    .purchase-requisition-module .purchase-form-header {
+        align-items: flex-start;
+    }
+
+    .purchase-requisition-module .purchase-back-btn {
+        width: 100%;
+    }
+
+    .purchase-requisition-module .purchase-items-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .purchase-requisition-module .purchase-add-item-btn {
+        width: 100%;
+    }
+
+    /* Mobile items */
+
+    .purchase-requisition-module .purchase-items-table-header {
+        display: none;
+    }
+
+    .purchase-requisition-module .purchase-items-list {
+        border: none;
+
+        overflow: visible;
+    }
+
+    .purchase-requisition-module .purchase-item-row {
+        grid-template-columns:
+            34px 1fr 42px;
+
+        gap: 12px;
+
+        padding: 15px;
+
+        margin-bottom: 12px;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 11px;
+
+        box-shadow:
+            0 3px 10px rgba(15, 23, 42, 0.035);
+    }
+
+    .purchase-requisition-module .purchase-item-number {
+        align-self: start;
+
+        margin-top: 26px;
+    }
+
+    .purchase-requisition-module .purchase-item-box {
+        grid-column: 2;
+    }
+
+    .purchase-requisition-module .purchase-item-quantity {
+        grid-column: 2;
+    }
+
+    .purchase-requisition-module .purchase-remove-item-btn {
+        grid-column: 3;
+
+        grid-row: 1 / span 2;
+
+        align-self: center;
+    }
+
+    .purchase-requisition-module .mobile-item-label {
+        display: block !important;
+
+        margin-bottom: 6px !important;
+
+        color: #6b7280 !important;
+
+        font-size: 11px !important;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.3px;
+    }
+
+    .purchase-requisition-module .purchase-form-actions {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+        width: 100%;
+    }
+
+    .purchase-requisition-module .purchase-cancel-btn,
+    .purchase-requisition-module .purchase-submit-btn {
+        width: 100%;
+    }
+
+    .purchase-requisition-module .details-header {
+        flex-direction: column;
+    }
+
+    .purchase-requisition-module .details-actions {
+        width: 100%;
+
+        justify-content: stretch;
+    }
+
+    .purchase-requisition-module .details-action {
+        flex: 1;
+    }
+
+    .purchase-requisition-module .action-buttons {
+        gap: 7px;
+    }
+
+    .purchase-requisition-module .action-buttons a,
+    .purchase-requisition-module .action-buttons button {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .purchase-requisition-module {
+        padding: 12px;
+    }
+
+    .purchase-requisition-module .page-title {
+        font-size: 23px;
+    }
+
+    .purchase-requisition-module .purchase-form-title {
+        font-size: 23px;
+    }
+
+    .purchase-requisition-module .purchase-form-title-icon {
+        width: 43px;
+        height: 43px;
+    }
+
+    .purchase-requisition-module .purchase-form-card,
+    .purchase-requisition-module .details-card,
+    .purchase-requisition-module .details-items-card {
+        padding: 16px;
+
+        border-radius: 12px;
+    }
+
+    .purchase-requisition-module .purchase-section-header {
+        align-items: flex-start;
+    }
+
+    .purchase-requisition-module .purchase-section-header h2 {
+        font-size: 16px;
+    }
+
+    .purchase-requisition-module .purchase-section-header p {
+        font-size: 12px;
+    }
+
+    .purchase-requisition-module .purchase-item-row {
+        grid-template-columns:
+            30px 1fr 38px;
+
+        gap: 9px;
+
+        padding: 12px;
+    }
+
+    .purchase-requisition-module .purchase-remove-item-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .purchase-requisition-module .details-title {
+        font-size: 24px;
+    }
+
+    .purchase-requisition-module .details-actions {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        width: 100%;
+    }
+
+    .purchase-requisition-module .details-action {
+        width: 100%;
+    }
+
+    .purchase-requisition-module table {
+        min-width: 900px;
+    }
+}

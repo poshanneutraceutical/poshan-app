@@ -1,0 +1,1137 @@
+/* =========================================================
+   PURCHASE ORDER MODULE
+   PREMIUM POSHAN ERP
+   OPTIMIZED / CSS ONLY
+   NO JSX / API / ROUTE CHANGES REQUIRED
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL BOX SIZING
+========================================================= */
+
+.purchase-order-module,
+.purchase-order-module *,
+.purchase-order-module *::before,
+.purchase-order-module *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MODULE ROOT
+========================================================= */
+
+.purchase-order-module {
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+
+    padding: 30px 36px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1) 0%,
+            rgba(244, 247, 251, 1) 100%
+        );
+
+    color: rgba(30, 41, 59, 1);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.purchase-order-module .page-title {
+    margin: 0;
+
+    color: rgba(23, 32, 51, 1);
+
+    font-size: 30px;
+    line-height: 1.2;
+
+    font-weight: 750;
+
+    letter-spacing: -0.65px;
+}
+
+.purchase-order-module .page-subtitle {
+    margin: 5px 0 22px;
+
+    color: rgba(100, 116, 139, 1);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.purchase-order-module .page-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.purchase-order-module .search-box {
+    position: relative;
+
+    width: min(520px, 100%);
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(216, 224, 233, 1);
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 2px 7px rgba(15, 23, 42, .025);
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
+}
+
+.purchase-order-module .search-box:hover {
+    border-color: rgba(203, 213, 225, 1);
+}
+
+.purchase-order-module .search-box:focus-within {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .09),
+        0 4px 12px rgba(15, 23, 42, .04);
+}
+
+.purchase-order-module .search-box svg {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    margin-left: 14px;
+
+    color: rgba(100, 116, 139, 1);
+
+    transition:
+        color .18s ease;
+}
+
+.purchase-order-module .search-box:focus-within svg {
+    color: rgba(37, 99, 235, 1);
+}
+
+.purchase-order-module .search-box input {
+    width: 100%;
+    height: 100%;
+
+    padding: 0 15px 0 10px;
+
+    border: 0 !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow: none !important;
+}
+
+.purchase-order-module .search-box input::placeholder {
+    color: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.purchase-order-module .card {
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    border: 1px solid rgba(226, 232, 240, 1);
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 1);
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, .025),
+        0 12px 28px rgba(15, 23, 42, .035);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.purchase-order-module .table-wrapper {
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(203, 213, 225, 1)
+        transparent;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.purchase-order-module table {
+    width: 100%;
+
+    min-width: 1050px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: rgba(255, 255, 255, 1);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.purchase-order-module th {
+    height: 56px;
+
+    padding: 15px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248, 250, 252, 1),
+            rgba(241, 245, 249, 1)
+        );
+
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    text-align: left;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    letter-spacing: .6px;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+.purchase-order-module th:first-child {
+    padding-left: 24px;
+}
+
+.purchase-order-module th:last-child {
+    padding-right: 24px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.purchase-order-module td {
+    height: 72px;
+
+    padding: 15px 20px;
+
+    background: rgba(255, 255, 255, 1);
+
+    border-bottom: 1px solid rgba(237, 241, 245, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+.purchase-order-module td:first-child {
+    padding-left: 24px;
+
+    color: rgba(23, 32, 51, 1);
+
+    font-weight: 700;
+}
+
+.purchase-order-module td:last-child {
+    padding-right: 24px;
+}
+
+
+/* =========================================================
+   ROW HOVER
+========================================================= */
+
+.purchase-order-module tbody tr {
+    transition:
+        background-color .18s ease;
+}
+
+.purchase-order-module tbody tr:hover td {
+    background: rgba(248, 251, 255, 1);
+}
+
+.purchase-order-module tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   COLUMN STYLING
+========================================================= */
+
+.purchase-order-module td:nth-child(1) {
+    color: rgba(23, 32, 51, 1);
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.purchase-order-module td:nth-child(2) {
+    color: rgba(51, 65, 85, 1);
+
+    font-weight: 550;
+}
+
+.purchase-order-module td:nth-child(3) {
+    color: rgba(100, 116, 139, 1);
+}
+
+.purchase-order-module td:nth-child(4) {
+    color: rgba(30, 41, 59, 1);
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.purchase-order-module td:nth-child(5) {
+    color: rgba(71, 85, 105, 1);
+}
+
+.purchase-order-module .status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 82px;
+    min-height: 28px;
+
+    padding: 5px 12px;
+
+    border: 1px solid rgba(191, 219, 254, 1);
+    border-radius: 999px;
+
+    background: rgba(239, 246, 255, 1);
+
+    color: rgba(29, 78, 216, 1);
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    line-height: 1;
+
+    letter-spacing: .25px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATUS VARIATIONS
+========================================================= */
+
+.purchase-order-module .status-badge.created,
+.purchase-order-module .status-badge.CREATED {
+    background: rgba(239, 246, 255, 1);
+    border-color: rgba(191, 219, 254, 1);
+    color: rgba(29, 78, 216, 1);
+}
+
+.purchase-order-module .status-badge.sent,
+.purchase-order-module .status-badge.SENT {
+    background: rgba(255, 247, 237, 1);
+    border-color: rgba(254, 215, 170, 1);
+    color: rgba(194, 65, 12, 1);
+}
+
+.purchase-order-module .status-badge.received,
+.purchase-order-module .status-badge.RECEIVED {
+    background: rgba(236, 253, 245, 1);
+    border-color: rgba(167, 243, 208, 1);
+    color: rgba(4, 120, 87, 1);
+}
+
+.purchase-order-module .status-badge.cancelled,
+.purchase-order-module .status-badge.CANCELLED {
+    background: rgba(254, 242, 242, 1);
+    border-color: rgba(254, 202, 202, 1);
+    color: rgba(185, 28, 28, 1);
+}
+
+.purchase-order-module .status-badge.completed,
+.purchase-order-module .status-badge.COMPLETED {
+    background: rgba(240, 253, 250, 1);
+    border-color: rgba(153, 246, 228, 1);
+    color: rgba(15, 118, 110, 1);
+}
+
+
+/* =========================================================
+   ACTION COLUMN
+========================================================= */
+
+.purchase-order-module th:last-child,
+.purchase-order-module td:last-child {
+    width: 1%;
+}
+
+
+/* =========================================================
+   ACTION CONTAINER
+========================================================= */
+
+.purchase-order-module .action-buttons {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 38px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PREMIUM ACTION BUTTONS
+========================================================= */
+
+.purchase-order-module .action-buttons a,
+.purchase-order-module .action-buttons button {
+    position: relative;
+
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 36px;
+
+    padding: 0;
+    margin: 0;
+
+    border: 1px solid rgba(219, 226, 234, 1);
+
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 1);
+
+    color: rgba(71, 85, 105, 1);
+
+    text-decoration: none;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, .04);
+
+    transition:
+        transform .18s ease,
+        background-color .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+/* =========================================================
+   ACTION ICON
+========================================================= */
+
+.purchase-order-module .action-buttons svg {
+    width: 18px;
+    height: 18px;
+
+    display: block;
+
+    flex-shrink: 0;
+
+    stroke-width: 2.15;
+}
+
+
+/* =========================================================
+   VIEW — BLUE
+========================================================= */
+
+.purchase-order-module .action-buttons a:first-child,
+.purchase-order-module .action-buttons button:first-child {
+    color: rgba(37, 99, 235, 1);
+}
+
+.purchase-order-module .action-buttons a:first-child:hover,
+.purchase-order-module .action-buttons button:first-child:hover {
+    background: rgba(239, 246, 255, 1);
+
+    border-color: rgba(191, 219, 254, 1);
+
+    color: rgba(29, 78, 216, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .12);
+}
+
+
+/* =========================================================
+   DOWNLOAD — BLUE
+========================================================= */
+
+.purchase-order-module .action-buttons a:nth-child(2),
+.purchase-order-module .action-buttons button:nth-child(2) {
+    color: rgba(37, 99, 235, 1);
+}
+
+.purchase-order-module .action-buttons a:nth-child(2):hover,
+.purchase-order-module .action-buttons button:nth-child(2):hover {
+    background: rgba(239, 246, 255, 1);
+
+    border-color: rgba(191, 219, 254, 1);
+
+    color: rgba(29, 78, 216, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, .12);
+}
+
+
+/* =========================================================
+   EMAIL — PURPLE
+========================================================= */
+
+.purchase-order-module .action-buttons a:nth-child(3),
+.purchase-order-module .action-buttons button:nth-child(3) {
+    color: rgba(124, 58, 237, 1);
+}
+
+.purchase-order-module .action-buttons a:nth-child(3):hover,
+.purchase-order-module .action-buttons button:nth-child(3):hover {
+    background: rgba(245, 243, 255, 1);
+
+    border-color: rgba(221, 214, 254, 1);
+
+    color: rgba(109, 40, 217, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(124, 58, 237, .12);
+}
+
+
+/* =========================================================
+   DOCUMENT — BLACK / SLATE
+========================================================= */
+
+.purchase-order-module .action-buttons a:nth-child(4),
+.purchase-order-module .action-buttons button:nth-child(4) {
+    color: rgba(30, 41, 59, 1);
+}
+
+.purchase-order-module .action-buttons a:nth-child(4):hover,
+.purchase-order-module .action-buttons button:nth-child(4):hover {
+    background: rgba(248, 250, 252, 1);
+
+    border-color: rgba(203, 213, 225, 1);
+
+    color: rgba(15, 23, 42, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(15, 23, 42, .10);
+}
+
+
+/* =========================================================
+   DELETE — RED
+========================================================= */
+
+.purchase-order-module .action-buttons a:nth-child(5),
+.purchase-order-module .action-buttons button:nth-child(5) {
+    color: rgba(220, 38, 38, 1);
+}
+
+.purchase-order-module .action-buttons a:nth-child(5):hover,
+.purchase-order-module .action-buttons button:nth-child(5):hover {
+    background: rgba(254, 242, 242, 1);
+
+    border-color: rgba(254, 202, 202, 1);
+
+    color: rgba(185, 28, 28, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(220, 38, 38, .12);
+}
+
+
+/* =========================================================
+   ACTION ACTIVE
+========================================================= */
+
+.purchase-order-module .action-buttons a:active,
+.purchase-order-module .action-buttons button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, .06);
+}
+
+
+/* =========================================================
+   ACTION FOCUS
+========================================================= */
+
+.purchase-order-module .action-buttons a:focus-visible,
+.purchase-order-module .action-buttons button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .12),
+        0 4px 10px rgba(15, 23, 42, .06);
+}
+
+
+/* =========================================================
+   DISABLED ACTION
+========================================================= */
+
+.purchase-order-module .action-buttons button:disabled,
+.purchase-order-module .action-buttons a[aria-disabled="true"] {
+    opacity: .5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   GENERIC BUTTON RESET
+========================================================= */
+
+.purchase-order-module button {
+    font-family: inherit;
+    font-size: inherit;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+========================================================= */
+
+.purchase-order-module input,
+.purchase-order-module select,
+.purchase-order-module textarea {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    border: 1px solid rgba(209, 217, 227, 1);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: rgba(255, 255, 255, 1);
+
+    color: rgba(30, 41, 59, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background-color .18s ease;
+}
+
+.purchase-order-module input:hover,
+.purchase-order-module select:hover,
+.purchase-order-module textarea:hover {
+    border-color: rgba(184, 195, 208, 1);
+}
+
+.purchase-order-module input:focus,
+.purchase-order-module select:focus,
+.purchase-order-module textarea:focus {
+    border-color: rgba(37, 99, 235, 1);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+.purchase-order-module input::placeholder,
+.purchase-order-module textarea::placeholder {
+    color: rgba(148, 163, 184, 1);
+}
+
+.purchase-order-module textarea {
+    min-height: 120px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.purchase-order-module .primary-btn,
+.purchase-order-module .btn-primary,
+.purchase-order-module .save-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+
+    padding: 10px 18px;
+
+    border: 1px solid rgba(29, 78, 216, 1);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 1),
+            rgba(29, 78, 216, 1)
+        );
+
+    color: rgba(255, 255, 255, 1);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 13px rgba(37, 99, 235, .18);
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.purchase-order-module .primary-btn:hover,
+.purchase-order-module .btn-primary:hover,
+.purchase-order-module .save-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(29, 78, 216, 1),
+            rgba(30, 64, 175, 1)
+        );
+
+    border-color: rgba(30, 64, 175, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, .24);
+}
+
+.purchase-order-module .primary-btn:active,
+.purchase-order-module .btn-primary:active,
+.purchase-order-module .save-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SECONDARY / BORDER BUTTONS
+========================================================= */
+
+.purchase-order-module button.border,
+.purchase-order-module a.border {
+    border-color: rgba(216, 224, 233, 1);
+
+    background: rgba(255, 255, 255, 1);
+
+    color: rgba(51, 65, 85, 1);
+
+    transition:
+        background-color .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.purchase-order-module button.border:hover,
+.purchase-order-module a.border:hover {
+    background: rgba(248, 250, 252, 1);
+
+    border-color: rgba(203, 213, 225, 1);
+
+    color: rgba(30, 41, 59, 1);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(15, 23, 42, .06);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.purchase-order-module tbody td[colspan] {
+    height: 190px;
+
+    padding: 30px;
+
+    color: rgba(100, 116, 139, 1);
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TABLE SCROLLBAR
+========================================================= */
+
+.purchase-order-module .table-wrapper::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.purchase-order-module .table-wrapper::-webkit-scrollbar-track {
+    background: rgba(248, 250, 252, 1);
+}
+
+.purchase-order-module .table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(203, 213, 225, 1);
+
+    border-radius: 10px;
+}
+
+.purchase-order-module .table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   MODULE SCROLLBAR
+========================================================= */
+
+.purchase-order-module::-webkit-scrollbar {
+    width: 8px;
+}
+
+.purchase-order-module::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 1);
+}
+
+.purchase-order-module::-webkit-scrollbar-thumb {
+    background: rgba(203, 213, 225, 1);
+
+    border-radius: 10px;
+}
+
+.purchase-order-module::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 1);
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .purchase-order-module {
+        padding: 26px 28px;
+    }
+
+    .purchase-order-module table {
+        min-width: 1000px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .purchase-order-module {
+        padding: 24px;
+    }
+
+    .purchase-order-module .page-title {
+        font-size: 27px;
+    }
+
+    .purchase-order-module table {
+        min-width: 980px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .purchase-order-module {
+        padding: 20px 18px;
+    }
+
+    .purchase-order-module .page-title {
+        font-size: 25px;
+    }
+
+    .purchase-order-module .page-subtitle {
+        font-size: 13px;
+
+        margin-bottom: 18px;
+    }
+
+    .purchase-order-module .search-box {
+        width: 100%;
+    }
+
+    .purchase-order-module .card {
+        border-radius: 13px;
+    }
+
+    .purchase-order-module table {
+        min-width: 950px;
+    }
+
+    .purchase-order-module th {
+        height: 52px;
+
+        padding: 14px;
+    }
+
+    .purchase-order-module td {
+        height: 64px;
+
+        padding: 13px 14px;
+    }
+
+    .purchase-order-module th:first-child,
+    .purchase-order-module td:first-child {
+        padding-left: 16px;
+    }
+
+    .purchase-order-module th:last-child,
+    .purchase-order-module td:last-child {
+        padding-right: 16px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .purchase-order-module {
+        padding: 18px 14px;
+    }
+
+    .purchase-order-module .page-title {
+        font-size: 23px;
+    }
+
+    .purchase-order-module .page-subtitle {
+        font-size: 13px;
+    }
+
+    .purchase-order-module .card {
+        border-radius: 12px;
+    }
+
+    .purchase-order-module table {
+        min-width: 930px;
+    }
+
+    .purchase-order-module .action-buttons {
+        gap: 6px;
+    }
+
+    .purchase-order-module .action-buttons a,
+    .purchase-order-module .action-buttons button {
+        width: 35px;
+        height: 35px;
+
+        flex-basis: 35px;
+
+        border-radius: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 420px
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .purchase-order-module {
+        padding: 15px 12px;
+    }
+
+    .purchase-order-module .page-title {
+        font-size: 21px;
+    }
+
+    .purchase-order-module table {
+        min-width: 900px;
+    }
+
+    .purchase-order-module .action-buttons {
+        gap: 5px;
+    }
+
+    .purchase-order-module .action-buttons a,
+    .purchase-order-module .action-buttons button {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+    }
+
+    .purchase-order-module .action-buttons svg {
+        width: 17px;
+        height: 17px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .purchase-order-module *,
+    .purchase-order-module *::before,
+    .purchase-order-module *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+}

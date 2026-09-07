@@ -1,0 +1,501 @@
+.production-container {
+
+    padding: 20px;
+
+}
+
+
+
+
+
+.production-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+
+
+.production-header h2 {
+
+    margin: 0;
+
+}
+
+
+
+
+
+.add-production-btn {
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+}
+
+
+
+
+
+.add-production-btn:hover {
+
+    opacity: 0.9;
+
+}
+
+
+
+
+
+
+
+.production-table-container {
+
+    background: white;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+}
+
+
+
+
+
+.production-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+
+
+
+.production-table th {
+
+    padding: 12px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #ddd;
+
+}
+
+
+
+
+
+.production-table td {
+
+    padding: 12px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+
+
+.status-badge {
+
+    background: #e5e7eb;
+
+    padding: 5px 10px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+}
+
+
+
+
+
+.edit-btn {
+
+    background: #16a34a;
+
+    color:white;
+
+    border:none;
+
+    padding:7px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    margin-right:8px;
+
+}
+
+
+
+
+
+.delete-btn {
+
+    background:#dc2626;
+
+    color:white;
+
+    border:none;
+
+    padding:7px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+   PREMIUM FORM CONTAINER
+========================================================= */
+
+.production-form-container {
+    width: min(920px, calc(100vw - 80px));
+    margin: 24px auto;
+    padding: 34px;
+    background: #fff;
+    border: 1px solid #e5eaf2;
+    border-radius: 20px;
+    box-shadow:
+        0 12px 40px rgba(15, 23, 42, .08),
+        0 2px 8px rgba(15, 23, 42, .03);
+}
+
+
+/* =========================================================
+   FORM TITLE
+========================================================= */
+
+.production-form-container h3 {
+    margin: 0 0 28px;
+    color: #172033;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+}
+
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.production-section-title {
+    position: relative;
+    margin: 28px 0 18px;
+    padding-bottom: 10px;
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid #e8edf4;
+}
+
+.production-section-title:first-of-type {
+    margin-top: 0;
+}
+
+.production-section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 45px;
+    height: 2px;
+    border-radius: 10px;
+    background: #2563eb;
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.production-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 20px;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.production-form-container label {
+    display: block;
+    margin: 0 0 7px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.production-form-container input,
+.production-form-container textarea,
+.production-form-container select {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border: 1px solid #d8dee8;
+    border-radius: 9px;
+    outline: none;
+    background: #fff;
+    color: #1e293b;
+    font-family: inherit;
+    font-size: 14px;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.production-form-container input::placeholder,
+.production-form-container textarea::placeholder {
+    color: #94a3b8;
+}
+
+.production-form-container input:hover,
+.production-form-container textarea:hover,
+.production-form-container select:hover {
+    border-color: #b9c4d4;
+}
+
+.production-form-container input:focus,
+.production-form-container textarea:focus,
+.production-form-container select:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.production-form-container textarea {
+    min-height: 105px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   EXECUTION DATE / STATUS
+========================================================= */
+
+.production-form-container input[type="datetime-local"],
+.production-form-container select {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   CUSTOM BOX TYPE
+========================================================= */
+
+.production-form-grid input[name="boxtype"] {
+    margin-top: 0 !important;
+}
+
+
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid #e8edf4;
+}
+
+.save-btn,
+.cancel-btn {
+    min-width: 110px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.save-btn {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 5px 14px rgba(37, 99, 235, .20);
+}
+
+.save-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.cancel-btn:hover {
+    background: #e2e8f0;
+}
+
+
+/* =========================================================
+   BUTTON DISABLED
+========================================================= */
+
+.save-btn:disabled,
+.cancel-btn:disabled,
+.add-production-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================================
+   DETAILS PAGE
+========================================================= */
+
+.production-details-container {
+    padding: 32px;
+    background: #f5f7fb;
+    min-height: calc(100vh - 80px);
+}
+
+.production-details-card {
+    width: min(700px, 100%);
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #e5eaf2;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .07);
+}
+
+.production-details-card p {
+    margin: 0;
+    padding: 13px 0;
+    color: #475569;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.production-details-card p:last-child {
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   STATES
+========================================================= */
+
+.loading,
+.empty-state {
+    padding: 60px 20px;
+    color: #64748b;
+    text-align: center;
+}
+
+.empty-state {
+    background: #fff;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .production-container {
+        padding: 20px 14px;
+    }
+
+    .production-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .production-header h2 {
+        font-size: 23px;
+    }
+
+    .add-production-btn {
+        width: 100%;
+    }
+
+    .production-form-container {
+        width: auto;
+        margin: 14px;
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .production-form-container h3 {
+        font-size: 21px;
+    }
+
+    .production-form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+
+    .production-details-container {
+        padding: 20px 14px;
+    }
+}
