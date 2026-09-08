@@ -11,8 +11,6 @@ const API = axios.create({
 
 });
 
-
-
 /*
     Automatically attach JWT token
 */
