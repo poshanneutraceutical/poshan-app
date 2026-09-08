@@ -316,17 +316,13 @@ const EmployeeForm = () => {
 
         If VITE_API_URL is:
 
-        http://localhost:8080/api
 
-        remove /api and get:
-
-        http://localhost:8080
         -------------------------------------------------
         */
 
         const apiUrl =
             import.meta.env.VITE_API_URL ||
-            "http://localhost:8080/api";
+            "/api";
 
 
         const backendUrl =

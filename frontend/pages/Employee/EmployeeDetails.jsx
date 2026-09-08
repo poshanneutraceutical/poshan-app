@@ -133,7 +133,7 @@ const EmployeeDetails = () => {
         employee.profileImage
             ? employee.profileImage.startsWith("http")
                 ? employee.profileImage
-                : `http://localhost:8080${employee.profileImage}`
+                 : employee.profileImage
             : null;
 
 

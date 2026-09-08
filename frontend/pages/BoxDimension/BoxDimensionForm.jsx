@@ -222,7 +222,7 @@ const BoxDimensionForm = () => {
                             "http"
                         )
                             ? data.boxImage
-                            : `http://localhost:8080${data.boxImage}`
+                            : data.boxImage
                     );
 
                 }

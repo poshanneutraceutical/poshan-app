@@ -211,7 +211,7 @@ const BoxDimensionList = () => {
             }
 
 
-            return `http://localhost:8080${imagePath}`;
+            return imagePath;
 
         };
 
