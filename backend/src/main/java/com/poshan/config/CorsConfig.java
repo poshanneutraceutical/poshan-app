@@ -16,16 +16,32 @@ public class CorsConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "https://erp.nutriposhannutraceutical.com"
+        ));
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of(
                 "GET",
                 "POST",
                 "PUT",
+                "PATCH",
                 "DELETE",
                 "OPTIONS"
         ));
-        configuration.setAllowedHeaders(List.of("*"));
+
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin",
+                "X-Requested-With"
+        ));
+
+        configuration.setExposedHeaders(List.of(
+                "Authorization"
+        ));
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
