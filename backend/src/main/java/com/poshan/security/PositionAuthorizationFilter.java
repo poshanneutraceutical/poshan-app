@@ -123,11 +123,23 @@ public class PositionAuthorizationFilter
                 authentication
                         .getAuthorities()
                         .stream()
-                        .anyMatch(authority ->
-                                "ROLE_ADMIN".equals(
-                                        authority.getAuthority()
-                                )
-                        );
+                        .anyMatch(authority -> {
+
+                            String authorityName =
+                                    authority.getAuthority();
+
+                            if (authorityName == null) {
+                                return false;
+                            }
+
+                            return "ROLE_ADMIN".equalsIgnoreCase(
+                                    authorityName
+                            )
+                                    ||
+                                    "ADMIN".equalsIgnoreCase(
+                                            authorityName
+                                    );
+                        });
 
 
         if (isAdmin) {

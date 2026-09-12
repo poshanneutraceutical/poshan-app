@@ -499,3 +499,107 @@
         padding: 20px 14px;
     }
 }
+/* =========================================================
+   MOBILE TABLE SAFETY
+   Keep the production table wide enough to remain readable.
+   The overflow is handled inside this container instead of
+   shrinking every column to a few characters.
+========================================================= */
+
+.production-table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.production-table {
+    min-width: 1180px;
+    width: max-content;
+}
+
+.production-table th,
+.production-table td {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+
+    .production-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 14px 10px;
+        overflow-x: hidden;
+    }
+
+    .production-header {
+        width: 100%;
+        max-width: 100%;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .production-header h2 {
+        width: 100%;
+        max-width: 100%;
+        font-size: 20px;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+
+    .add-production-btn {
+        width: 100%;
+        max-width: 100%;
+        min-height: 42px;
+    }
+
+    .production-table-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .production-table {
+        width: max-content;
+        min-width: 1180px;
+        table-layout: auto;
+    }
+
+    .production-table th,
+    .production-table td {
+        white-space: nowrap;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .production-container {
+        padding: 12px 8px;
+    }
+
+    .production-header h2 {
+        font-size: 18px;
+    }
+
+    .production-table-container {
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .production-table th,
+    .production-table td {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+}

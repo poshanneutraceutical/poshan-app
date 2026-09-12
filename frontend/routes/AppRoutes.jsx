@@ -112,7 +112,7 @@ import ProductionDetails
     from "../pages/Production/ProductionDetails";
 
 import DashboardLayout
-    from "../layouts/DashboardLayout";
+    from "../Layouts/DashboardLayout";
 
 import BoxDimension
     from "../pages/BoxDimension/BoxDimension";
@@ -124,13 +124,13 @@ import ChangePassword
     from "../pages/ChangePassword/ChangePassword";
 
 import MRP
-    from "../pages/MRP/MRP";
+    from "../pages/Mrp/MRP";
 
 import MRPForm
-    from "../pages/MRP/MRPForm";
+    from "../pages/Mrp/MRPForm";
 
 import MRPDetails
-    from "../pages/MRP/MRPDetails";
+    from "../pages/Mrp/MRPDetails";
 
 
 function AppRoutes() {

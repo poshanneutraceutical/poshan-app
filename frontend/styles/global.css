@@ -25,3 +25,239 @@ textarea,
 button {
     font-family: inherit;
 }
+
+/* =========================================================
+   POSHAN ERP - GLOBAL RESPONSIVE LAYER
+   Keeps desktop layouts intact while preventing mobile
+   overflow and giving all application pages a stable shell.
+   ========================================================= */
+
+html {
+    width: 100%;
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+html,
+body,
+#root {
+    max-width: 100%;
+}
+
+body {
+    min-width: 320px;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+#root {
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+.app-shell,
+.app-main,
+.app-content {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.app-shell {
+    min-height: 100dvh;
+    display: flex;
+    overflow: hidden;
+}
+
+.app-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    overflow: hidden;
+}
+
+.app-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f5f6fa;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-content > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.app-content table {
+    max-width: none;
+}
+
+.app-content :where(
+    .table-container,
+    .table-wrapper,
+    .table-responsive,
+    .overflow-x-auto
+) {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-content :where(
+    .page-header,
+    .dashboard-header,
+    .module-header,
+    .company-header,
+    .box-header,
+    .design-header,
+    .opening-header,
+    .employee-header,
+    .inventory-header,
+    .mrp-header,
+    .task-header,
+    .vendor-header
+) {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.app-content :where(
+    .page-header > *,
+    .dashboard-header > *,
+    .module-header > *,
+    .company-header > *,
+    .box-header > *,
+    .design-header > *,
+    .opening-header > *,
+    .employee-header > *,
+    .inventory-header > *,
+    .mrp-header > *,
+    .task-header > *,
+    .vendor-header > *
+) {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.app-content :where(
+    .dashboard-page,
+    .attendance-page,
+    .admin-attendance-page,
+    .box-dimension-module,
+    .company-module-container,
+    .delivery-list-container,
+    .designing-page,
+    .designing-dashboard,
+    .digital-dashboard,
+    .digital-page,
+    .inventory-module-container,
+    .page-container,
+    .mrp-page,
+    .opening-module,
+    .opening-page,
+    .production-container,
+    .profile-page,
+    .purchase-order-module,
+    .purchase-requisition-module,
+    .receiving-material-module,
+    .sales-dashboard,
+    .task-module,
+    .user-container,
+    .vendor-module,
+    .web-dashboard,
+    .webdevelopment-container,
+    .notification-container,
+    .change-password-page
+) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .app-content {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-content {
+        padding: 12px;
+    }
+
+    .app-content :where(
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        span,
+        label,
+        th,
+        td,
+        button
+    ) {
+        overflow-wrap: anywhere;
+    }
+
+    .app-content :where(
+        .page-header,
+        .dashboard-header,
+        .module-header,
+        .company-header
+    ) {
+        gap: 12px;
+    }
+
+    .app-content :where(
+        .page-header,
+        .module-header,
+        .company-header
+    ) {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .app-content :where(
+        form,
+        .form-grid,
+        .form-row,
+        .form-section,
+        .card-grid,
+        .stats-grid,
+        .dashboard-grid
+    ) {
+        max-width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .app-content {
+        padding: 10px;
+    }
+}

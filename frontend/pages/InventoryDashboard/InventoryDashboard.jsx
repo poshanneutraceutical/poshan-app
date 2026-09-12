@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 import dashboardService
-    from "../../services/dashboardService";
+    from "../../services/DashboardService";
 
 
 const InventoryDashboard = () => {

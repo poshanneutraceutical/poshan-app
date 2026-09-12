@@ -25,7 +25,7 @@ import {
 } from "react-router-dom";
 
 import deliveryService
-    from "../../services/deliveryService";
+    from "../../services/DeliveryService";
 
 
 /* =========================================================

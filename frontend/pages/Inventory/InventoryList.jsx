@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 
 import inventoryService
-    from "../../services/inventoryService";
+    from "../../services/InventoryService";
 
 
 const InventoryList = () => {

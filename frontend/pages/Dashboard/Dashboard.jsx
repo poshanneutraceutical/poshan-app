@@ -9,7 +9,7 @@ import {
     AlertTriangle
 } from "lucide-react";
 
-import dashboardService from "../../services/dashboardService";
+import dashboardService from "../../services/DashboardService";
 
 import "./Dashboard.css";
 

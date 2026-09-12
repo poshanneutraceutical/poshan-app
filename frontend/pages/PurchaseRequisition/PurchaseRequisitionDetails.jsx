@@ -20,7 +20,7 @@ import {
 } from "react-router-dom";
 
 import purchaseRequisitionService
-    from "../../services/purchaseRequisitionService";
+    from "../../services/PurchaseRequisitionService";
 
 
 const PurchaseRequisitionDetails = () => {

@@ -19,7 +19,7 @@ import {
 } from "react-router-dom";
 
 import inventoryService
-    from "../../services/inventoryService";
+    from "../../services/InventoryService";
 
 import inventoryCategoryService
     from "../../services/inventoryCategoryService";

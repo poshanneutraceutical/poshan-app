@@ -8,8 +8,8 @@ import {
   useNavigate
 } from "react-router-dom";
 
-import purchaseOrderService from "../../services/purchaseOrderService";
-import purchaseRequisitionService from "../../services/purchaseRequisitionService";
+import purchaseOrderService from "../../services/PurchaseOrderService";
+import purchaseRequisitionService from "../../services/PurchaseRequisitionService";
 
 const PurchaseOrderForm = () => {
 

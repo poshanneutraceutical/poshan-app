@@ -24,9 +24,10 @@ import {
 } from "lucide-react";
 
 import { useAuth } from "../../context/AuthContext";
+import "./Sidebar.css";
 
 
-function Sidebar() {
+function Sidebar({ open = false, onClose = () => {} }) {
 
     const { user } = useAuth();
 
@@ -167,7 +168,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
                 {
                     getAllMenuItems(
@@ -203,7 +204,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
 
 
@@ -250,7 +251,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
 
 
@@ -305,7 +306,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
 
 
@@ -352,7 +353,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
                 <SidebarItem
                     item={{
@@ -385,7 +386,7 @@ function Sidebar() {
 
         return (
 
-            <SidebarContainer>
+            <SidebarContainer open={open} onClose={onClose}>
 
                 <SidebarItem
                     item={attendanceItem}
@@ -406,7 +407,7 @@ function Sidebar() {
 
     return (
 
-        <SidebarContainer>
+        <SidebarContainer open={open} onClose={onClose}>
 
         </SidebarContainer>
 
@@ -422,48 +423,31 @@ function Sidebar() {
  */
 
 function SidebarContainer({
-    children
+    children,
+    open = false,
+    onClose = () => {}
 }) {
 
     return (
 
-        <div
-            style={{
-                width: "260px",
-                backgroundColor: "#1e293b",
-                color: "white",
-                height: "100vh",
-                overflowY: "auto"
-            }}
-        >
+        <aside className={`sidebar${open ? " open" : ""}`}>
 
-            <div
-                style={{
-                    padding: "20px",
-                    fontSize: "22px",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    borderBottom:
-                        "1px solid #334155"
-                }}
-            >
-
+            <div className="sidebar-logo">
                 POSHAN ERP
-
             </div>
-
 
             <div
-                style={{
-                    padding: "10px"
+                className="sidebar-menu"
+                onClickCapture={(event) => {
+                    if (event.target.closest("a")) {
+                        onClose();
+                    }
                 }}
             >
-
                 {children}
-
             </div>
 
-        </div>
+        </aside>
 
     );
 
@@ -484,36 +468,16 @@ function SidebarItem({
 
         <NavLink
             to={item.path}
-
-            style={({ isActive }) => ({
-
-                display: "flex",
-
-                alignItems: "center",
-
-                gap: "12px",
-
-                padding: "12px 15px",
-
-                marginBottom: "8px",
-
-                textDecoration: "none",
-
-                color: "white",
-
-                borderRadius: "8px",
-
-                backgroundColor:
-                    isActive
-                        ? "#2563eb"
-                        : "transparent"
-
-            })}
+            className={({ isActive }) =>
+                `sidebar-link${isActive ? " active" : ""}`
+            }
         >
 
-            {item.icon}
+            <span className="sidebar-icon">
+                {item.icon}
+            </span>
 
-            <span>
+            <span className="sidebar-label">
                 {item.name}
             </span>
 

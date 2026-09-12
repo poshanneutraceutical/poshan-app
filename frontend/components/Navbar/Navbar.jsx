@@ -1,9 +1,10 @@
-import { LogOut, UserCircle } from "lucide-react";
+import { LogOut, Menu, UserCircle, X } from "lucide-react";
 import NotificationBell from "../NotificationBell";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ onMenuToggle, sidebarOpen = false }) {
 
     const employeeName = "Admin";
     const employeeRole = "Administrator";
@@ -27,148 +28,81 @@ function Navbar() {
         }
 
     };
-const handleProfile = () => {
 
-    navigate("/profile");
+    const handleProfile = () => {
 
-};
+        navigate("/profile");
+
+    };
 
     return (
 
-        <div
-            style={{
-                height: "70px",
-                background: "#ffffff",
-                borderBottom: "1px solid #e5e7eb",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "0 30px",
-                boxShadow: "0 2px 5px rgba(0,0,0,0.05)"
-            }}
-        >
+        <header className="app-navbar">
 
-            {/* Left */}
+            <div className="navbar-left">
 
-            <div>
-
-                <h2>Poshan ERP</h2>
-
-                <p
-                    style={{
-                        fontSize: "13px",
-                        color: "gray"
-                    }}
+                <button
+                    type="button"
+                    className="navbar-menu-toggle"
+                    onClick={onMenuToggle}
+                    aria-label={sidebarOpen ? "Close menu" : "Open menu"}
+                    aria-expanded={sidebarOpen}
                 >
-                    {today}
-                </p>
+                    {sidebarOpen ? (
+                        <X size={22} />
+                    ) : (
+                        <Menu size={22} />
+                    )}
+                </button>
+
+                <div className="navbar-brand">
+
+                    <h2>Poshan ERP</h2>
+
+                    <p>{today}</p>
+
+                </div>
 
             </div>
 
-            {/* Right */}
+            <div className="navbar-actions">
 
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "20px"
-                }}
-            >
-
-                {/* Notification */}
-
-              <NotificationBell />
-
-                {/* Profile */}
-<div
-
-    onClick={handleProfile}
-
-    style={{
-
-        display: "flex",
-
-        alignItems: "center",
-
-        gap: "10px",
-
-        cursor: "pointer",
-
-        padding: "8px 12px",
-
-        borderRadius: "10px",
-
-        transition: "all .25s ease"
-
-    }}
-
-    onMouseEnter={(e) => {
-
-        e.currentTarget.style.background = "#f3f4f6";
-
-    }}
-
-    onMouseLeave={(e) => {
-
-        e.currentTarget.style.background = "transparent";
-
-    }}
-
->
-
-    <UserCircle size={35} />
-
-    <div>
-
-        <h4
-            style={{
-                margin: 0
-            }}
-        >
-            {employeeName}
-        </h4>
-
-        <p
-            style={{
-                fontSize: "12px",
-                color: "gray",
-                margin: 0
-            }}
-        >
-            {employeeRole}
-        </p>
-
-    </div>
-
-</div>
-
-                {/* Logout */}
+                <div className="navbar-notification">
+                    <NotificationBell />
+                </div>
 
                 <button
-
-                    onClick={handleLogout}
-
-                    style={{
-                        background: "#dc2626",
-                        color: "#fff",
-                        border: "none",
-                        padding: "8px 50px",
-                        borderRadius: "8px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}
-
+                    type="button"
+                    className="navbar-profile"
+                    onClick={handleProfile}
+                    aria-label="Open profile"
                 >
 
-                    <LogOut size={18} />
+                    <UserCircle className="navbar-profile-icon" />
 
+                    <span className="navbar-profile-info">
+
+                        <strong>{employeeName}</strong>
+
+                        <span>{employeeRole}</span>
+
+                    </span>
+
+                </button>
+
+                <button
+                    type="button"
+                    className="navbar-logout"
+                    onClick={handleLogout}
+                    aria-label="Logout"
+                    title="Logout"
+                >
+                    <LogOut size={18} />
                 </button>
 
             </div>
 
-        </div>
+        </header>
 
     );
 

@@ -1,0 +1,598 @@
+
+
+html,
+body,
+#root {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+html,
+body {
+    min-width: 320px;
+    overflow-x: hidden !important;
+    -webkit-text-size-adjust: 100%;
+}
+
+#root {
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    border: 0 !important;
+    text-align: left !important;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+}
+
+.app-shell,
+.app-main,
+.app-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+.app-shell {
+    min-height: 100dvh !important;
+}
+
+.app-main {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+.app-content {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.app-content > * {
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* Main page roots: never force the viewport wider. */
+.app-content :where(
+    .dashboard-page,
+    .attendance-page,
+    .admin-attendance-page,
+    .box-dimension-module,
+    .company-module-container,
+    .delivery-list-container,
+    .designing-page,
+    .designing-dashboard,
+    .digital-dashboard,
+    .digital-page,
+    .inventory-module-container,
+    .page-container,
+    .mrp-page,
+    .opening-module,
+    .opening-page,
+    .production-container,
+    .profile-page,
+    .purchase-order-module,
+    .purchase-requisition-module,
+    .receiving-material-module,
+    .sales-dashboard,
+    .task-module,
+    .user-container,
+    .vendor-module,
+    .web-dashboard,
+    .webdevelopment-container,
+    .notification-container,
+    .change-password-page
+) {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* Keep horizontal scrolling local to actual data/table containers. */
+.app-content :where(
+    .overflow-x-auto,
+    .table-container,
+    .table-wrapper,
+    .table-responsive,
+    .table-scroll,
+    .table-scroll-wrapper
+) {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.app-content :where(
+    .overflow-x-auto,
+    .table-container,
+    .table-wrapper,
+    .table-responsive,
+    .table-scroll,
+    .table-scroll-wrapper
+) > table {
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Prevent flex/grid children from creating a wider intrinsic size. */
+.app-content :where(
+    .row,
+    .form-row,
+    .form-grid,
+    .grid,
+    .dashboard-grid,
+    .dashboard-cards,
+    .stats-grid,
+    .card-grid
+) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.app-content :where(
+    .row > *,
+    .form-row > *,
+    .form-grid > *,
+    .grid > *,
+    .dashboard-grid > *,
+    .dashboard-cards > *,
+    .stats-grid > *,
+    .card-grid > *
+) {
+    min-width: 0 !important;
+}
+
+/* Images/media inside cards and detail sections must shrink. */
+.app-content :where(
+    .card,
+    .section-card,
+    .detail-card,
+    .profile-card,
+    .dashboard-card,
+    .dashboard-section,
+    .notification-card,
+    .alert-card
+) img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Common action rows: wrap instead of pushing the page sideways. */
+@media (max-width: 900px) {
+    .app-content :where(
+        .page-header,
+        .module-header,
+        .company-header,
+        .box-header,
+        .dashboard-header,
+        .opening-header,
+        .employee-header,
+        .inventory-header,
+        .mrp-header,
+        .task-header,
+        .vendor-header
+    ) {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        flex-wrap: wrap !important;
+    }
+
+    .app-content :where(
+        .page-header > *,
+        .module-header > *,
+        .company-header > *,
+        .box-header > *,
+        .dashboard-header > *,
+        .opening-header > *,
+        .employee-header > *,
+        .inventory-header > *,
+        .mrp-header > *,
+        .task-header > *,
+        .vendor-header > *
+    ) {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .app-content :where(
+        .action-buttons,
+        .page-actions,
+        .header-actions,
+        .form-actions,
+        .button-group
+    ) {
+        max-width: 100%;
+        flex-wrap: wrap !important;
+    }
+
+    .app-content :where(
+        input,
+        select,
+        textarea
+    ) {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-content {
+        padding: 14px !important;
+    }
+
+    .app-content :where(
+        .dashboard-page,
+        .attendance-page,
+        .admin-attendance-page,
+        .box-dimension-module,
+        .company-module-container,
+        .delivery-list-container,
+        .designing-page,
+        .designing-dashboard,
+        .digital-dashboard,
+        .digital-page,
+        .inventory-module-container,
+        .page-container,
+        .mrp-page,
+        .opening-module,
+        .opening-page,
+        .production-container,
+        .profile-page,
+        .purchase-order-module,
+        .purchase-requisition-module,
+        .receiving-material-module,
+        .sales-dashboard,
+        .task-module,
+        .user-container,
+        .vendor-module,
+        .web-dashboard,
+        .webdevelopment-container,
+        .notification-container,
+        .change-password-page
+    ) {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Mobile-first headings. */
+    .app-content h1 {
+        font-size: clamp(22px, 6vw, 30px);
+        line-height: 1.2;
+    }
+
+    .app-content h2 {
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.25;
+    }
+
+    /* Long labels/IDs should wrap rather than widen the page. */
+    .app-content :where(
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        span,
+        label,
+        button,
+        th,
+        td
+    ) {
+        overflow-wrap: anywhere;
+    }
+
+    /* Cards stack cleanly on phone widths. */
+    .app-content :where(
+        .dashboard-cards,
+        .stats-grid,
+        .card-grid
+    ) {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Common 2/3-column content becomes one column. */
+    .app-content :where(
+        .two-column,
+        .three-column,
+        .two-col,
+        .three-col
+    ) {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Keep forms easy to use with touch. */
+    .app-content :where(
+        input,
+        select,
+        textarea,
+        button
+    ) {
+        min-height: 40px;
+    }
+
+    .app-content :where(
+        .modal,
+        .modal-content,
+        .dialog,
+        .dialog-content,
+        [role="dialog"]
+    ) {
+        max-width: calc(100vw - 24px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-content {
+        padding: 10px !important;
+    }
+
+    .app-content :where(
+        .dashboard-page,
+        .attendance-page,
+        .admin-attendance-page,
+        .box-dimension-module,
+        .company-module-container,
+        .delivery-list-container,
+        .designing-page,
+        .designing-dashboard,
+        .digital-dashboard,
+        .digital-page,
+        .inventory-module-container,
+        .page-container,
+        .mrp-page,
+        .opening-module,
+        .opening-page,
+        .production-container,
+        .profile-page,
+        .purchase-order-module,
+        .purchase-requisition-module,
+        .receiving-material-module,
+        .sales-dashboard,
+        .task-module,
+        .user-container,
+        .vendor-module,
+        .web-dashboard,
+        .webdevelopment-container,
+        .notification-container,
+        .change-password-page
+    ) {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .app-content :where(
+        .page-header,
+        .module-header,
+        .company-header,
+        .box-header,
+        .dashboard-header,
+        .opening-header,
+        .employee-header,
+        .inventory-header,
+        .mrp-header,
+        .task-header,
+        .vendor-header
+    ) {
+        margin-bottom: 18px;
+    }
+
+    .app-content :where(
+        .action-buttons,
+        .page-actions,
+        .header-actions,
+        .form-actions,
+        .button-group
+    ) > button,
+    .app-content :where(
+        .action-buttons,
+        .page-actions,
+        .header-actions,
+        .form-actions,
+        .button-group
+    ) > a {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   MOBILE FULL-WIDTH / LOGIN SCREEN FIX
+   ---------------------------------------------------------
+   The Login screen does not live inside .app-content, so it
+   needs its own responsive rules. These rules also make every
+   top-level application page a bounded mobile scroll region.
+   ========================================================= */
+
+.login-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 100dvh !important;
+    min-height: 100svh !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+
+.login-card {
+    width: min(420px, 100%) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.login-card,
+.login-card form,
+.login-form-group,
+.login-form-group input,
+.password-wrapper {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.login-card form {
+    width: 100% !important;
+}
+
+.login-form-group input {
+    width: 100% !important;
+}
+
+.login-options {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Any routed page at the first level can contain a deliberately
+   wide data grid/table. Keep that overflow inside the page instead
+   of allowing it to widen the device viewport. */
+@media (max-width: 768px) {
+    .app-content > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .app-content > * {
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .app-content > * > * {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    /* Do not create tiny horizontal scrollbars on ordinary cards. */
+    .app-content > * :where(
+        .card,
+        .section-card,
+        .detail-card,
+        .profile-card,
+        .dashboard-card,
+        .dashboard-section,
+        .notification-card,
+        .alert-card,
+        form,
+        .form-section,
+        .form-grid,
+        .form-row
+    ) {
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    /* Data tables can remain wide, but only inside a scrollable area. */
+    .app-content :where(table) {
+        max-width: none !important;
+    }
+
+    /* Long URLs, SKU codes, invoice numbers, etc. */
+    .app-content :where(
+        a,
+        code,
+        pre,
+        .url,
+        .sku,
+        .invoice-number,
+        .tracking-number,
+        .product-code
+    ) {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: 12px !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .login-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 22px !important;
+        border-radius: 12px !important;
+    }
+
+    .login-header {
+        margin-bottom: 22px !important;
+    }
+
+    .login-header h1 {
+        font-size: clamp(22px, 7vw, 28px) !important;
+        line-height: 1.2 !important;
+    }
+
+    .login-header p {
+        font-size: 14px !important;
+    }
+
+    .login-form-group {
+        margin-bottom: 16px !important;
+    }
+
+    .login-form-group input {
+        min-height: 46px !important;
+        padding: 11px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .login-btn {
+        width: 100% !important;
+        min-height: 46px !important;
+    }
+
+    .login-options {
+        gap: 10px !important;
+        flex-wrap: wrap !important;
+        align-items: flex-start !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .login-page {
+        padding: 8px !important;
+    }
+
+    .login-card {
+        padding: 18px !important;
+    }
+
+    .login-header h1 {
+        font-size: 23px !important;
+    }
+}

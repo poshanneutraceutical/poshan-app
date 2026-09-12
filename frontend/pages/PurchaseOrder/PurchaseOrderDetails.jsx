@@ -15,7 +15,7 @@ import {
   useParams
 } from "react-router-dom";
 
-import purchaseOrderService from "../../services/purchaseOrderService";
+import purchaseOrderService from "../../services/PurchaseOrderService";
 
 const PurchaseOrderDetails = () => {
 

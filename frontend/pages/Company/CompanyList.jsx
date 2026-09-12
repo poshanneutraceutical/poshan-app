@@ -18,7 +18,7 @@ import {
 } from "react-router-dom";
 
 import CompanyService
-    from "../../services/companyService";
+    from "../../services/CompanyService";
 
 import "./Company.css";
 
