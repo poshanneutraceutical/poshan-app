@@ -192,27 +192,41 @@ const BoxDimensionList = () => {
        IMAGE URL
     ===================================================== */
 
-    const getImageUrl =
+const getImageUrl =
         imagePath => {
 
             if (!imagePath) {
                 return "";
             }
 
+            const value = String(imagePath).trim();
 
-            if (
-                imagePath.startsWith(
-                    "http"
-                )
-            ) {
-
-                return imagePath;
-
+            if (!value) {
+                return "";
             }
 
+            // Absolute URLs and blob URLs are already usable.
+            if (
+                value.startsWith("http://") ||
+                value.startsWith("https://") ||
+                value.startsWith("blob:")
+            ) {
+                return value;
+            }
 
-            return imagePath;
+            // Uploaded box images are stored by the backend as:
+            // /uploads/box-dimensions/<file>
+            // Use the public upload path. Spring Security permits /uploads/** and
+            // Vite/reverse-proxy forwards /uploads to the backend.
+            if (value.startsWith("/uploads/")) {
+                return value;
+            }
 
+            if (value.startsWith("uploads/")) {
+                return `/${value}`;
+            }
+
+            return value;
         };
 
 

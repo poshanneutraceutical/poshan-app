@@ -117,7 +117,9 @@ const createEmptyItem = () => ({
 
     inventoryTypeName: "",
 
-    materialId: "",
+    customInventoryType: "",
+
+    materialId: "", "",
 
     materialName: "",
 
@@ -372,6 +374,10 @@ const DeliveryForm = () => {
                             data.categoryName ||
                             "",
 
+                        customInventoryType:
+                            data.customInventoryType ||
+                            "",
+
                         materialId:
                             data.materialId ||
                             "",
@@ -495,6 +501,10 @@ const DeliveryForm = () => {
 
                         inventoryTypeName:
                             data.categoryName ||
+                            "",
+
+                        customInventoryType:
+                            data.customInventoryType ||
                             "",
 
                         materialId:
@@ -712,8 +722,15 @@ const DeliveryForm = () => {
                                     value,
 
                                 inventoryTypeName:
-                                    category?.name ||
-                                    "",
+                                    value === "__CUSTOM__"
+                                        ? "OTHER_CUSTOM"
+                                        : category?.name ||
+                                          "",
+
+                                customInventoryType:
+                                    value === "__CUSTOM__"
+                                        ? ""
+                                        : "",
 
                                 materialId:
                                     "",
@@ -953,6 +970,10 @@ const DeliveryForm = () => {
         };
 
 
+    const isCustomInventoryType =
+        (item) => item?.inventoryTypeId === "__CUSTOM__";
+
+
     /* =====================================================
        VALIDATE
     ===================================================== */
@@ -1035,6 +1056,19 @@ const DeliveryForm = () => {
 
 
                 if (
+                    isCustomInventoryType(item) &&
+                    !item.customInventoryType.trim()
+                ) {
+
+                    alert(
+                        `Please enter a Custom Inventory Type for item ${index + 1}.`
+                    );
+
+                    return false;
+                }
+
+
+                if (
                     !item.productName.trim()
                 ) {
 
@@ -1093,7 +1127,7 @@ const DeliveryForm = () => {
                  * RAW MATERIAL
                  */
 
-                else {
+                else if (!isCustomInventoryType(item)) {
 
                     if (
                         !item.materialId
@@ -1144,17 +1178,27 @@ const DeliveryForm = () => {
 
 
                 categoryId:
-                    Number(
-                        item.inventoryTypeId
-                    ),
+                    isCustomInventoryType(item)
+                        ? null
+                        : Number(
+                            item.inventoryTypeId
+                        ),
 
 
                 categoryName:
-                    item.inventoryTypeName,
+                    isCustomInventoryType(item)
+                        ? "OTHER_CUSTOM"
+                        : item.inventoryTypeName,
+
+
+                customInventoryType:
+                    isCustomInventoryType(item)
+                        ? (item.customInventoryType.trim() || null)
+                        : null,
 
 
                 materialId:
-                    boxCategory
+                    boxCategory || isCustomInventoryType(item)
                         ? null
                         : Number(
                             item.materialId
@@ -1162,7 +1206,7 @@ const DeliveryForm = () => {
 
 
                 materialName:
-                    boxCategory
+                    boxCategory || isCustomInventoryType(item)
                         ? null
                         : item.materialName,
 
@@ -1851,6 +1895,10 @@ const DeliveryForm = () => {
                                                                     </option>
                                                                 )
                                                             )
+                                                        <option value="__CUSTOM__">
+                                                            Other / Custom
+                                                        </option>
+
                                                         }
 
                                                     </select>
@@ -1865,6 +1913,7 @@ const DeliveryForm = () => {
                                             ================================= */}
 
                                             {
+                                                !isCustomInventoryType(item) &&
                                                 boxCategory
 
                                                 ? (

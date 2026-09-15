@@ -37,7 +37,8 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry
                 .addResourceHandler(
-                        "/uploads/**"
+                        "/uploads/**",
+                        "/api/uploads/**"
                 )
                 .addResourceLocations(
                         uploadPath

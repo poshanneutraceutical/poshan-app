@@ -16,17 +16,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/hr/employees")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class EmployeeController {
 
 
     private final EmployeeService employeeService;
 
 
-    // =========================================================
+    // ===============
     // CREATE EMPLOYEE
-    // =========================================================
-
+    // ===============
     @PostMapping(
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
@@ -53,9 +52,9 @@ public class EmployeeController {
     }
 
 
-    // =========================================================
+    // ===================
     // GET ALL EMPLOYEES
-    // =========================================================
+    // ===================
 
     @GetMapping
     public ResponseEntity<List<EmployeeDTO>>
@@ -68,9 +67,9 @@ public class EmployeeController {
     }
 
 
-    // =========================================================
+    // ===================
     // GET EMPLOYEE BY ID
-    // =========================================================
+    // ===================
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO>
@@ -85,9 +84,9 @@ public class EmployeeController {
     }
 
 
-    // =========================================================
+    // =================
     // UPDATE EMPLOYEE
-    // =========================================================
+    // ==================
 
     @PutMapping(
             value = "/{id}",

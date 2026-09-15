@@ -138,8 +138,9 @@ const OpeningForm = () => {
 
             setError(
                 error.response?.data?.message ||
-                error.response?.data ||
-                error.message ||
+                (typeof error.response?.data === "string"
+                    ? error.response.data
+                    : error.message) ||
                 "Unable to create job opening."
             );
 

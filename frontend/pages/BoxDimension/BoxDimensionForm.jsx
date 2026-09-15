@@ -217,13 +217,30 @@ const BoxDimensionForm = () => {
                     data.boxImage
                 ) {
 
-                    setPreview(
-                        data.boxImage.startsWith(
-                            "http"
-                        )
-                            ? data.boxImage
-                            : data.boxImage
-                    );
+                    const imagePath = String(
+                        data.boxImage
+                    ).trim();
+
+                    if (
+                        imagePath.startsWith("http://") ||
+                        imagePath.startsWith("https://") ||
+                        imagePath.startsWith("blob:")
+                    ) {
+                        setPreview(imagePath);
+                    }
+                    else if (
+                        imagePath.startsWith("/uploads/")
+                    ) {
+                        setPreview(imagePath);
+                    }
+                    else if (
+                        imagePath.startsWith("uploads/")
+                    ) {
+                        setPreview(`/${imagePath}`);
+                    }
+                    else {
+                        setPreview(imagePath);
+                    }
 
                 }
 

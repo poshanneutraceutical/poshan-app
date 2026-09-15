@@ -375,6 +375,88 @@ public class TaskService {
                                 )
                         );
 
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        if (
+                authentication == null
+                        || !authentication.isAuthenticated()
+        ) {
+
+            throw new RuntimeException(
+                    "User is not authenticated."
+            );
+
+        }
+
+
+        boolean isAdmin =
+                authentication
+                        .getAuthorities()
+                        .stream()
+                        .anyMatch(authority ->
+                                "ROLE_ADMIN".equalsIgnoreCase(
+                                        authority.getAuthority()
+                                )
+                                        ||
+                                        "ADMIN".equalsIgnoreCase(
+                                                authority.getAuthority()
+                                        )
+                        );
+
+
+        if (isAdmin) {
+
+            return mapToDTO(task);
+
+        }
+
+
+        User user =
+                userRepository
+                        .findByUsername(
+                                authentication.getName()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Logged-in user not found."
+                                )
+                        );
+
+
+        UserPosition position =
+                user.getPosition();
+
+
+        if (position == null) {
+
+            throw new RuntimeException(
+                    "User position is not assigned."
+            );
+
+        }
+
+
+        Department allowedDepartment =
+                getDepartmentForPosition(position);
+
+
+        if (
+                allowedDepartment == null
+                        ||
+                        task.getDepartment() != allowedDepartment
+        ) {
+
+            throw new RuntimeException(
+                    "You do not have permission to view this task."
+            );
+
+        }
+
+
         return mapToDTO(task);
     }
 

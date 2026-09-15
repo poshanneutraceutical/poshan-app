@@ -448,7 +448,12 @@ function AppRoutes() {
                     path="/tasks/:id"
                     element={
 
-                        <RoleBasedRoute role="ADMIN">
+                        <RoleBasedRoute
+                            allowedRoles={[
+                                "ADMIN",
+                                "EMPLOYEE"
+                            ]}
+                        >
 
                             <TaskDetails />
 
@@ -844,30 +849,31 @@ function AppRoutes() {
                 {/* =================================================
                     JOB OPENINGS
 
-                    ADMIN
-                    WEB_DEVELOPMENT
-                    DESIGN
-                    MARKETING
-                    MRP_PRINTING
+                    ALL LOGGED-IN USERS
+
+                    Every authenticated employee can:
+                    - see current openings
+                    - open an opening
+                    - add a new opening
+
+                    Only ADMIN can update/delete through the
+                    backend authorization layer.
                 ================================================= */}
 
                 <Route
                     path="/openings"
                     element={
 
-                        <PositionBasedRoute
-                            allowedPositions={[
+                        <RoleBasedRoute
+                            allowedRoles={[
                                 "ADMIN",
-                                "WEB_DEVELOPMENT",
-                                "DESIGN",
-                                "MARKETING",
-                                "MRP_PRINTING"
+                                "EMPLOYEE"
                             ]}
                         >
 
                             <Opening />
 
-                        </PositionBasedRoute>
+                        </RoleBasedRoute>
 
                     }
                 />
@@ -877,19 +883,16 @@ function AppRoutes() {
                     path="/openings/add"
                     element={
 
-                        <PositionBasedRoute
-                            allowedPositions={[
+                        <RoleBasedRoute
+                            allowedRoles={[
                                 "ADMIN",
-                                "WEB_DEVELOPMENT",
-                                "DESIGN",
-                                "MARKETING",
-                                "MRP_PRINTING"
+                                "EMPLOYEE"
                             ]}
                         >
 
                             <OpeningForm />
 
-                        </PositionBasedRoute>
+                        </RoleBasedRoute>
 
                     }
                 />
@@ -899,19 +902,16 @@ function AppRoutes() {
                     path="/openings/:id"
                     element={
 
-                        <PositionBasedRoute
-                            allowedPositions={[
+                        <RoleBasedRoute
+                            allowedRoles={[
                                 "ADMIN",
-                                "WEB_DEVELOPMENT",
-                                "DESIGN",
-                                "MARKETING",
-                                "MRP_PRINTING"
+                                "EMPLOYEE"
                             ]}
                         >
 
                             <OpeningDetails />
 
-                        </PositionBasedRoute>
+                        </RoleBasedRoute>
 
                     }
                 />

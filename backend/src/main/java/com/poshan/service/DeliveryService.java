@@ -231,6 +231,13 @@ public class DeliveryService {
         );
 
 
+        delivery.setCustomInventoryType(
+                normalize(
+                        deliveryDTO.getCustomInventoryType()
+                )
+        );
+
+
         delivery.setCustomBoxType(
                 normalize(
                         deliveryDTO.getCustomBoxType()
@@ -414,9 +421,19 @@ public class DeliveryService {
                                 .trim()
                                 .isEmpty();
 
+        boolean hasCustomInventoryType =
+                deliveryDTO.getCustomInventoryType()
+                        != null
+                        &&
+                        !deliveryDTO
+                                .getCustomInventoryType()
+                                .trim()
+                                .isEmpty();
+
 
         /*
-         * A delivery must identify an inventory record.
+         * A delivery must identify an inventory record or
+         * an explicitly entered custom inventory type.
          */
         if (
                 !hasCategory
@@ -424,6 +441,8 @@ public class DeliveryService {
                         !hasBoxType
                         &&
                         !hasCustomBox
+                        &&
+                        !hasCustomInventoryType
         ) {
 
             throw new RuntimeException(
@@ -527,6 +546,16 @@ public class DeliveryService {
         if (
                 delivery.getCustomBoxType()
                         != null
+        ) {
+
+            return;
+        }
+
+        if (
+                delivery.getCustomInventoryType()
+                        != null
+                        &&
+                        !delivery.getCustomInventoryType().trim().isEmpty()
         ) {
 
             return;
@@ -691,6 +720,13 @@ public class DeliveryService {
         delivery.setProductName(
                 normalize(
                         deliveryDTO.getProductName()
+                )
+        );
+
+
+        delivery.setCustomInventoryType(
+                normalize(
+                        deliveryDTO.getCustomInventoryType()
                 )
         );
 
@@ -1183,6 +1219,11 @@ public class DeliveryService {
 
         dto.setProductName(
                 delivery.getProductName()
+        );
+
+
+        dto.setCustomInventoryType(
+                delivery.getCustomInventoryType()
         );
 
 

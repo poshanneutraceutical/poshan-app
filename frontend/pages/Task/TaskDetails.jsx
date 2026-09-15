@@ -21,6 +21,8 @@ import {
     useParams
 } from "react-router-dom";
 
+import { useAuth } from "../../context/AuthContext";
+
 import {
     getTaskById
 } from "../../services/TaskService";
@@ -33,6 +35,31 @@ const TaskDetails = () => {
     const { id } = useParams();
 
     const navigate = useNavigate();
+
+    const { user } = useAuth();
+
+    const normalizedRoles = [
+        ...(Array.isArray(user?.roles) ? user.roles : []),
+        user?.role
+    ].map((role) => {
+        if (role && typeof role === "object") {
+            return String(
+                role.name || role.role || ""
+            )
+                .replace(/^ROLE_/, "")
+                .toUpperCase();
+        }
+
+        return String(role || "")
+            .replace(/^ROLE_/, "")
+            .toUpperCase();
+    });
+
+    const isAdmin = normalizedRoles.includes("ADMIN");
+
+    const goBack = () => {
+        navigate(-1);
+    };
 
     const [task, setTask] = useState(null);
 
@@ -69,8 +96,9 @@ const TaskDetails = () => {
 
             setError(
                 error.response?.data?.message ||
-                error.response?.data ||
-                "Unable to load task details."
+                (typeof error.response?.data === "string"
+                    ? error.response.data
+                    : "Unable to load task details.")
             );
 
         } finally {
@@ -215,14 +243,12 @@ const TaskDetails = () => {
                         <button
                             type="button"
                             className="task-cancel-btn"
-                            onClick={() =>
-                                navigate("/tasks")
-                            }
+                            onClick={goBack}
                         >
 
                             <ArrowLeft size={17} />
 
-                            Back to Tasks
+                            Back
 
                         </button>
 
@@ -280,14 +306,12 @@ const TaskDetails = () => {
                         <button
                             type="button"
                             className="task-cancel-btn"
-                            onClick={() =>
-                                navigate("/tasks")
-                            }
+                            onClick={goBack}
                         >
 
                             <ArrowLeft size={17} />
 
-                            Back to Tasks
+                            Back
 
                         </button>
 
@@ -349,9 +373,7 @@ const TaskDetails = () => {
                         <button
                             type="button"
                             className="task-details-action-btn task-details-back"
-                            onClick={() =>
-                                navigate("/tasks")
-                            }
+                            onClick={goBack}
                         >
 
                             <ArrowLeft size={17} />
@@ -361,21 +383,25 @@ const TaskDetails = () => {
                         </button>
 
 
-                        <button
-                            type="button"
-                            className="task-details-action-btn task-details-edit"
-                            onClick={() =>
-                                navigate(
-                                    `/tasks/edit/${task.id}`
-                                )
-                            }
-                        >
+                        {isAdmin && (
 
-                            <Pencil size={17} />
+                            <button
+                                type="button"
+                                className="task-details-action-btn task-details-edit"
+                                onClick={() =>
+                                    navigate(
+                                        `/tasks/edit/${task.id}`
+                                    )
+                                }
+                            >
 
-                            Edit Task
+                                <Pencil size={17} />
 
-                        </button>
+                                Edit Task
+
+                            </button>
+
+                        )}
 
                     </div>
 

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 import "./Opening.css";
 
@@ -34,6 +35,27 @@ const OpeningList = () => {
     const [search, setSearch] = useState("");
 
     const navigate = useNavigate();
+
+    const { user } = useAuth();
+
+    const normalizedRoles = [
+        ...(Array.isArray(user?.roles) ? user.roles : []),
+        user?.role
+    ].map((role) => {
+        if (role && typeof role === "object") {
+            return String(
+                role.name || role.role || ""
+            )
+                .replace(/^ROLE_/, "")
+                .toUpperCase();
+        }
+
+        return String(role || "")
+            .replace(/^ROLE_/, "")
+            .toUpperCase();
+    });
+
+    const isAdmin = normalizedRoles.includes("ADMIN");
 
 
     /*
@@ -75,8 +97,9 @@ const OpeningList = () => {
 
             setError(
                 error.response?.data?.message ||
-                error.response?.data ||
-                "Unable to load job openings."
+                (typeof error.response?.data === "string"
+                    ? error.response.data
+                    : "Unable to load job openings.")
             );
 
         } finally {
@@ -124,8 +147,9 @@ const OpeningList = () => {
 
             setError(
                 error.response?.data?.message ||
-                error.response?.data ||
-                "Unable to delete job opening."
+                (typeof error.response?.data === "string"
+                    ? error.response.data
+                    : "Unable to delete job opening.")
             );
 
         }
@@ -506,22 +530,26 @@ const OpeningList = () => {
                                                 </button>
 
 
-                                                {/* DELETE */}
+                                                {/* DELETE - ADMIN ONLY */}
 
-                                                <button
-                                                    type="button"
-                                                    className="opening-action-btn opening-delete-btn"
-                                                    title="Delete Opening"
-                                                    onClick={() =>
-                                                        handleDelete(
-                                                            opening.id
-                                                        )
-                                                    }
-                                                >
+                                                {isAdmin && (
 
-                                                    <Trash2 />
+                                                    <button
+                                                        type="button"
+                                                        className="opening-action-btn opening-delete-btn"
+                                                        title="Delete Opening"
+                                                        onClick={() =>
+                                                            handleDelete(
+                                                                opening.id
+                                                            )
+                                                        }
+                                                    >
 
-                                                </button>
+                                                        <Trash2 />
+
+                                                    </button>
+
+                                                )}
 
 
                                             </div>

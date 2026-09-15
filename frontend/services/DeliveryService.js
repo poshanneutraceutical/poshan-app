@@ -134,7 +134,7 @@ const deliveryService = {
 
         const response =
             await api.get(
-                "/inventory/categories"
+                "/inventory-categories"
             );
 
         return response.data;

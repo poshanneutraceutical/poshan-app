@@ -33,6 +33,9 @@ public class Delivery {
      */
     private String productName;
 
+    @Column(length = 150)
+    private String customInventoryType;
+
 
     /*
      * Inventory category.

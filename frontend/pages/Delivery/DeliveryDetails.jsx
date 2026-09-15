@@ -133,6 +133,7 @@ const DeliveryDetails = () => {
 
     const inventoryItem =
         delivery.materialName ||
+        delivery.customInventoryType ||
         delivery.customBoxType ||
         formatText(
             delivery.boxType
@@ -244,7 +245,7 @@ const DeliveryDetails = () => {
 
                                 {
                                     formatText(
-                                        delivery.categoryName
+                                        delivery.customInventoryType || delivery.categoryName
                                     )
                                 }
 

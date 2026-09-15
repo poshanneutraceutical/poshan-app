@@ -35,6 +35,8 @@ public class DeliveryDTO {
 
     private String categoryName;
 
+    private String customInventoryType;
+
     /*
      * Used for material-based inventory:
      *

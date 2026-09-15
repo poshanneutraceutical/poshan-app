@@ -155,6 +155,28 @@ public class PositionAuthorizationFilter
 
         /*
          ==========================================
+         NOTIFICATIONS
+
+         Notifications are available to authenticated users.
+         Ownership/business rules are handled by the service layer.
+         ==========================================
+         */
+
+        if (
+                uri.startsWith("/api/notifications/")
+                        || uri.equals("/api/notifications")
+        ) {
+            filterChain.doFilter(
+                    request,
+                    response
+            );
+
+            return;
+        }
+
+
+        /*
+         ==========================================
          GET USER POSITION
          ==========================================
          */
@@ -345,9 +367,9 @@ public class PositionAuthorizationFilter
          */
 
         if (
-                uri.startsWith(
-                        "/api/mrp/"
-                )
+                uri.equals("/api/mrp")
+                        ||
+                        uri.startsWith("/api/mrp/")
         ) {
 
             if (
@@ -412,28 +434,35 @@ public class PositionAuthorizationFilter
          ==========================================
          JOB OPENINGS
 
-         WEB DEVELOPMENT
-         DESIGN
-         MARKETING
+         ALL AUTHENTICATED EMPLOYEES
+         can view existing openings and create a new
+         opening. ADMIN was already handled above.
+
+         UPDATE and DELETE remain ADMIN-only.
+
+         IMPORTANT:
+         The controller is mapped to:
+
+             /api/hr/openings
+
+         not /api/openings/**.
          ==========================================
          */
 
         if (
-                uri.startsWith(
-                        "/api/openings/"
-                )
+                uri.equals("/api/hr/openings")
+                        ||
+                        uri.startsWith("/api/hr/openings/")
         ) {
 
-            if (
-                    position ==
-                            UserPosition.WEB_DEVELOPMENT
+            String method = request.getMethod();
+
+            boolean allowedForEmployee =
+                    "GET".equalsIgnoreCase(method)
                             ||
-                            position ==
-                                    UserPosition.DESIGN
-                            ||
-                            position ==
-                                    UserPosition.MARKETING
-            ) {
+                            "POST".equalsIgnoreCase(method);
+
+            if (allowedForEmployee) {
 
                 filterChain.doFilter(
                         request,
@@ -443,10 +472,9 @@ public class PositionAuthorizationFilter
                 return;
             }
 
-
             sendForbidden(
                     response,
-                    "You do not have permission to access Job Openings."
+                    "Only administrators can update or delete job openings."
             );
 
             return;
@@ -551,6 +579,37 @@ public class PositionAuthorizationFilter
             sendForbidden(
                     response,
                     "You do not have permission to access these tasks."
+            );
+
+            return;
+        }
+
+
+        /*
+         ==========================================
+         TASK DETAIL VIEW
+
+         Employees can open an individual task from
+         their department module. TaskService performs
+         the second security check and verifies that the
+         task belongs to the employee's department.
+
+         Only GET of a concrete numeric task id is
+         allowed here. Create/update/delete remain
+         outside this employee rule and therefore stay
+         protected.
+         ==========================================
+         */
+
+        if (
+                "GET".equalsIgnoreCase(request.getMethod())
+                        &&
+                        uri.matches("^/api/tasks/[0-9]+$")
+        ) {
+
+            filterChain.doFilter(
+                    request,
+                    response
             );
 
             return;

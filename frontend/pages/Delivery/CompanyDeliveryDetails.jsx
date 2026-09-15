@@ -499,7 +499,7 @@ const CompanyDeliveryDetails = () => {
 
                                                                 {
                                                                     formatText(
-                                                                        delivery.categoryName
+                                                                        delivery.customInventoryType || delivery.categoryName
                                                                     )
                                                                 }
 

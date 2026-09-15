@@ -78,8 +78,9 @@ const OpeningDetails = () => {
 
             setError(
                 error.response?.data?.message ||
-                error.response?.data ||
-                "Unable to load opening details."
+                (typeof error.response?.data === "string"
+                    ? error.response.data
+                    : "Unable to load opening details.")
             );
 
         } finally {
