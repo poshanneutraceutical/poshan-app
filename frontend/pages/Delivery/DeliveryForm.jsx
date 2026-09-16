@@ -119,7 +119,7 @@ const createEmptyItem = () => ({
 
     customInventoryType: "",
 
-    materialId: "", "",
+    materialId: "",
 
     materialName: "",
 
@@ -1895,15 +1895,45 @@ const DeliveryForm = () => {
                                                                     </option>
                                                                 )
                                                             )
+                                                        }
                                                         <option value="__CUSTOM__">
                                                             Other / Custom
                                                         </option>
 
-                                                        }
-
                                                     </select>
 
                                                 </div>
+
+                                                {
+                                                    isCustomInventoryType(item) && (
+
+                                                        <input
+                                                            type="text"
+                                                            className="custom-inventory-input"
+                                                            value={
+                                                                item.customInventoryType
+                                                            }
+                                                            onChange={
+                                                                e =>
+                                                                    handleItemChange(
+                                                                        index,
+                                                                        {
+                                                                            target: {
+                                                                                name: "customInventoryType",
+                                                                                value: e.target.value
+                                                                            }
+                                                                        }
+                                                                    )
+                                                            }
+                                                            placeholder="Enter custom inventory type"
+                                                            required
+                                                            disabled={
+                                                                loading
+                                                            }
+                                                        />
+
+                                                    )
+                                                }
 
                                             </div>
 
@@ -1913,10 +1943,11 @@ const DeliveryForm = () => {
                                             ================================= */}
 
                                             {
-                                                !isCustomInventoryType(item) &&
-                                                boxCategory
+                                                isCustomInventoryType(item)
+                                                    ? null
+                                                    : boxCategory
 
-                                                ? (
+                                                    ? (
 
                                                     <div className="form-group">
 
@@ -1932,12 +1963,13 @@ const DeliveryForm = () => {
 
                                                             <select
                                                                 value={
-                                                                    item.boxType ||
-                                                                    (
-                                                                        item.customBoxType
-                                                                            ? "__CUSTOM__"
-                                                                            : ""
-                                                                    )
+                                                                    item.boxType === "__CUSTOM__"
+                                                                        ? "__CUSTOM__"
+                                                                        : (
+                                                                            item.customBoxType
+                                                                                ? "__CUSTOM__"
+                                                                                : item.boxType || ""
+                                                                        )
                                                                 }
                                                                 onChange={
                                                                     e => {
@@ -2046,8 +2078,10 @@ const DeliveryForm = () => {
 
 
                                                         {
-                                                            item.customBoxType !==
-                                                            "" && (
+                                                            (
+                                                                item.boxType === "__CUSTOM__" ||
+                                                                item.customBoxType !== ""
+                                                            ) && (
 
                                                                 <input
                                                                     type="text"
