@@ -72,10 +72,6 @@ const AdminAttendance = () => {
     /*
      =========================================================
      LOAD EMPLOYEES FROM ATTENDANCE RECORDS
-
-     Using all attendance records lets us populate the
-     employee selector without requiring another backend
-     employee-list endpoint.
      =========================================================
      */
 
@@ -435,7 +431,7 @@ const AdminAttendance = () => {
 
     /*
      =========================================================
-     FORMAT DATE
+     FORMAT DATE - INDIA TIMEZONE
      =========================================================
      */
 
@@ -450,9 +446,13 @@ const AdminAttendance = () => {
         }
 
 
+        const rawValue =
+            String(value);
+
+
         const date =
             new Date(
-                `${value}T00:00:00`
+                `${rawValue}T00:00:00+05:30`
             );
 
 
@@ -467,14 +467,22 @@ const AdminAttendance = () => {
         }
 
 
-        return date.toLocaleDateString();
+        return new Intl.DateTimeFormat(
+            "en-IN",
+            {
+                timeZone: "Asia/Kolkata",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        ).format(date);
 
     };
 
 
     /*
      =========================================================
-     FORMAT DATE TIME
+     FORMAT DATE/TIME - INDIA TIMEZONE
      =========================================================
      */
 
@@ -489,8 +497,30 @@ const AdminAttendance = () => {
         }
 
 
+        const rawValue =
+            String(value);
+
+
+        /*
+         * Backend LocalDateTime values do not contain
+         * timezone information.
+         *
+         * New attendance values are stored using
+         * Asia/Kolkata, so we explicitly treat plain
+         * LocalDateTime values as IST.
+         */
+
+        const normalizedValue =
+            rawValue.endsWith("Z") ||
+            /[+-]\d\d:\d\d$/.test(rawValue)
+                ? rawValue
+                : `${rawValue}+05:30`;
+
+
         const date =
-            new Date(value);
+            new Date(
+                normalizedValue
+            );
 
 
         if (
@@ -504,7 +534,19 @@ const AdminAttendance = () => {
         }
 
 
-        return date.toLocaleString();
+        return new Intl.DateTimeFormat(
+            "en-IN",
+            {
+                timeZone: "Asia/Kolkata",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        ).format(date);
 
     };
 
@@ -1075,10 +1117,6 @@ const AdminAttendance = () => {
                                                         Status
                                                     </th>
 
-                                                    <th>
-                                                        IP Address
-                                                    </th>
-
                                                 </tr>
 
                                             </thead>
@@ -1172,16 +1210,6 @@ const AdminAttendance = () => {
                                                                         }
 
                                                                     </span>
-
-                                                                </td>
-
-
-                                                                <td>
-
-                                                                    {
-                                                                        record.ipAddress ||
-                                                                        "-"
-                                                                    }
 
                                                                 </td>
 

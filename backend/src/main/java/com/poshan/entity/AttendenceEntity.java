@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "attendance")
@@ -61,19 +62,42 @@ public class AttendenceEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    /*
+     ==========================================
+     INDIA TIMEZONE
+     ==========================================
+     */
+
+    private static final ZoneId INDIA_ZONE =
+            ZoneId.of("Asia/Kolkata");
+
+    /*
+     ==========================================
+     PRE PERSIST
+     ==========================================
+     */
+
     @PrePersist
     public void prePersist() {
 
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        createdAt =
+                LocalDateTime.now(INDIA_ZONE);
 
+        updatedAt =
+                LocalDateTime.now(INDIA_ZONE);
     }
+
+    /*
+     ==========================================
+     PRE UPDATE
+     ==========================================
+     */
 
     @PreUpdate
     public void preUpdate() {
 
-        updatedAt = LocalDateTime.now();
-
+        updatedAt =
+                LocalDateTime.now(INDIA_ZONE);
     }
 
 }

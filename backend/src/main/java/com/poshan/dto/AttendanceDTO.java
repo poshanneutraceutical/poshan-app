@@ -28,6 +28,4 @@ public class AttendanceDTO {
     private LocalDateTime checkOut;
 
     private Attendencestatus status;
-
-    private String ipAddress;
 }

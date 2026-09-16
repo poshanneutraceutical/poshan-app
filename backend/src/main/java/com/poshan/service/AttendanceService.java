@@ -7,9 +7,7 @@ import com.poshan.entity.AttendenceEntity;
 import com.poshan.entity.Attendencestatus;
 import com.poshan.entity.Employee;
 import com.poshan.entity.User;
-
 import com.poshan.exception.EmployeeNotFoundException;
-
 import com.poshan.repository.AllowedNetworkRepository;
 import com.poshan.repository.AttendanceRepository;
 import com.poshan.repository.EmployeeRepository;
@@ -26,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +33,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AttendanceService {
 
+    /*
+     =========================================================
+     INDIA TIMEZONE
+     =========================================================
+     */
+
+    private static final ZoneId INDIA_ZONE =
+            ZoneId.of("Asia/Kolkata");
 
     private final AllowedNetworkRepository
             allowedNetworkRepository;
@@ -48,9 +55,11 @@ public class AttendanceService {
             userRepository;
 
 
-    // =========================================================
-    // EMPLOYEE CHECK IN
-    // =========================================================
+    /*
+     =========================================================
+     EMPLOYEE CHECK IN
+     =========================================================
+     */
 
     public AttendanceDTO checkIn(
             HttpServletRequest request
@@ -59,6 +68,15 @@ public class AttendanceService {
         Employee employee =
                 getLoggedInEmployee();
 
+
+        /*
+         =====================================================
+         GET CLIENT IP
+
+         IP is still used internally to validate
+         company Wi-Fi access.
+         =====================================================
+         */
 
         String ipAddress =
                 getClientIp(request);
@@ -98,7 +116,7 @@ public class AttendanceService {
                 attendanceRepository
                         .findByEmployeeAndAttendanceDate(
                                 employee,
-                                LocalDate.now()
+                                LocalDate.now(INDIA_ZONE)
                         );
 
 
@@ -126,13 +144,19 @@ public class AttendanceService {
         );
 
 
+        /*
+         * Indian date
+         */
         attendance.setAttendanceDate(
-                LocalDate.now()
+                LocalDate.now(INDIA_ZONE)
         );
 
 
+        /*
+         * Indian check-in time
+         */
         attendance.setCheckIn(
-                LocalDateTime.now()
+                LocalDateTime.now(INDIA_ZONE)
         );
 
 
@@ -141,6 +165,13 @@ public class AttendanceService {
         );
 
 
+        /*
+         * Keep storing IP internally because
+         * it is used for attendance access/network
+         * validation.
+         *
+         * It will NOT be returned in AttendanceDTO.
+         */
         attendance.setIpAddress(
                 ipAddress
         );
@@ -155,13 +186,14 @@ public class AttendanceService {
         return mapToDTO(
                 savedAttendance
         );
-
     }
 
 
-    // =========================================================
-    // GET LOGGED-IN EMPLOYEE
-    // =========================================================
+    /*
+     =========================================================
+     GET LOGGED-IN EMPLOYEE
+     =========================================================
+     */
 
     private Employee getLoggedInEmployee() {
 
@@ -206,13 +238,14 @@ public class AttendanceService {
                                         "Attendance is available only for employee accounts."
                                 )
                 );
-
     }
 
 
-    // =========================================================
-    // CLIENT IP
-    // =========================================================
+    /*
+     =========================================================
+     CLIENT IP
+     =========================================================
+     */
 
     private String getClientIp(
             HttpServletRequest request
@@ -254,13 +287,14 @@ public class AttendanceService {
 
 
         return ipAddress;
-
     }
 
 
-    // =========================================================
-    // EMPLOYEE CHECK OUT
-    // =========================================================
+    /*
+     =========================================================
+     EMPLOYEE CHECK OUT
+     =========================================================
+     */
 
     public AttendanceDTO checkOut() {
 
@@ -272,7 +306,7 @@ public class AttendanceService {
                 attendanceRepository
                         .findByEmployeeAndAttendanceDate(
                                 employee,
-                                LocalDate.now()
+                                LocalDate.now(INDIA_ZONE)
                         )
                         .orElseThrow(
                                 () ->
@@ -294,8 +328,11 @@ public class AttendanceService {
         }
 
 
+        /*
+         * Indian check-out time
+         */
         attendance.setCheckOut(
-                LocalDateTime.now()
+                LocalDateTime.now(INDIA_ZONE)
         );
 
 
@@ -308,13 +345,14 @@ public class AttendanceService {
         return mapToDTO(
                 updatedAttendance
         );
-
     }
 
 
-    // =========================================================
-    // TODAY'S ATTENDANCE
-    // =========================================================
+    /*
+     =========================================================
+     TODAY'S ATTENDANCE
+     =========================================================
+     */
 
     public AttendanceDTO getTodayAttendance() {
 
@@ -326,7 +364,7 @@ public class AttendanceService {
                 attendanceRepository
                         .findByEmployeeAndAttendanceDate(
                                 employee,
-                                LocalDate.now()
+                                LocalDate.now(INDIA_ZONE)
                         )
                         .orElseThrow(
                                 () ->
@@ -339,13 +377,14 @@ public class AttendanceService {
         return mapToDTO(
                 attendance
         );
-
     }
 
 
-    // =========================================================
-    // EMPLOYEE - OWN HISTORY
-    // =========================================================
+    /*
+     =========================================================
+     EMPLOYEE - OWN HISTORY
+     =========================================================
+     */
 
     public List<AttendanceDTO>
     getAttendanceHistory() {
@@ -359,13 +398,14 @@ public class AttendanceService {
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
-
     }
 
 
-    // =========================================================
-    // ADMIN - ALL ATTENDANCE
-    // =========================================================
+    /*
+     =========================================================
+     ADMIN - ALL ATTENDANCE
+     =========================================================
+     */
 
     public List<AttendanceDTO>
     getAllAttendance() {
@@ -375,13 +415,14 @@ public class AttendanceService {
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
-
     }
 
 
-    // =========================================================
-    // ADMIN - ATTENDANCE BY DATE
-    // =========================================================
+    /*
+     =========================================================
+     ADMIN - ATTENDANCE BY DATE
+     =========================================================
+     */
 
     public List<AttendanceDTO>
     getAttendanceByDate(
@@ -393,13 +434,14 @@ public class AttendanceService {
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
-
     }
 
 
-    // =========================================================
-    // ADMIN - ATTENDANCE DATE RANGE
-    // =========================================================
+    /*
+     =========================================================
+     ADMIN - ATTENDANCE DATE RANGE
+     =========================================================
+     */
 
     public List<AttendanceDTO>
     getAttendanceBetweenDates(
@@ -438,13 +480,14 @@ public class AttendanceService {
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
-
     }
 
 
-    // =========================================================
-    // ADMIN - SELECTED EMPLOYEE + MONTH
-    // =========================================================
+    /*
+     =========================================================
+     ADMIN - SELECTED EMPLOYEE + MONTH
+     =========================================================
+     */
 
     public List<AttendanceDTO>
     getEmployeeAttendanceByMonth(
@@ -511,13 +554,14 @@ public class AttendanceService {
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
-
     }
 
 
-    // =========================================================
-    // ATTENDANCE ACCESS
-    // =========================================================
+    /*
+     =========================================================
+     ATTENDANCE ACCESS
+     =========================================================
+     */
 
     public AttendanceAccessDTO
     checkAttendanceAccess() {
@@ -575,13 +619,14 @@ public class AttendanceService {
                 false,
                 "Attendance is available only for employee accounts."
         );
-
     }
 
 
-    // =========================================================
-    // ENTITY -> DTO
-    // =========================================================
+    /*
+     =========================================================
+     ENTITY -> DTO
+     =========================================================
+     */
 
     private AttendanceDTO mapToDTO(
             AttendenceEntity attendance
@@ -619,37 +664,36 @@ public class AttendanceService {
 
 
         dto.setAttendanceDate(
-                attendance
-                        .getAttendanceDate()
+                attendance.getAttendanceDate()
         );
 
 
         dto.setCheckIn(
-                attendance
-                        .getCheckIn()
+                attendance.getCheckIn()
         );
 
 
         dto.setCheckOut(
-                attendance
-                        .getCheckOut()
+                attendance.getCheckOut()
         );
 
 
         dto.setStatus(
-                attendance
-                        .getStatus()
+                attendance.getStatus()
         );
 
 
-        dto.setIpAddress(
-                attendance
-                        .getIpAddress()
-        );
+        /*
+         * IP ADDRESS IS INTENTIONALLY NOT
+         * RETURNED TO THE FRONTEND.
+         *
+         * It is still stored in the database
+         * and used internally for company
+         * network validation.
+         */
 
 
         return dto;
-
     }
 
 }
