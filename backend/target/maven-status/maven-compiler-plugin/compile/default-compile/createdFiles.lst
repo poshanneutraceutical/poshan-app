@@ -18,10 +18,12 @@ com\poshan\entity\Digital.class
 com\poshan\dto\PurchaseOrderDTO.class
 com\poshan\repository\BoxDimensionRepository.class
 com\poshan\dto\BoxDimensionDTO.class
+com\poshan\repository\ManualAttendanceRepository.class
 com\poshan\repository\OpeningRepository.class
 com\poshan\dto\DashboardDTO.class
 com\poshan\entity\AttendenceEntity.class
 com\poshan\dto\CompanyDetailDTO.class
+com\poshan\dto\ManualAttendancePersonDTO.class
 com\poshan\dto\InventoryCategoryDTO.class
 com\poshan\dto\UserProfileResponse.class
 com\poshan\controller\ProductionController.class
@@ -32,6 +34,7 @@ com\poshan\service\TaskService$1.class
 com\poshan\dto\DigitalDTO.class
 com\poshan\dto\AttendanceDTO.class
 com\poshan\entity\ReceivingMaterial.class
+com\poshan\dto\ManualAttendanceRequestDTO.class
 com\poshan\dto\WebDevelopmentDTO.class
 com\poshan\entity\BoxType.class
 com\poshan\service\SalesDashboardService.class
@@ -41,6 +44,7 @@ com\poshan\entity\ReceivingMaterialItem.class
 com\poshan\dto\SalesDashboardDTO$InventoryItemDTO.class
 com\poshan\entity\CustomField.class
 com\poshan\entity\Notification.class
+com\poshan\service\ManualAttendanceService.class
 com\poshan\dto\InventoryDashboardDTO$InventoryItemDTO.class
 com\poshan\entity\Role$RoleBuilder.class
 com\poshan\entity\Notification$NotificationBuilder.class
@@ -49,6 +53,7 @@ com\poshan\repository\ProductionRepository.class
 com\poshan\dto\DigitalDashboardDTO.class
 com\poshan\repository\PurchaseOrderRepository.class
 com\poshan\exception\EmployeeNotFoundException.class
+com\poshan\controller\ManualAttendanceController.class
 com\poshan\PoshanApplication.class
 com\poshan\entity\User.class
 com\poshan\repository\UserRepository.class
@@ -74,6 +79,7 @@ com\poshan\entity\ProductionEntity.class
 com\poshan\controller\WebDashboardController.class
 com\poshan\entity\Attendencestatus.class
 com\poshan\entity\PR_Item.class
+com\poshan\dto\AttendanceWorkerDTO.class
 com\poshan\dto\InventoryPageDTO.class
 com\poshan\service\MRPService.class
 com\poshan\entity\Company.class
@@ -82,6 +88,7 @@ com\poshan\dto\PR_DTO.class
 com\poshan\dto\SalesDashboardDTO.class
 com\poshan\repository\PRRepository.class
 com\poshan\controller\MaterialController.class
+com\poshan\entity\ManualAttendance.class
 com\poshan\controller\VendorController.class
 com\poshan\dto\CompanyPageDTO.class
 com\poshan\dto\CustomFieldDTO.class
@@ -111,6 +118,7 @@ com\poshan\service\ApprovalService.class
 com\poshan\config\FileStorageConfig.class
 com\poshan\controller\DigitalMarketingController.class
 com\poshan\dto\InventoryDashboardDTO.class
+com\poshan\entity\AttendanceWorker.class
 com\poshan\dto\PR_ItemDTO.class
 com\poshan\dto\CompanyResponseDTO.class
 com\poshan\service\AuthService.class
@@ -120,6 +128,7 @@ com\poshan\dto\InventoryDTO.class
 com\poshan\service\ProductionService.class
 com\poshan\dto\ApprovalRequestDTO.class
 com\poshan\dto\RegisterRequest.class
+com\poshan\repository\AttendanceWorkerRepository.class
 com\poshan\entity\Inventory.class
 com\poshan\controller\ReceivingMaterialController.class
 com\poshan\entity\InventoryCategory.class
@@ -152,6 +161,7 @@ com\poshan\repository\RoleRepository.class
 com\poshan\entity\BoxDimension.class
 com\poshan\service\DigitalMarketingService.class
 com\poshan\controller\ApprovalController.class
+com\poshan\dto\ManualAttendanceHistoryDTO.class
 com\poshan\dto\MRPDTO.class
 com\poshan\repository\TaskRepository.class
 com\poshan\dto\VendorDTO.class
@@ -185,6 +195,7 @@ com\poshan\controller\NotificationController.class
 com\poshan\repository\ReceivingMaterialItemRepository.class
 com\poshan\controller\SalesController.class
 com\poshan\service\DigitalDshboardsService.class
+com\poshan\entity\ManualAttendanceStatus.class
 com\poshan\service\TaskService.class
 com\poshan\repository\NotificationRepository.class
 com\poshan\repository\DashboardRepository.class

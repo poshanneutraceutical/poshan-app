@@ -20,7 +20,8 @@ import {
     Briefcase,
     ListTodo,
     Settings,
-    Tag
+    Tag,
+    UserCheck
 } from "lucide-react";
 
 import { useAuth } from "../../context/AuthContext";
@@ -639,6 +640,12 @@ function getAllMenuItems(
         },
 
         attendanceItem,
+
+        {
+            name: "Manual Attendance",
+            path: "/attendance/manual",
+            icon: <UserCheck size={20} />
+        },
 
         {
             name: "Employee",

@@ -18,6 +18,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controll
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\InventoryCategoryController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\InventoryController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\InventoryDashboardController.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\ManualAttendanceController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\MaterialController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\MRPController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\NotificationController.java
@@ -38,6 +39,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\Appr
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ApprovalResponseDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\AttendanceAccessDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\AttendanceDTO.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\AttendanceWorkerDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\AuthResponse.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\BoxDimensionDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ChangePasswordRequest.java
@@ -61,6 +63,9 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\Inve
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\InventoryDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\InventoryPageDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\LoginRequest.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ManualAttendanceHistoryDTO.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ManualAttendancePersonDTO.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ManualAttendanceRequestDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\MaterialDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\MRPDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\NotificationDTO.java
@@ -88,6 +93,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\WebD
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\WebDevelopmentDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\AllowedNetwork.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\AssignedBy.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\AttendanceWorker.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\AttendenceEntity.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Attendencestatus.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\BoxDimension.java
@@ -106,6 +112,8 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\E
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Inventory.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\InventoryCategory.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\InventoryType.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\ManualAttendance.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\ManualAttendanceStatus.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Material.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\MrpEntity.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Notification.java
@@ -133,6 +141,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\exceptio
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\PoshanApplication.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\AllowedNetworkRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\AttendanceRepository.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\AttendanceWorkerRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\BoxDimensionRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\CompanyDetailRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\CompanyRepository.java
@@ -144,6 +153,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\reposito
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\EmployeeRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\InventoryCategoryRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\InventoryRepository.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\ManualAttendanceRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\MaterialRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\MRPRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\NotificationRepository.java
@@ -181,6 +191,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\InventoryCategoryService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\InventoryDashboardService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\InventoryService.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\ManualAttendanceService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\MaterialService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\MRPService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\NotificationService.java

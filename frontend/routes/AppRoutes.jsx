@@ -45,6 +45,9 @@ import Attendance
 import AdminAttendance
     from "../pages/Attendance/AdminAttendance";
 
+import ManualAttendance
+    from "../pages/Attendance/ManualAttendance";
+
 import ReceivingMaterial
     from "../pages/ReceivingMaterial/ReceivingMaterial";
 
@@ -210,17 +213,16 @@ function AppRoutes() {
 
                 {/* =================================================
                     MAIN DASHBOARD
-
-                    ALL LOGGED-IN USERS
-
-                    The dashboard itself is now personalized from
-                    the same role/position rules already used by
-                    the ERP navigation.
+                    ADMIN ONLY
                 ================================================= */}
 
                 <Route
                     path="/dashboard"
-                    element={<Dashboard />}
+                    element={
+                        <RoleBasedRoute role="ADMIN">
+                            <Dashboard />
+                        </RoleBasedRoute>
+                    }
                 />
 
 
@@ -686,6 +688,28 @@ function AppRoutes() {
                         <RoleBasedRoute role="ADMIN">
 
                             <AdminAttendance />
+
+                        </RoleBasedRoute>
+
+                    }
+                />
+
+
+                {/* =================================================
+                    MANUAL ATTENDANCE
+                    ADMIN ONLY
+
+                    Admin can manually mark attendance for all
+                    employees and separately added workers.
+                ================================================= */}
+
+                <Route
+                    path="/attendance/manual"
+                    element={
+
+                        <RoleBasedRoute role="ADMIN">
+
+                            <ManualAttendance />
 
                         </RoleBasedRoute>
 
