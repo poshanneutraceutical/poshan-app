@@ -480,8 +480,39 @@ const TaskDetails = () => {
                                     </p>
 
                                     <p className="task-info-value">
-                                        {task.assignedTo || "-"}
+
+                                        {
+                                            task.assignedToName ||
+                                            task.assignedTo ||
+                                            "-"
+                                        }
+
                                     </p>
+
+                                    {
+                                        task.assignedToEmail && (
+
+                                            <p className="task-info-secondary">
+
+                                                {task.assignedToEmail}
+
+                                            </p>
+
+                                        )
+                                    }
+
+                                    {
+                                        task.assignedTo &&
+                                        task.assignedTo !== task.assignedToName && (
+
+                                            <p className="task-info-secondary">
+
+                                                @{task.assignedTo}
+
+                                            </p>
+
+                                        )
+                                    }
 
                                 </div>
 

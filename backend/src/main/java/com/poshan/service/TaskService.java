@@ -694,6 +694,43 @@ public class TaskService {
                 task.getAssignedTo()
         );
 
+        /*
+        ==========================================
+        ASSIGNEE DETAILS
+        ==========================================
+
+        Tasks continue to store the username in
+        assignedTo so the existing database and
+        task assignment flow remain unchanged.
+
+        Name and email are resolved from the
+        current User record for display purposes.
+        ==========================================
+        */
+
+        if (
+                task.getAssignedTo() != null &&
+                        !task.getAssignedTo().isBlank()
+        ) {
+
+            userRepository
+                    .findByUsername(
+                            task.getAssignedTo()
+                    )
+                    .ifPresent(assignedUser -> {
+
+                        dto.setAssignedToName(
+                                assignedUser.getName()
+                        );
+
+                        dto.setAssignedToEmail(
+                                assignedUser.getEmail()
+                        );
+
+                    });
+
+        }
+
         dto.setDepartment(
                 task.getDepartment()
         );

@@ -1,575 +1,614 @@
 /*
 ==================================================
-DASHBOARD PAGE
+POSHAN HOME DASHBOARD
 ==================================================
 */
 
-.dashboard-page {
+.poshan-home {
     width: 100%;
-    min-height: 100vh;
-    padding: 28px;
-    background: #f4f7fb;
+    min-height: 100%;
+    padding: 28px 30px 40px;
+    background: #f6f8fc;
+    color: #172033;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
 }
+
 
 /*
 ==================================================
-HEADER
+HERO
 ==================================================
 */
 
-.dashboard-header {
+.poshan-home-hero {
     display: flex;
+    align-items: stretch;
     justify-content: space-between;
+    gap: 24px;
+    padding: 28px 30px;
+    margin-bottom: 30px;
+    border: 1px solid #e7ebf2;
+    border-radius: 22px;
+    background:
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(37, 99, 235, 0.09),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+}
+
+
+.poshan-home-hero-content {
+    min-width: 0;
+}
+
+
+.poshan-home-eyebrow {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 32px;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
 }
 
-.dashboard-header-left h1 {
+
+.poshan-home-hero h1 {
     margin: 0;
-    font-size: 34px;
-    font-weight: 700;
-    color: #1f2937;
+    color: #14213d;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.08;
+    font-weight: 750;
+    letter-spacing: -0.03em;
 }
 
-.dashboard-header-left p {
-    margin-top: 8px;
-    font-size: 16px;
-    color: #6b7280;
+
+.poshan-home-hero p {
+    max-width: 720px;
+    margin: 12px 0 0;
+    color: #697386;
+    font-size: 15px;
+    line-height: 1.7;
 }
 
-.dashboard-header-right {
-    text-align: right;
+
+.poshan-home-user-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.dashboard-header-right span {
-    display: block;
-    color: #9ca3af;
+
+.poshan-home-role,
+.poshan-home-access {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+.poshan-home-role {
+    color: #1d4ed8;
+    background: #eaf1ff;
+}
+
+
+.poshan-home-access {
+    color: #576174;
+    background: #f1f3f7;
+}
+
+
+.poshan-home-hero-side {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 14px;
+    min-width: 195px;
+}
+
+
+.poshan-home-date-card {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 14px;
+    border: 1px solid #e4e9f1;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #5e6a7f;
+}
+
+
+.poshan-home-date-card div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+
+.poshan-home-date-card span {
+    font-size: 11px;
+    color: #8a94a6;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+
+.poshan-home-date-card strong {
+    color: #1c2740;
     font-size: 14px;
 }
 
-.dashboard-header-right h3 {
-    margin-top: 6px;
-    color: #111827;
-    font-size: 20px;
-    font-weight: 600;
-}
 
-/*
-==================================================
-CARDS GRID
-==================================================
-*/
-
-.dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-bottom: 35px;
-}
-
-/*
-==================================================
-CARD
-==================================================
-*/
-
-.dashboard-card {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 24px;
-    display: flex;
+.poshan-home-profile-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all .35s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,.06);
-    border: 1px solid #eef2f7;
-}
-
-.dashboard-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
+    gap: 12px;
     width: 100%;
-
-    height: 5px;
-
-    background: linear-gradient(
-            90deg,
-            #2563eb,
-            #3b82f6
-    );
-
-}
-
-.dashboard-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 18px 35px rgba(0,0,0,.12);
-
-}
-
-.dashboard-card-content h3 {
-
-    margin: 0;
-
-    font-size: 15px;
-
-    color: #6b7280;
-
-    font-weight: 500;
-
-}
-
-.dashboard-card-content p {
-
-    margin-top: 14px;
-
-    font-size: 36px;
-
+    min-height: 46px;
+    padding: 0 15px;
+    border: 0;
+    border-radius: 13px;
+    background: #172554;
+    color: #ffffff;
+    font-size: 14px;
     font-weight: 700;
-
-    color: #111827;
-
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
 }
 
-.dashboard-card-icon {
 
-    width: 72px;
+.poshan-home-profile-btn:hover {
+    background: #1e3a8a;
+    transform: translateY(-1px);
+}
 
-    height: 72px;
 
-    border-radius: 20px;
+/*
+==================================================
+SECTIONS
+==================================================
+*/
 
+.poshan-home-section {
+    margin-bottom: 30px;
+}
+
+
+.poshan-home-section-header {
     display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 16px;
+}
 
+
+.poshan-home-section-kicker {
+    display: block;
+    margin-bottom: 7px;
+    color: #8a94a6;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+
+.poshan-home-section-header h2 {
+    margin: 0;
+    color: #1f2a44;
+    font-size: 22px;
+    font-weight: 750;
+}
+
+
+.poshan-home-section-header p {
+    margin: 5px 0 0;
+    color: #758096;
+    font-size: 14px;
+}
+
+
+.poshan-home-module-count {
+    display: flex;
     align-items: center;
-
-    justify-content: center;
-
-    background: linear-gradient(
-            135deg,
-            #2563eb,
-            #60a5fa
-    );
-
-    color: white;
-
-    box-shadow: 0 12px 25px rgba(37,99,235,.30);
-
-}
-
-.dashboard-card-icon svg{
-
-    width:36px;
-
-    height:36px;
-
-}
-
-/*
-==================================================
-MAIN GRID
-==================================================
-*/
-
-.dashboard-grid {
-
-    display:grid;
-
-    grid-template-columns:2fr 1fr;
-
-    gap:24px;
-
-    margin-bottom:30px;
-
-}
-/*
-==================================================
-SECTION
-==================================================
-*/
-
-.dashboard-section {
-
+    gap: 9px;
+    padding: 10px 13px;
+    border: 1px solid #e6eaf1;
+    border-radius: 12px;
     background: #ffffff;
-
-    border-radius: 18px;
-
-    padding: 24px;
-
-    border: 1px solid #edf2f7;
-
-    box-shadow: 0 8px 20px rgba(0,0,0,.06);
-
-    transition: .30s;
-
+    white-space: nowrap;
 }
 
-.dashboard-section:hover{
 
-    box-shadow:0 14px 30px rgba(0,0,0,.10);
-
+.poshan-home-module-count strong {
+    color: #2563eb;
+    font-size: 18px;
 }
 
-.dashboard-section-header{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:22px;
-
+.poshan-home-module-count span {
+    color: #758096;
+    font-size: 12px;
+    font-weight: 650;
 }
 
-.dashboard-section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.dashboard-section-title svg{
-
-    color:#2563eb;
-
-}
-
-.dashboard-section-title h2{
-
-    margin:0;
-
-    font-size:22px;
-
-    font-weight:600;
-
-    color:#1f2937;
-
-}
 
 /*
 ==================================================
-RECENT ACTIVITY
+RECENT CARDS
 ==================================================
 */
 
-.activity-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
+.poshan-home-recent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
 }
 
-.activity-item{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:16px 18px;
-
-    border-radius:14px;
-
-    background:#f8fafc;
-
-    transition:.30s;
-
+.poshan-home-recent-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #e6eaf1;
+    border-radius: 15px;
+    background: #ffffff;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.035);
+    transition:
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
-.activity-item:hover{
 
-    background:#eff6ff;
-
+.poshan-home-recent-card:hover {
+    border-color: #cdd8ec;
+    transform: translateY(-2px);
+    box-shadow: 0 9px 25px rgba(15, 23, 42, 0.07);
 }
 
-.activity-left{
 
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
+.poshan-home-recent-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 41px;
+    min-width: 41px;
+    height: 41px;
+    border-radius: 12px;
+    background: #edf3ff;
+    color: #2563eb;
 }
 
-.activity-icon{
 
-    width:46px;
-
-    height:46px;
-
-    border-radius:12px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#dbeafe;
-
-    color:#2563eb;
-
+.poshan-home-recent-text {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-.activity-content h4{
 
-    margin:0;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    color:#111827;
-
+.poshan-home-recent-text strong {
+    overflow: hidden;
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.activity-content p{
 
-    margin-top:4px;
-
-    font-size:13px;
-
-    color:#6b7280;
-
+.poshan-home-recent-text small {
+    color: #8a94a6;
+    font-size: 11px;
 }
 
-.activity-time{
-
-    font-size:13px;
-
-    color:#9ca3af;
-
-}
 
 /*
 ==================================================
-ALERTS
+MODULE GRID
 ==================================================
 */
 
-.alert-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
+.poshan-home-module-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
 }
 
-.alert-card{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:18px;
-
-    border-radius:14px;
-
-    background:#fff7ed;
-
-    border-left:5px solid #f97316;
-
+.poshan-home-module-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-height: 142px;
+    width: 100%;
+    padding: 18px;
+    border: 1px solid #e3e8f0;
+    border-radius: 17px;
+    background: #ffffff;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.035);
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
-.alert-card.low{
 
-    background:#fef2f2;
-
-    border-left:5px solid #ef4444;
-
+.poshan-home-module-card::after {
+    content: "";
+    position: absolute;
+    right: -26px;
+    bottom: -32px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.035);
+    pointer-events: none;
 }
 
-.alert-info h4{
 
-    margin:0;
-
-    font-size:16px;
-
-    color:#111827;
-
+.poshan-home-module-card:hover {
+    transform: translateY(-3px);
+    border-color: #cad5e7;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.075);
 }
 
-.alert-info p{
 
-    margin-top:5px;
-
-    color:#6b7280;
-
-    font-size:14px;
-
+.poshan-home-module-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: #eff4ff;
+    color: #2563eb;
 }
 
-.alert-value{
 
-    font-size:28px;
-
-    font-weight:700;
-
-    color:#111827;
-
+.poshan-home-module-body {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding-top: 1px;
 }
+
+
+.poshan-home-module-body strong {
+    color: #19243a;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+
+.poshan-home-module-body span {
+    color: #758096;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+
+.poshan-home-module-arrow {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    color: #9aa4b6;
+}
+
+
+/*
+==================================================
+CATEGORY ACCENTS
+==================================================
+*/
+
+.category-design .poshan-home-module-icon {
+    background: #f4efff;
+    color: #7c3aed;
+}
+
+.category-marketing .poshan-home-module-icon {
+    background: #fff3ea;
+    color: #ea580c;
+}
+
+.category-web .poshan-home-module-icon {
+    background: #eaf8f4;
+    color: #0f766e;
+}
+
+.category-production .poshan-home-module-icon {
+    background: #fff7df;
+    color: #a16207;
+}
+
+.category-sales .poshan-home-module-icon {
+    background: #ebf6ff;
+    color: #0369a1;
+}
+
+.category-procurement .poshan-home-module-icon {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.category-inventory .poshan-home-module-icon {
+    background: #ecfdf4;
+    color: #15803d;
+}
+
+.category-hr .poshan-home-module-icon {
+    background: #fff1f4;
+    color: #be123c;
+}
+
+.category-administration .poshan-home-module-icon,
+.category-management .poshan-home-module-icon {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.category-work .poshan-home-module-icon {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+
 /*
 ==================================================
 EMPTY STATE
 ==================================================
 */
 
-.dashboard-empty{
-
-    width:100%;
-
-    padding:45px 20px;
-
-    text-align:center;
-
-    color:#6b7280;
-
+.poshan-home-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 55px 25px;
+    border: 1px dashed #cfd8e6;
+    border-radius: 18px;
+    background: #ffffff;
+    text-align: center;
 }
 
-.dashboard-empty svg{
 
-    width:60px;
-
-    height:60px;
-
-    margin-bottom:15px;
-
-    color:#cbd5e1;
-
+.poshan-home-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 14px;
+    border-radius: 17px;
+    background: #edf3ff;
+    color: #2563eb;
 }
 
-.dashboard-empty h3{
 
-    margin:0;
-
-    color:#374151;
-
-    font-size:20px;
-
+.poshan-home-empty h3 {
+    margin: 0;
+    color: #1f2a44;
+    font-size: 18px;
 }
 
-.dashboard-empty p{
 
-    margin-top:10px;
-
-    font-size:15px;
-
+.poshan-home-empty p {
+    max-width: 440px;
+    margin: 8px 0 0;
+    color: #7a8598;
+    font-size: 13px;
+    line-height: 1.6;
 }
+
 
 /*
 ==================================================
-LOADING
+SUMMARY
 ==================================================
 */
 
-.dashboard-loading{
-
-    width:100%;
-
-    height:75vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:22px;
-
-    font-weight:600;
-
-    color:#2563eb;
-
+.poshan-home-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
 }
 
-/*
-==================================================
-SCROLLBAR
-==================================================
-*/
 
-.dashboard-section::-webkit-scrollbar{
-
-    width:8px;
-
+.poshan-home-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 17px;
+    border: 1px solid #e4e9f1;
+    border-radius: 16px;
+    background: #ffffff;
 }
 
-.dashboard-section::-webkit-scrollbar-thumb{
 
-    background:#cbd5e1;
-
-    border-radius:20px;
-
+.poshan-home-summary-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    min-width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: #f0f4ff;
+    color: #2563eb;
 }
 
-.dashboard-section::-webkit-scrollbar-track{
 
-    background:#f8fafc;
-
+.poshan-home-summary-card > div:last-child {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-/*
-==================================================
-ANIMATION
-==================================================
-*/
 
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
+.poshan-home-summary-card span {
+    color: #8993a5;
+    font-size: 11px;
+    font-weight: 650;
 }
 
-.dashboard-card{
 
-    animation:fadeUp .45s ease;
-
+.poshan-home-summary-card strong {
+    overflow: hidden;
+    color: #24314a;
+    font-size: 14px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.dashboard-section{
-
-    animation:fadeUp .55s ease;
-
-}
 
 /*
 ==================================================
@@ -577,130 +616,842 @@ RESPONSIVE
 ==================================================
 */
 
-@media (max-width:1200px){
+@media (max-width: 1200px) {
 
-    .dashboard-grid{
-
-        grid-template-columns:1fr;
-
+    .poshan-home-module-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
 }
 
-@media (max-width:992px){
 
-    .dashboard-cards{
+@media (max-width: 920px) {
 
-        grid-template-columns:repeat(2,minmax(0,1fr));
+    .poshan-home {
+        padding: 22px 20px 32px;
+    }
 
+    .poshan-home-hero {
+        flex-direction: column;
+    }
+
+    .poshan-home-hero-side {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .poshan-home-recent-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .poshan-home-summary {
+        grid-template-columns: 1fr;
     }
 
 }
 
-@media (max-width:768px){
 
-    .dashboard-page{
+@media (max-width: 720px) {
 
-        padding:18px;
-
-    }
-
-    .dashboard-header{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:18px;
-
-    }
-
-    .dashboard-header-right{
-
-        text-align:left;
-
-    }
-
-    .dashboard-card{
-
-        padding:20px;
-
-    }
-
-    .dashboard-card-content p{
-
-        font-size:30px;
-
-    }
-
-    .dashboard-card-icon{
-
-        width:62px;
-
-        height:62px;
-
-    }
-
-    .dashboard-card-icon svg{
-
-        width:30px;
-
-        height:30px;
-
+    .poshan-home-module-grid {
+        grid-template-columns: 1fr 1fr;
     }
 
 }
 
-@media (max-width:576px){
 
-    .dashboard-cards{
+@media (max-width: 560px) {
 
-        grid-template-columns:1fr;
-
+    .poshan-home {
+        padding: 16px 14px 26px;
     }
 
-    .dashboard-page{
-
-        padding:15px;
-
+    .poshan-home-hero {
+        padding: 22px 18px;
+        border-radius: 18px;
     }
 
-    .dashboard-header-left h1{
-
-        font-size:28px;
-
+    .poshan-home-hero-side {
+        grid-template-columns: 1fr;
     }
 
-    .dashboard-section{
-
-        padding:18px;
-
+    .poshan-home-section-header {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
-    .activity-item{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:15px;
-
+    .poshan-home-module-count {
+        align-self: flex-start;
     }
 
-    .alert-card{
+    .poshan-home-recent-grid,
+    .poshan-home-module-grid {
+        grid-template-columns: 1fr;
+    }
 
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:10px;
-
+    .poshan-home-module-card {
+        min-height: 118px;
     }
 
 }
-
 /*
 ==================================================
-END OF FILE
+ADMIN ASANA-STYLE DASHBOARD
 ==================================================
 */
+
+.admin-dashboard-page {
+    min-height: 100vh;
+    padding: 30px 34px 48px;
+    background: #f8f9fb;
+    color: #1f2733;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-dashboard-page button,
+.admin-dashboard-page input {
+    font: inherit;
+}
+
+.admin-dashboard-page button {
+    border: 0;
+}
+
+/* =================================================
+   HERO
+================================================= */
+
+.admin-dashboard-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.admin-dashboard-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #7b8491;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard-hero h1 {
+    margin: 0;
+    color: #1e2430;
+    font-size: clamp(30px, 3.2vw, 42px);
+    line-height: 1.08;
+    font-weight: 700;
+}
+
+.admin-dashboard-hero p {
+    margin: 9px 0 0;
+    color: #737c89;
+    font-size: 15px;
+}
+
+.admin-dashboard-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 10px 13px;
+    border: 1px solid #e7e9ee;
+    border-radius: 11px;
+    background: #fff;
+    color: #5f6875;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =================================================
+   COMMON SECTION
+================================================= */
+
+.admin-dashboard-section {
+    margin-bottom: 25px;
+    padding: 24px;
+    border: 1px solid #e9ebef;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 3px 14px rgba(27, 31, 36, .035);
+}
+
+.admin-dashboard-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.admin-dashboard-section-kicker {
+    display: block;
+    margin-bottom: 4px;
+    color: #929aa6;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard-section-heading h2 {
+    margin: 0;
+    color: #242b36;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.admin-dashboard-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+/* =================================================
+   BUTTONS
+================================================= */
+
+.admin-dashboard-primary-btn,
+.admin-dashboard-link-btn,
+.admin-dashboard-refresh {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.admin-dashboard-primary-btn {
+    min-height: 38px;
+    padding: 0 13px;
+    border-radius: 8px;
+    background: #3f6fd9;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(63, 111, 217, .17);
+}
+
+.admin-dashboard-primary-btn:hover {
+    background: #335fc1;
+    transform: translateY(-1px);
+}
+
+.admin-dashboard-link-btn {
+    padding: 7px 2px;
+    background: transparent;
+    color: #3f6fd9;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-dashboard-link-btn:hover {
+    color: #294f9f;
+}
+
+.admin-dashboard-refresh {
+    padding: 7px 10px;
+    border: 1px solid #e5e8ed;
+    border-radius: 8px;
+    background: #fff;
+    color: #67717e;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.admin-dashboard-refresh:hover {
+    background: #f7f8fa;
+}
+
+.admin-dashboard-refresh:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.spin {
+    animation: admin-dashboard-spin .85s linear infinite;
+}
+
+@keyframes admin-dashboard-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =================================================
+   NEW PROJECT MENU
+================================================= */
+
+.admin-dashboard-new-project-wrap {
+    position: relative;
+}
+
+.admin-dashboard-project-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 20;
+    width: 245px;
+    padding: 6px;
+    border: 1px solid #e7e9ed;
+    border-radius: 11px;
+    background: #fff;
+    box-shadow: 0 14px 32px rgba(24, 31, 42, .13);
+}
+
+.admin-dashboard-project-menu button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 11px;
+    border-radius: 8px;
+    background: transparent;
+    color: #3d4653;
+    text-align: left;
+    cursor: pointer;
+}
+
+.admin-dashboard-project-menu button:hover {
+    background: #f6f7fa;
+}
+
+.admin-dashboard-project-menu svg {
+    color: #657080;
+    flex-shrink: 0;
+}
+
+/* =================================================
+   ERROR
+================================================= */
+
+.admin-dashboard-error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border: 1px solid #f2d3d3;
+    border-radius: 10px;
+    background: #fff6f6;
+    color: #8b3f3f;
+    font-size: 13px;
+}
+
+.admin-dashboard-error button {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 7px;
+    background: #fff;
+    color: #8b3f3f;
+    border: 1px solid #edc9c9;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* =================================================
+   RECENTS
+================================================= */
+
+.admin-dashboard-recents-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.admin-project-card {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #eceef2;
+    border-radius: 11px;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.admin-project-card:hover {
+    border-color: #d9dee7;
+    background: #fafbfc;
+    box-shadow: 0 8px 22px rgba(27, 31, 36, .06);
+    transform: translateY(-1px);
+}
+
+.admin-project-card-icon {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.admin-project-card.designing .admin-project-card-icon {
+    background: #f2e8ff;
+    color: #7c4dba;
+}
+
+.admin-project-card.digital .admin-project-card-icon {
+    background: #fff0dc;
+    color: #c77a14;
+}
+
+.admin-project-card.web .admin-project-card-icon {
+    background: #e4f1ff;
+    color: #3976bd;
+}
+
+.admin-project-card.default .admin-project-card-icon {
+    background: #edf0f3;
+    color: #687381;
+}
+
+.admin-project-card-body {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.admin-project-card-body strong {
+    overflow: hidden;
+    color: #28313d;
+    font-size: 14px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-project-card-body small {
+    overflow: hidden;
+    color: #8a93a0;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-project-card-body .admin-project-company {
+    color: #a1a8b1;
+}
+
+.admin-project-card-arrow {
+    flex-shrink: 0;
+    color: #abb2bc;
+}
+
+/* =================================================
+   PROJECTS TOOLBAR / GRID
+================================================= */
+
+.admin-dashboard-project-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.admin-dashboard-search {
+    width: min(100%, 360px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    border: 1px solid #e4e7ec;
+    border-radius: 9px;
+    background: #fff;
+    color: #89919c;
+}
+
+.admin-dashboard-search:focus-within {
+    border-color: #b8c8e8;
+    box-shadow: 0 0 0 3px rgba(63, 111, 217, .08);
+}
+
+.admin-dashboard-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #343c48;
+    font-size: 13px;
+}
+
+.admin-dashboard-search input::placeholder {
+    color: #a1a8b1;
+}
+
+.admin-dashboard-project-count {
+    flex-shrink: 0;
+    color: #8d96a2;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.admin-dashboard-project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+}
+
+/* =================================================
+   TASKS
+================================================= */
+
+.admin-dashboard-task-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.admin-dashboard-task-heading-row h3 {
+    margin: 0;
+    color: #434c58;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-dashboard-task-list {
+    border-top: 1px solid #eef0f3;
+}
+
+.admin-dashboard-task-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 4px;
+    border-bottom: 1px solid #eef0f3;
+    background: transparent;
+    color: #303945;
+    text-align: left;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.admin-dashboard-task-row:hover {
+    background: #fbfcfd;
+}
+
+.admin-dashboard-task-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #edf2ff;
+    color: #5879c7;
+}
+
+.admin-dashboard-task-main {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.admin-dashboard-task-main strong {
+    overflow: hidden;
+    color: #313947;
+    font-size: 13px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-dashboard-task-main small {
+    color: #929aa5;
+    font-size: 11px;
+}
+
+.admin-dashboard-task-meta {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-shrink: 0;
+}
+
+.admin-dashboard-task-meta small {
+    color: #969eaa;
+    font-size: 11px;
+}
+
+.admin-task-status {
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: #f0f2f4;
+    color: #67707d;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.admin-task-status.pending {
+    background: #fff4dd;
+    color: #9a6b10;
+}
+
+.admin-task-status.in_progress {
+    background: #e9f1ff;
+    color: #4a6ba8;
+}
+
+.admin-task-status.complete {
+    background: #e9f7ee;
+    color: #2f7f4c;
+}
+
+.admin-task-status.on_hold,
+.admin-task-status.cancel {
+    background: #fbeaea;
+    color: #a15353;
+}
+
+.admin-dashboard-task-arrow {
+    flex-shrink: 0;
+    color: #b0b6bf;
+}
+
+/* =================================================
+   EMPTY / LOADING
+================================================= */
+
+.admin-dashboard-empty {
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 30px;
+    color: #a3abb5;
+    text-align: center;
+}
+
+.admin-dashboard-empty strong {
+    color: #59626f;
+    font-size: 14px;
+}
+
+.admin-dashboard-empty p {
+    margin: 0;
+    color: #98a0aa;
+    font-size: 12px;
+}
+
+.admin-dashboard-empty-horizontal {
+    min-height: 92px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 13px;
+    padding: 16px;
+    border: 1px dashed #dfe3e8;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.admin-dashboard-empty-horizontal svg {
+    flex-shrink: 0;
+}
+
+.admin-dashboard-loading {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #6d7682;
+}
+
+.admin-dashboard-loading-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #eef3ff;
+    color: #5879c7;
+}
+
+.admin-dashboard-loading strong {
+    font-size: 14px;
+}
+
+/* =================================================
+   QUICK LINKS
+================================================= */
+
+.admin-dashboard-quick-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 15px 17px;
+    border: 1px solid #e9ebef;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.admin-dashboard-quick-link-intro {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #5b6572;
+}
+
+.admin-dashboard-quick-link-intro svg {
+    color: #4f875f;
+}
+
+.admin-dashboard-quick-link-intro div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.admin-dashboard-quick-link-intro strong {
+    color: #3f4855;
+    font-size: 13px;
+}
+
+.admin-dashboard-quick-link-intro span {
+    color: #959da8;
+    font-size: 11px;
+}
+
+.admin-dashboard-quick-links > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 0;
+    background: transparent;
+    color: #3f6fd9;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =================================================
+   RESPONSIVE
+================================================= */
+
+@media (max-width: 1050px) {
+
+    .admin-dashboard-recents-grid,
+    .admin-dashboard-project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 780px) {
+
+    .admin-dashboard-page {
+        padding: 22px 17px 36px;
+    }
+
+    .admin-dashboard-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-dashboard-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-dashboard-heading-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .admin-dashboard-project-menu {
+        left: 0;
+        right: auto;
+    }
+
+    .admin-dashboard-recents-grid,
+    .admin-dashboard-project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard-project-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-dashboard-search {
+        width: 100%;
+    }
+
+    .admin-dashboard-project-count {
+        align-self: flex-start;
+    }
+
+    .admin-dashboard-task-meta small {
+        display: none;
+    }
+
+}
+
+@media (max-width: 560px) {
+
+    .admin-dashboard-section {
+        padding: 17px;
+        border-radius: 12px;
+    }
+
+    .admin-dashboard-heading-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-dashboard-new-project-wrap,
+    .admin-dashboard-primary-btn {
+        width: 100%;
+    }
+
+    .admin-dashboard-primary-btn {
+        justify-content: center;
+    }
+
+    .admin-dashboard-link-btn {
+        align-self: flex-start;
+    }
+
+    .admin-dashboard-task-row {
+        gap: 9px;
+    }
+
+    .admin-dashboard-task-meta {
+        display: none;
+    }
+
+    .admin-dashboard-quick-links {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}

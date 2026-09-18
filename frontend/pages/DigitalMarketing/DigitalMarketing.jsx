@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+import { useAuth } from "../../context/AuthContext";
+
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
 import "./DigitalMarketing.css";
 
 import DigitalMarketingService
@@ -16,6 +20,8 @@ import DepartmentTasks
 
 
 const DigitalMarketing = () => {
+
+    const { user } = useAuth();
 
     const [
         projects,
@@ -87,10 +93,22 @@ const DigitalMarketing = () => {
 
         try {
 
-            await DigitalMarketingService
-                .createProject(
-                    project
-                );
+            const response =
+                await DigitalMarketingService
+                    .createProject(
+                        project
+                    );
+
+            const createdProject =
+                response?.data ||
+                response ||
+                project;
+
+            rememberRecentProject({
+                user,
+                source: "digital",
+                project: createdProject
+            });
 
 
             await loadProjects();

@@ -26,6 +26,9 @@ import {
 
 import { useAuth } from "../../context/AuthContext";
 
+import EmployeeService
+    from "../../services/EmployeeService";
+
 import "./Task.css";
 
 
@@ -51,6 +54,13 @@ const TaskEdit = () => {
 
     const [error, setError] =
         useState("");
+
+
+    const [employees, setEmployees] =
+        useState([]);
+
+    const [employeesLoading, setEmployeesLoading] =
+        useState(true);
 
 
     const getUserRole = () => {
@@ -149,10 +159,78 @@ const TaskEdit = () => {
     useEffect(() => {
 
         if (!authLoading) {
+
             loadTask();
+            loadEmployees();
+
         }
 
     }, [id, authLoading]);
+
+
+    const loadEmployees = async () => {
+
+        try {
+
+            setEmployeesLoading(true);
+
+            const response =
+                await EmployeeService
+                    .getAllEmployees();
+
+            const records =
+                Array.isArray(response?.data)
+                    ? response.data
+                    : [];
+
+            const sortedEmployees =
+                [...records]
+                    .sort((a, b) => {
+
+                        const nameA =
+                            `${a.firstName || ""} ${a.lastName || ""}`
+                                .trim() ||
+                            a.username ||
+                            "";
+
+                        const nameB =
+                            `${b.firstName || ""} ${b.lastName || ""}`
+                                .trim() ||
+                            b.username ||
+                            "";
+
+                        return nameA.localeCompare(nameB);
+
+                    });
+
+            setEmployees(sortedEmployees);
+
+        } catch (employeeError) {
+
+            console.error(
+                "Unable to load employees for task assignment:",
+                employeeError
+            );
+
+            setEmployees([]);
+
+            if (isAdmin) {
+
+                setError(
+                    employeeError.response?.data?.message ||
+                    employeeError.response?.data ||
+                    "Unable to load employees for task assignment."
+                );
+
+            }
+
+        } finally {
+
+            setEmployeesLoading(false);
+
+        }
+
+    };
 
 
     const loadTask = async () => {
@@ -768,14 +846,85 @@ const TaskEdit = () => {
                                     className="task-input-icon"
                                 />
 
-                                <input
+                                <select
                                     id="assignedTo"
-                                    type="text"
                                     name="assignedTo"
                                     value={task.assignedTo || ""}
                                     onChange={handleChange}
-                                    disabled={!isAdmin || saving}
-                                />
+                                    disabled={
+                                        !isAdmin ||
+                                        saving ||
+                                        employeesLoading
+                                    }
+                                >
+
+                                    <option value="">
+
+                                        {
+                                            employeesLoading
+                                                ? "Loading Employees..."
+                                                : "Select Employee"
+                                        }
+
+                                    </option>
+
+
+                                    {
+                                        task.assignedTo &&
+                                        !employees.some(
+                                            employee =>
+                                                employee.username ===
+                                                task.assignedTo
+                                        ) && (
+
+                                            <option value={task.assignedTo}>
+
+                                                {task.assignedTo}
+                                                {task.assignedToEmail
+                                                    ? ` — ${task.assignedToEmail}`
+                                                    : ""}
+
+                                            </option>
+
+                                        )
+                                    }
+
+
+                                    {
+                                        employees.map(employee => {
+
+                                            const fullName =
+                                                `${employee.firstName || ""} ${employee.lastName || ""}`
+                                                    .trim() ||
+                                                employee.username ||
+                                                "Unnamed Employee";
+
+                                            const employeeLabel =
+                                                fullName;
+
+                                            return (
+
+                                                <option
+                                                    key={
+                                                        employee.id ||
+                                                        employee.username
+                                                    }
+                                                    value={
+                                                        employee.username || ""
+                                                    }
+                                                    disabled={!employee.username}
+                                                >
+
+                                                    {employeeLabel}
+
+                                                </option>
+
+                                            );
+
+                                        })
+                                    }
+
+                                </select>
 
                             </div>
 

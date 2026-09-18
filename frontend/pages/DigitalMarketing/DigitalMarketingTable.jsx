@@ -1,8 +1,27 @@
+import { useAuth } from "../../context/AuthContext";
+
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
+
 const DigitalMarketingTable = ({
     projects,
     onEdit,
     onDelete
 }) => {
+
+    const { user } = useAuth();
+
+    const handleOpen = project => {
+
+        rememberRecentProject({
+            user,
+            source: "digital",
+            project
+        });
+
+        onEdit(project);
+
+    };
 
     return (
 
@@ -82,7 +101,7 @@ const DigitalMarketingTable = ({
 
                                     <button
                                         className="edit-btn"
-                                        onClick={() => onEdit(project)}
+                                        onClick={() => handleOpen(project)}
                                     >
                                         Edit
                                     </button>

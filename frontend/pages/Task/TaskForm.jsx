@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, {
+    useEffect,
+    useState
+} from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import {
@@ -14,6 +17,9 @@ import {
 } from "lucide-react";
 
 import { createTask } from "../../services/TaskService";
+
+import EmployeeService
+    from "../../services/EmployeeService";
 
 import "./Task.css";
 
@@ -73,6 +79,91 @@ const TaskForm = () => {
 
     const [error, setError] =
         useState("");
+
+
+    /*
+     ==========================================
+     EMPLOYEES
+     ==========================================
+
+     The employee list is loaded from the backend
+     so newly added employees automatically appear
+     in the Assigned To dropdown.
+     */
+
+    const [employees, setEmployees] =
+        useState([]);
+
+    const [employeesLoading, setEmployeesLoading] =
+        useState(true);
+
+
+    useEffect(() => {
+
+        loadEmployees();
+
+    }, []);
+
+
+    const loadEmployees = async () => {
+
+        try {
+
+            setEmployeesLoading(true);
+
+            const response =
+                await EmployeeService
+                    .getAllEmployees();
+
+            const records =
+                Array.isArray(response?.data)
+                    ? response.data
+                    : [];
+
+            const sortedEmployees =
+                [...records]
+                    .sort((a, b) => {
+
+                        const nameA =
+                            `${a.firstName || ""} ${a.lastName || ""}`
+                                .trim() ||
+                            a.username ||
+                            "";
+
+                        const nameB =
+                            `${b.firstName || ""} ${b.lastName || ""}`
+                                .trim() ||
+                            b.username ||
+                            "";
+
+                        return nameA.localeCompare(nameB);
+
+                    });
+
+            setEmployees(sortedEmployees);
+
+        } catch (employeeError) {
+
+            console.error(
+                "Unable to load employees for task assignment:",
+                employeeError
+            );
+
+            setEmployees([]);
+
+            setError(
+                employeeError.response?.data?.message ||
+                employeeError.response?.data ||
+                "Unable to load employees for task assignment."
+            );
+
+        } finally {
+
+            setEmployeesLoading(false);
+
+        }
+
+    };
 
 
     /*
@@ -531,19 +622,66 @@ const TaskForm = () => {
                                     />
 
 
-                                    <input
+                                    <select
                                         id="assignedTo"
-                                        type="text"
                                         name="assignedTo"
-                                        placeholder="Employee username or name"
                                         value={task.assignedTo}
                                         onChange={handleChange}
                                         required
-                                        disabled={loading}
-                                    />
+                                        disabled={
+                                            loading ||
+                                            employeesLoading
+                                        }
+                                    >
+
+                                        <option value="">
+
+                                            {
+                                                employeesLoading
+                                                    ? "Loading Employees..."
+                                                    : "Select Employee"
+                                            }
+
+                                        </option>
+
+
+                                        {
+                                            employees.map(employee => {
+
+                                                const fullName =
+                                                    `${employee.firstName || ""} ${employee.lastName || ""}`
+                                                        .trim() ||
+                                                    employee.username ||
+                                                    "Unnamed Employee";
+
+                                                const employeeLabel =
+                                                    fullName;
+
+                                                return (
+
+                                                    <option
+                                                        key={
+                                                            employee.id ||
+                                                            employee.username
+                                                        }
+                                                        value={
+                                                            employee.username || ""
+                                                        }
+                                                        disabled={!employee.username}
+                                                    >
+
+                                                        {employeeLabel}
+
+                                                    </option>
+
+                                                );
+
+                                            })
+                                        }
+
+                                    </select>
 
                                 </div>
-
 
                             </div>
 

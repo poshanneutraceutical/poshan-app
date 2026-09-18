@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+import { useAuth } from "../../context/AuthContext";
+
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
 import DesigningService from "../../services/DesigningService";
 
 import DesigningForm from "./DesigningForm";
@@ -11,6 +15,8 @@ import "./Designing.css";
 
 
 const Designing = () => {
+
+    const { user } = useAuth();
 
     const [
         projects,
@@ -116,6 +122,12 @@ const Designing = () => {
         project
     ) => {
 
+        rememberRecentProject({
+            user,
+            source: "designing",
+            project
+        });
+
         setSelectedProject(
             project
         );
@@ -195,10 +207,22 @@ const Designing = () => {
 
             else {
 
-                await DesigningService
-                    .createProject(
-                        project
-                    );
+                const response =
+                    await DesigningService
+                        .createProject(
+                            project
+                        );
+
+                const createdProject =
+                    response?.data ||
+                    response ||
+                    project;
+
+                rememberRecentProject({
+                    user,
+                    source: "designing",
+                    project: createdProject
+                });
 
             }
 

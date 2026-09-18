@@ -597,6 +597,39 @@
 
 
 /* =========================================================
+   ASSIGNEE DETAILS
+========================================================= */
+
+.task-module .task-assignee-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 190px;
+}
+
+.task-module .task-assignee-name {
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.task-module .task-assignee-email,
+.task-module .task-assignee-username,
+.task-module .task-info-secondary {
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.task-module .task-assignee-email {
+    color: #2563eb;
+    font-weight: 500;
+    white-space: normal;
+}
+
+
+/* =========================================================
    LOADING
 ========================================================= */
 

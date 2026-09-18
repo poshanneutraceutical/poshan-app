@@ -7,6 +7,10 @@ import {
     useNavigate
 } from "react-router-dom";
 
+import { useAuth } from "../../context/AuthContext";
+
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
 import webDevelopmentService
     from "../../services/WebDevelopmentService";
 
@@ -20,6 +24,8 @@ const WebDevelopmentList = () => {
 
     const navigate =
         useNavigate();
+
+    const { user } = useAuth();
 
 
     const [
@@ -452,11 +458,17 @@ const WebDevelopmentList = () => {
                                                 <button
                                                     type="button"
                                                     className="view-btn"
-                                                    onClick={() =>
+                                                    onClick={() => {
+                                                        rememberRecentProject({
+                                                            user,
+                                                            source: "web",
+                                                            project
+                                                        });
+
                                                         navigate(
                                                             `/web/development/${project.id}`
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                 >
 
                                                     View
@@ -467,11 +479,17 @@ const WebDevelopmentList = () => {
                                                 <button
                                                     type="button"
                                                     className="edit-btn"
-                                                    onClick={() =>
+                                                    onClick={() => {
+                                                        rememberRecentProject({
+                                                            user,
+                                                            source: "web",
+                                                            project
+                                                        });
+
                                                         navigate(
                                                             `/web/development/edit/${project.id}`
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                 >
 
                                                     Edit

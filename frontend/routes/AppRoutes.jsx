@@ -210,16 +210,17 @@ function AppRoutes() {
 
                 {/* =================================================
                     MAIN DASHBOARD
-                    ADMIN ONLY
+
+                    ALL LOGGED-IN USERS
+
+                    The dashboard itself is now personalized from
+                    the same role/position rules already used by
+                    the ERP navigation.
                 ================================================= */}
 
                 <Route
                     path="/dashboard"
-                    element={
-                        <RoleBasedRoute role="ADMIN">
-                            <Dashboard />
-                        </RoleBasedRoute>
-                    }
+                    element={<Dashboard />}
                 />
 
 

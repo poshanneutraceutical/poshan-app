@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../../context/AuthContext";
+
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
 import webDevelopmentService from "../../services/WebDevelopmentService";
 
 import "./WebDevelopment.css";
@@ -8,6 +12,8 @@ import "./WebDevelopment.css";
 const AddWebProject = () => {
 
     const navigate = useNavigate();
+
+    const { user } = useAuth();
 
     const [project, setProject] = useState({
 
@@ -44,7 +50,14 @@ const AddWebProject = () => {
 
         try {
 
-            await webDevelopmentService.create(project);
+            const createdProject =
+                await webDevelopmentService.create(project);
+
+            rememberRecentProject({
+                user,
+                source: "web",
+                project: createdProject
+            });
 
             alert("Project Created Successfully");
 

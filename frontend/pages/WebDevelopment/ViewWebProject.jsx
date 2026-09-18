@@ -1,3 +1,6 @@
+import { useAuth } from "../../context/AuthContext";
+import { rememberRecentProject } from "../../Utils/recentProjects";
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -10,6 +13,8 @@ const ViewWebProject = () => {
     const { id } = useParams();
 
     const navigate = useNavigate();
+
+    const { user } = useAuth();
 
     const [project, setProject] = useState(null);
 
@@ -29,6 +34,12 @@ const ViewWebProject = () => {
                 await webDevelopmentService.getById(id);
 
             setProject(data);
+
+            rememberRecentProject({
+                user,
+                source: "web",
+                project: data
+            });
 
         }
         catch (error) {

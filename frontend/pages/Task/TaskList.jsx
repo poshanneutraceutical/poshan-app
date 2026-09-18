@@ -276,7 +276,9 @@ const TaskList = () => {
             const searchableText = [
 
                 task.title,
+                task.assignedToName,
                 task.assignedTo,
+                task.assignedToEmail,
                 task.department,
                 task.priority,
                 task.status
@@ -496,7 +498,36 @@ const TaskList = () => {
 
                                     <td>
 
-                                        {task.assignedTo || "-"}
+                                        <div className="task-assignee-cell">
+
+                                            <strong className="task-assignee-name">
+
+                                                {task.assignedToName || task.assignedTo || "-"}
+
+                                            </strong>
+
+                                            {task.assignedToEmail && (
+
+                                                <span className="task-assignee-email">
+
+                                                    {task.assignedToEmail}
+
+                                                </span>
+
+                                            )}
+
+                                            {task.assignedTo &&
+                                                task.assignedTo !== task.assignedToName && (
+
+                                                    <span className="task-assignee-username">
+
+                                                        @{task.assignedTo}
+
+                                                    </span>
+
+                                                )}
+
+                                        </div>
 
                                     </td>
 
