@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {
+    useEffect,
+    useMemo,
+    useState
+} from "react";
+
 import {
     ArrowLeft,
     User,
@@ -8,17 +13,40 @@ import {
     Package
 } from "lucide-react";
 
-import { Link, useParams } from "react-router-dom";
+import {
+    Link,
+    useParams
+} from "react-router-dom";
 
-import ReceivingMaterialService from "../../services/ReceivingMaterialService";
+import ReceivingMaterialService
+    from "../../services/ReceivingMaterialService";
+
 
 const ReceivingDetails = () => {
 
-    const { id } = useParams();
 
-    const [receiving, setReceiving] = useState(null);
+    const {
+        id
+    } = useParams();
 
-    const [loading, setLoading] = useState(true);
+
+    const [
+        receiving,
+        setReceiving
+    ] = useState(null);
+
+
+    const [
+        loading,
+        setLoading
+    ] = useState(true);
+
+
+    /*
+     =========================================================
+     LOAD RECEIVING MATERIAL
+     =========================================================
+     */
 
     useEffect(() => {
 
@@ -26,16 +54,22 @@ const ReceivingDetails = () => {
 
     }, [id]);
 
+
     const loadReceiving = async () => {
 
         try {
 
             setLoading(true);
 
-            const data =
-                await ReceivingMaterialService.getMaterialById(id);
 
-            setReceiving(data);
+            const data =
+                await ReceivingMaterialService
+                    .getMaterialById(id);
+
+
+            setReceiving(
+                data
+            );
 
         }
         catch (error) {
@@ -54,7 +88,182 @@ const ReceivingDetails = () => {
 
     };
 
-    if (loading) {
+
+    /*
+     =========================================================
+     IMAGE URL
+     =========================================================
+
+     Stored backend image examples:
+
+         /uploads/receiving-material/abc.jpg
+
+     Production:
+         https://erp.nutriposhannutraceutical.com/uploads/...
+
+     Local:
+         http://localhost:8086/uploads/...
+     =========================================================
+     */
+
+    const getImageUrl = (
+        imagePath
+    ) => {
+
+        if (!imagePath) {
+
+            return "";
+
+        }
+
+
+        const path =
+            String(
+                imagePath
+            ).trim();
+
+
+        if (!path) {
+
+            return "";
+
+        }
+
+
+        /*
+         * Already a complete URL.
+         */
+
+        if (
+            path.startsWith("http://") ||
+            path.startsWith("https://") ||
+            path.startsWith("data:")
+        ) {
+
+            return path;
+
+        }
+
+
+        /*
+         * Make sure the stored path starts
+         * with a slash.
+         */
+
+        const normalizedPath =
+            path.startsWith("/")
+                ? path
+                : `/${path}`;
+
+
+        /*
+         * Local development.
+         */
+
+        const isLocal =
+            window.location.hostname ===
+                "localhost"
+            ||
+            window.location.hostname ===
+                "127.0.0.1";
+
+
+        if (
+            isLocal
+        ) {
+
+            return `http://localhost:8086${normalizedPath}`;
+
+        }
+
+
+        /*
+         * Production.
+
+         * Nginx serves /uploads directly from
+         * the production server.
+         */
+
+        return normalizedPath;
+
+    };
+
+
+    /*
+     =========================================================
+     BUILD IMAGE LIST
+     =========================================================
+
+     Current backend:
+         materialPhotos = []
+
+     Old records / old backend:
+         billImage = "..."
+
+     Support both.
+     =========================================================
+     */
+
+    const imageList =
+        useMemo(() => {
+
+            const photos =
+                Array.isArray(
+                    receiving?.materialPhotos
+                )
+                    ? receiving.materialPhotos
+                    : [];
+
+
+            const normalizedPhotos =
+                photos
+                    .filter(
+                        photo =>
+                            photo !== null &&
+                            photo !== undefined &&
+                            String(photo).trim() !== ""
+                    )
+                    .map(
+                        photo =>
+                            String(photo)
+                    );
+
+
+            /*
+             * Legacy billImage compatibility.
+             */
+
+            if (
+                receiving?.billImage
+                    &&
+                normalizedPhotos.length === 0
+            ) {
+
+                return [
+                    String(
+                        receiving.billImage
+                    )
+                ];
+
+            }
+
+
+            return normalizedPhotos;
+
+        }, [
+            receiving
+        ]);
+
+
+    /*
+     =========================================================
+     LOADING
+     =========================================================
+     */
+
+    if (
+        loading
+    ) {
 
         return (
 
@@ -68,7 +277,16 @@ const ReceivingDetails = () => {
 
     }
 
-    if (!receiving) {
+
+    /*
+     =========================================================
+     NOT FOUND
+     =========================================================
+     */
+
+    if (
+        !receiving
+    ) {
 
         return (
 
@@ -82,9 +300,21 @@ const ReceivingDetails = () => {
 
     }
 
+
+    /*
+     =========================================================
+     PAGE
+     =========================================================
+     */
+
     return (
 
         <div className="receiving-details-container">
+
+
+            {/* =================================================
+                HEADER
+            ================================================= */}
 
             <div className="details-header">
 
@@ -96,20 +326,29 @@ const ReceivingDetails = () => {
 
                     </h2>
 
+
                     <p>
 
-                        Bill Number : {receiving.billNumber}
+                        Bill Number :{" "}
+
+                        {
+                            receiving.billNumber ||
+                            "-"
+                        }
 
                     </p>
 
                 </div>
+
 
                 <Link
                     to="/procurement/receiving-material"
                     className="back-btn"
                 >
 
-                    <ArrowLeft size={18} />
+                    <ArrowLeft
+                        size={18}
+                    />
 
                     Back
 
@@ -117,17 +356,29 @@ const ReceivingDetails = () => {
 
             </div>
 
+
+            {/* =================================================
+                BASIC DETAILS
+            ================================================= */}
+
             <div className="details-card">
 
-                <table className="details-table">
+                <table
+                    className="details-table"
+                >
 
                     <tbody>
+
+
+                        {/* SUPPLIER */}
 
                         <tr>
 
                             <td>
 
-                                <User size={16} />
+                                <User
+                                    size={16}
+                                />
 
                                 Supplier Name
 
@@ -135,17 +386,25 @@ const ReceivingDetails = () => {
 
                             <td>
 
-                                {receiving.supplierName}
+                                {
+                                    receiving.supplierName ||
+                                    "-"
+                                }
 
                             </td>
 
                         </tr>
 
+
+                        {/* RECEIVER */}
+
                         <tr>
 
                             <td>
 
-                                <User size={16} />
+                                <User
+                                    size={16}
+                                />
 
                                 Receiver Name
 
@@ -153,17 +412,25 @@ const ReceivingDetails = () => {
 
                             <td>
 
-                                {receiving.receiverName}
+                                {
+                                    receiving.receiverName ||
+                                    "-"
+                                }
 
                             </td>
 
                         </tr>
 
+
+                        {/* BILL NUMBER */}
+
                         <tr>
 
                             <td>
 
-                                <FileText size={16} />
+                                <FileText
+                                    size={16}
+                                />
 
                                 Bill Number
 
@@ -171,17 +438,25 @@ const ReceivingDetails = () => {
 
                             <td>
 
-                                {receiving.billNumber}
+                                {
+                                    receiving.billNumber ||
+                                    "-"
+                                }
 
                             </td>
 
                         </tr>
 
+
+                        {/* RECEIVED DATE */}
+
                         <tr>
 
                             <td>
 
-                                <Calendar size={16} />
+                                <Calendar
+                                    size={16}
+                                />
 
                                 Received Date
 
@@ -209,6 +484,9 @@ const ReceivingDetails = () => {
 
                         </tr>
 
+
+                        {/* REMARKS */}
+
                         <tr>
 
                             <td>
@@ -219,17 +497,26 @@ const ReceivingDetails = () => {
 
                             <td>
 
-                                {receiving.remarks || "-"}
+                                {
+                                    receiving.remarks ||
+                                    "-"
+                                }
 
                             </td>
 
                         </tr>
+
 
                     </tbody>
 
                 </table>
 
             </div>
+
+
+            {/* =================================================
+                BILL / MATERIAL IMAGES
+            ================================================= */}
 
             <div className="details-card">
 
@@ -239,19 +526,112 @@ const ReceivingDetails = () => {
 
                 </h3>
 
+
                 {
 
-                    receiving.billImage
+                    imageList.length > 0
 
                         ?
 
                         (
 
-                            <img
-                                src={receiving.billImage}
-                                alt="Bill"
-                                className="bill-image"
-                            />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: "16px",
+                                    marginTop: "15px"
+                                }}
+                            >
+
+                                {
+
+                                    imageList.map(
+                                        (
+                                            imagePath,
+                                            index
+                                        ) => (
+
+                                            <div
+                                                key={
+                                                    `${imagePath}-${index}`
+                                                }
+                                                style={{
+                                                    width: "220px",
+                                                    maxWidth: "100%"
+                                                }}
+                                            >
+
+                                                <a
+                                                    href={
+                                                        getImageUrl(
+                                                            imagePath
+                                                        )
+                                                    }
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+
+                                                    <img
+                                                        src={
+                                                            getImageUrl(
+                                                                imagePath
+                                                            )
+                                                        }
+                                                        alt={
+                                                            `Receiving material ${index + 1}`
+                                                        }
+                                                        className="bill-image"
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "220px",
+                                                            objectFit: "contain",
+                                                            borderRadius: "10px",
+                                                            border: "1px solid #ddd",
+                                                            background: "#f7f7f7",
+                                                            display: "block"
+                                                        }}
+                                                        onError={
+                                                            event => {
+
+                                                                console.error(
+                                                                    "Failed to load receiving material image:",
+                                                                    imagePath
+                                                                );
+
+                                                                event.currentTarget.style.display =
+                                                                    "none";
+
+                                                            }
+                                                        }
+                                                    />
+
+                                                </a>
+
+
+                                                <div
+                                                    style={{
+                                                        marginTop: "8px",
+                                                        fontSize: "12px",
+                                                        color: "#666",
+                                                        wordBreak: "break-word"
+                                                    }}
+                                                >
+
+                                                    {
+                                                        `Image ${index + 1}`
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                        )
+                                    )
+
+                                }
+
+                            </div>
 
                         )
 
@@ -261,7 +641,10 @@ const ReceivingDetails = () => {
 
                             <div className="no-image">
 
-                                <Image size={60} />
+                                <Image
+                                    size={60}
+                                />
+
 
                                 <p>
 
@@ -277,6 +660,11 @@ const ReceivingDetails = () => {
 
             </div>
 
+
+            {/* =================================================
+                RECEIVED ITEMS
+            ================================================= */}
+
             <div className="details-card">
 
                 <h3>
@@ -285,7 +673,10 @@ const ReceivingDetails = () => {
 
                 </h3>
 
-                <table className="receiving-table">
+
+                <table
+                    className="receiving-table"
+                >
 
                     <thead>
 
@@ -307,41 +698,63 @@ const ReceivingDetails = () => {
 
                     </thead>
 
+
                     <tbody>
 
                         {
 
-                            receiving.receivingMaterialItems.length > 0
+                            Array.isArray(
+                                receiving.receivingMaterialItems
+                            )
+                            &&
+                            receiving
+                                .receivingMaterialItems
+                                .length > 0
 
                                 ?
 
                                 (
 
-                                    receiving.receivingMaterialItems.map(item => (
+                                    receiving
+                                        .receivingMaterialItems
+                                        .map(
+                                            item => (
 
-                                        <tr key={item.id}>
+                                                <tr
+                                                    key={
+                                                        item.id
+                                                    }
+                                                >
 
-                                            <td>
+                                                    <td>
 
-                                                <Package
-                                                    size={16}
-                                                />
+                                                        <Package
+                                                            size={16}
+                                                        />
 
-                                                {" "}
+                                                        {" "}
 
-                                                {item.boxType}
+                                                        {
+                                                            item.boxType ||
+                                                            "-"
+                                                        }
 
-                                            </td>
+                                                    </td>
 
-                                            <td>
 
-                                                {item.materialQuantity}
+                                                    <td>
 
-                                            </td>
+                                                        {
+                                                            item.materialQuantity ??
+                                                            "-"
+                                                        }
 
-                                        </tr>
+                                                    </td>
 
-                                    ))
+                                                </tr>
+
+                                            )
+                                        )
 
                                 )
 
@@ -371,10 +784,12 @@ const ReceivingDetails = () => {
 
             </div>
 
+
         </div>
 
     );
 
 };
+
 
 export default ReceivingDetails;

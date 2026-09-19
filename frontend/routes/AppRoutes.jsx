@@ -218,11 +218,7 @@ function AppRoutes() {
 
                 <Route
                     path="/dashboard"
-                    element={
-                        <RoleBasedRoute role="ADMIN">
-                            <Dashboard />
-                        </RoleBasedRoute>
-                    }
+                    element={<Dashboard />}
                 />
 
 
