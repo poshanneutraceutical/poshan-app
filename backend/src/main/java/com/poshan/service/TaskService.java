@@ -25,6 +25,8 @@ public class TaskService {
 
     private final UserRepository userRepository;
 
+    private final NotificationService notificationService;
+
 
     /*
     ==========================================
@@ -82,6 +84,8 @@ public class TaskService {
 
         Task savedTask =
                 taskRepository.save(task);
+
+        notificationService.createTaskCreatedNotifications(savedTask);
 
         return mapToDTO(savedTask);
     }

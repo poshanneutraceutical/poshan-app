@@ -11,36 +11,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebDevelopmentService {
     private final WebDevelopmentRepository webDevelopmentRepository;
-     public WebDevelopmentDTO createProject(WebDevelopmentDTO webDevelopmentDTO){
-         WebDevelopment web = new WebDevelopment();
-         web.setPriority(webDevelopmentDTO.getPriority());
-         web.setCompanyname(webDevelopmentDTO.getCompanyname());
-         web.setContactperson(webDevelopmentDTO.getContactperson());
-         web.setProjectname(webDevelopmentDTO.getProjectname());
-         web.setProjecttype(webDevelopmentDTO.getProjecttype());
-         web.setStatus(webDevelopmentDTO.getStatus());
-         web.setAssigndate(webDevelopmentDTO.getAssigndate());
-         web.setAssigndeveloper(webDevelopmentDTO.getAssigndeveloper());
-         web.setDuedate(webDevelopmentDTO.getDuedate());
-         web.setNotes(webDevelopmentDTO.getNotes());
+    private final NotificationService notificationService;
+    public WebDevelopmentDTO createProject(WebDevelopmentDTO webDevelopmentDTO){
+        WebDevelopment web = new WebDevelopment();
+        web.setPriority(webDevelopmentDTO.getPriority());
+        web.setCompanyname(webDevelopmentDTO.getCompanyname());
+        web.setContactperson(webDevelopmentDTO.getContactperson());
+        web.setProjectname(webDevelopmentDTO.getProjectname());
+        web.setProjecttype(webDevelopmentDTO.getProjecttype());
+        web.setStatus(webDevelopmentDTO.getStatus());
+        web.setAssigndate(webDevelopmentDTO.getAssigndate());
+        web.setAssigndeveloper(webDevelopmentDTO.getAssigndeveloper());
+        web.setDuedate(webDevelopmentDTO.getDuedate());
+        web.setNotes(webDevelopmentDTO.getNotes());
 
-         WebDevelopment savedProject = webDevelopmentRepository.save(web);
+        WebDevelopment savedProject = webDevelopmentRepository.save(web);
 
-         return mapToDTO(savedProject);
+        notificationService.createWebProjectNotifications(savedProject);
+
+        return mapToDTO(savedProject);
 
     }
 
     public WebDevelopmentDTO getProjectById(Long id){
-            WebDevelopment web = webDevelopmentRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Project not found "));
+        WebDevelopment web = webDevelopmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found "));
         return mapToDTO(web);
 
     }
     public List<WebDevelopmentDTO> getAllProject(){
-         return  webDevelopmentRepository.findAll()
-                 .stream()
-                 .map(web -> mapToDTO(web))
-                 .toList();
+        return  webDevelopmentRepository.findAll()
+                .stream()
+                .map(web -> mapToDTO(web))
+                .toList();
     }
     public void deleteProjectById(Long id){
         if (!webDevelopmentRepository.existsById(id)) {
@@ -49,7 +52,7 @@ public class WebDevelopmentService {
         webDevelopmentRepository.deleteById(id);
     }
     public WebDevelopmentDTO updateProject(Long id, WebDevelopmentDTO webDevelopmentDTO) {
-       WebDevelopment web  = webDevelopmentRepository.findById(id)
+        WebDevelopment web  = webDevelopmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("project not found with id: " + id));
         web.setNotes(webDevelopmentDTO.getNotes());
         web.setCompanyname(webDevelopmentDTO.getCompanyname());

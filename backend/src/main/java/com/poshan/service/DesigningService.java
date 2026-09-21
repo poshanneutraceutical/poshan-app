@@ -16,6 +16,7 @@ import java.util.List;
 public class  DesigningService {
 
     private final DesigningRepository designingRepository;
+    private final NotificationService notificationService;
 
     public DesigningDTO creatdesignproject(DesigningDTO designingDTO){
         DesigningEntity design = new DesigningEntity();
@@ -29,48 +30,49 @@ public class  DesigningService {
         design.setDuedate(designingDTO.getDuedate());
         design.setNotes(designingDTO.getNotes());
 
-         DesigningEntity savedDesign = designingRepository.save(design);
+        DesigningEntity savedDesign = designingRepository.save(design);
+        notificationService.createDesignProjectNotifications(savedDesign);
         return mapToDTO(savedDesign);
 
 
     }
-     public DesigningDTO updatedesignproject(Long id ,DesigningDTO designingDTO){
-         DesigningEntity design = designingRepository.findById(id)
-                 .orElseThrow(() -> new RuntimeException("project not found with id: " + id));
-         design.setId(designingDTO.getId());
-         design.setProjectname(designingDTO.getProjectname());
-         design.setCompanyname(designingDTO.getCompanyname());
-         design.setDesigntype(designingDTO.getDesigntype());
-         design.setStatus(designingDTO.getStatus());
-         design.setAssignby(designingDTO.getAssignby());
-         design.setAssignto(designingDTO.getAssignto());
-         design.setDuedate(designingDTO.getDuedate());
-         design.setNotes(designingDTO.getNotes());
+    public DesigningDTO updatedesignproject(Long id ,DesigningDTO designingDTO){
+        DesigningEntity design = designingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("project not found with id: " + id));
 
-         DesigningEntity savedDesign = designingRepository.save(design);
-         return mapToDTO(savedDesign);
-     }
+        design.setProjectname(designingDTO.getProjectname());
+        design.setCompanyname(designingDTO.getCompanyname());
+        design.setDesigntype(designingDTO.getDesigntype());
+        design.setStatus(designingDTO.getStatus());
+        design.setAssignby(designingDTO.getAssignby());
+        design.setAssignto(designingDTO.getAssignto());
+        design.setDuedate(designingDTO.getDuedate());
+        design.setNotes(designingDTO.getNotes());
 
-     public void deletedesignproject(Long id){
+        DesigningEntity savedDesign = designingRepository.save(design);
+        return mapToDTO(savedDesign);
+    }
+
+    public void deletedesignproject(Long id){
         if(!designingRepository.existsById(id)) {
-             throw new RuntimeException("Project not found with given id");
+            throw new RuntimeException("Project not found with given id");
         }
         designingRepository.deleteById(id);
 
-     }
+    }
 
-     public List<DesigningDTO> getalldesignproject(){
-         return designingRepository.findAll()
-                 .stream()
-                 .map(design-> mapToDTO(design))
-                 .toList();
-     }
+    public List<DesigningDTO> getalldesignproject(){
+        return designingRepository.findAll()
+                .stream()
+                .map(design-> mapToDTO(design))
+                .toList();
+    }
 
-     public DesigningDTO getdesignprojectbyid(Long id){
-          DesigningEntity design =designingRepository.findById(id)
+    public DesigningDTO getdesignprojectbyid(Long id){
+        DesigningEntity design =designingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("project not found with given id "));
         return mapToDTO(design);
-     }
+    }
     private DesigningDTO mapToDTO(DesigningEntity designingEntity) {
         DesigningDTO dto = new DesigningDTO();
         dto.setId(designingEntity.getId());

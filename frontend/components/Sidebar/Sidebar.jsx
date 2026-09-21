@@ -159,6 +159,21 @@ function Sidebar({ open = false, onClose = () => {} }) {
     };
 
 
+    const notificationItem = {
+
+        name: "Notifications",
+
+        path: "/notifications",
+
+        icon: (
+            <Bell
+                size={20}
+            />
+        )
+
+    };
+
+
     /*
      ==========================================
      ADMIN
@@ -233,6 +248,10 @@ function Sidebar({ open = false, onClose = () => {} }) {
                     item={attendanceItem}
                 />
 
+                <SidebarItem
+                    item={notificationItem}
+                />
+
             </SidebarContainer>
 
         );
@@ -288,6 +307,10 @@ function Sidebar({ open = false, onClose = () => {} }) {
                     item={attendanceItem}
                 />
 
+                <SidebarItem
+                    item={notificationItem}
+                />
+
             </SidebarContainer>
 
         );
@@ -335,6 +358,10 @@ function Sidebar({ open = false, onClose = () => {} }) {
                     item={attendanceItem}
                 />
 
+                <SidebarItem
+                    item={notificationItem}
+                />
+
             </SidebarContainer>
 
         );
@@ -368,6 +395,10 @@ function Sidebar({ open = false, onClose = () => {} }) {
                     item={attendanceItem}
                 />
 
+                <SidebarItem
+                    item={notificationItem}
+                />
+
             </SidebarContainer>
 
         );
@@ -391,6 +422,10 @@ function Sidebar({ open = false, onClose = () => {} }) {
 
                 <SidebarItem
                     item={attendanceItem}
+                />
+
+                <SidebarItem
+                    item={notificationItem}
                 />
 
             </SidebarContainer>

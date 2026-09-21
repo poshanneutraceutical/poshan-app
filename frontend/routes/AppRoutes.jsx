@@ -850,20 +850,14 @@ function AppRoutes() {
 
                 {/* =================================================
                     NOTIFICATIONS
-                    ADMIN ONLY
+
+                    ALL LOGGED-IN USERS
+                    Each user only sees their own notifications.
                 ================================================= */}
 
                 <Route
                     path="/notifications"
-                    element={
-
-                        <RoleBasedRoute role="ADMIN">
-
-                            <Notification />
-
-                        </RoleBasedRoute>
-
-                    }
+                    element={<Notification />}
                 />
 
 

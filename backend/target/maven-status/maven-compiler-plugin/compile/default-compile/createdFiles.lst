@@ -22,6 +22,7 @@ com\poshan\repository\ManualAttendanceRepository.class
 com\poshan\repository\OpeningRepository.class
 com\poshan\dto\DashboardDTO.class
 com\poshan\entity\AttendenceEntity.class
+com\poshan\service\NotificationService$1.class
 com\poshan\dto\CompanyDetailDTO.class
 com\poshan\dto\ManualAttendancePersonDTO.class
 com\poshan\dto\InventoryCategoryDTO.class

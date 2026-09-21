@@ -724,6 +724,71 @@ const PROJECT_CONFIG = {
 };
 
 
+const DASHBOARD_MODULE_CARDS = [
+
+    {
+        key: "dashboard-web-development",
+        displayName: "Web Development",
+        label: "Module",
+        icon: Globe,
+        className: "web",
+        route: "/web/development",
+        isDashboardModule: true
+    },
+
+    {
+        key: "dashboard-designing",
+        displayName: "Designing Project",
+        label: "Module",
+        icon: Palette,
+        className: "designing",
+        route: "/design/projects",
+        isDashboardModule: true
+    },
+
+    {
+        key: "dashboard-production",
+        displayName: "Production Plan",
+        label: "Module",
+        icon: Settings,
+        className: "default",
+        route: "/production",
+        isDashboardModule: true
+    },
+
+    {
+        key: "dashboard-delivery",
+        displayName: "Delivery",
+        label: "Module",
+        icon: Truck,
+        className: "default",
+        route: "/sales/delivery",
+        isDashboardModule: true
+    },
+
+    {
+        key: "dashboard-digital-marketing",
+        displayName: "Digital Marketing",
+        label: "Module",
+        icon: Megaphone,
+        className: "digital",
+        route: "/digital/marketing",
+        isDashboardModule: true
+    },
+
+    {
+        key: "dashboard-manual-attendance",
+        displayName: "Manual Attendance",
+        label: "Module",
+        icon: CalendarDays,
+        className: "default",
+        route: "/attendance/manual",
+        isDashboardModule: true
+    }
+
+];
+
+
 const normalizeProjects = (source, response) => {
 
     const rawProjects =
@@ -989,88 +1054,55 @@ const AdminDashboard = () => {
     );
 
 
-    const recentProjects = useMemo(
+    const getProjectAssignedDate = project => {
+
+    const candidates = [
+        project.assigndate,
+        project.assignDate,
+        project.assign_date
+    ];
+
+    for (const value of candidates) {
+
+        if (!value) {
+            continue;
+        }
+
+        const timestamp =
+            new Date(value).getTime();
+
+        if (!Number.isNaN(timestamp)) {
+            return timestamp;
+        }
+
+    }
+
+    return 0;
+
+};
+
+
+const recentProjects = useMemo(
         () => {
 
-            const openedProjects = recentHistory
-                .map(item => {
-                    const project =
-                        projectByKey.get(item.key);
+            return [...projects]
+                .sort((a, b) => {
 
-                    if (!project) {
-                        return null;
+                    const assignedDateDifference =
+                        getProjectAssignedDate(b) -
+                        getProjectAssignedDate(a);
+
+                    if (assignedDateDifference !== 0) {
+                        return assignedDateDifference;
                     }
 
-                    return {
-                        ...project,
-                        recentOpenedAt:
-                            Number(item.timestamp) || 0
-                    };
-                })
-                .filter(Boolean);
+                    return Number(b.id || 0) -
+                        Number(a.id || 0);
 
-            const openedKeys = new Set(
-                openedProjects.map(
-                    project => project.key
-                )
-            );
-
-            const recentlyAddedCandidates =
-                sortProjectsByDateAndId(
-                    projects
-                );
-
-            const merged = [
-                ...openedProjects,
-                ...recentlyAddedCandidates.filter(
-                    project =>
-                        !openedKeys.has(project.key)
-                )
-            ];
-
-            return merged
-                .sort(
-                    (a, b) => {
-
-                        const aOpen =
-                            Number(
-                                a.recentOpenedAt || 0
-                            );
-
-                        const bOpen =
-                            Number(
-                                b.recentOpenedAt || 0
-                            );
-
-                        if (
-                            aOpen !== 0 ||
-                            bOpen !== 0
-                        ) {
-
-                            return (
-                                Math.max(
-                                    bOpen,
-                                    getProjectDate(b)
-                                ) -
-                                Math.max(
-                                    aOpen,
-                                    getProjectDate(a)
-                                )
-                            );
-
-                        }
-
-                        return (
-                            getProjectDate(b) -
-                            getProjectDate(a)
-                        );
-
-                    }
-                )
-                .slice(0, 6);
+                });
 
         },
-        [recentHistory, projectByKey, projects]
+        [projects]
     );
 
 
@@ -1140,9 +1172,32 @@ const AdminDashboard = () => {
     );
 
 
-    const visibleProjects = showAllProjects
-        ? filteredProjects
-        : filteredProjects.slice(0, 9);
+    const visibleProjects = useMemo(
+        () => {
+
+            const query =
+                projectQuery
+                    .trim()
+                    .toLowerCase();
+
+            if (!query) {
+                return DASHBOARD_MODULE_CARDS;
+            }
+
+            return DASHBOARD_MODULE_CARDS.filter(
+                module =>
+                    [
+                        module.displayName,
+                        module.label
+                    ]
+                        .join(" ")
+                        .toLowerCase()
+                        .includes(query)
+            );
+
+        },
+        [projectQuery]
+    );
 
 
     const recentTasks = useMemo(
@@ -1237,6 +1292,51 @@ const AdminDashboard = () => {
 
 
     const renderProjectCard = project => {
+
+        if (project?.isDashboardModule) {
+
+            const ModuleIcon = project.icon;
+
+            return (
+
+                <button
+                    key={project.key}
+                    type="button"
+                    className={`admin-project-card ${project.className}`}
+                    onClick={() =>
+                        navigate(project.route)
+                    }
+                >
+
+                    <span className="admin-project-card-icon">
+
+                        <ModuleIcon size={22} />
+
+                    </span>
+
+                    <span className="admin-project-card-body">
+
+                        <strong>
+                            {project.displayName}
+                        </strong>
+
+                        <small>
+                            {project.label}
+                        </small>
+
+                    </span>
+
+                    <ChevronRight
+                        size={18}
+                        className="admin-project-card-arrow"
+                    />
+
+                </button>
+
+            );
+
+        }
+
 
         const config =
             PROJECT_CONFIG[
@@ -1455,11 +1555,62 @@ const AdminDashboard = () => {
 
                         : (
 
-                            <div className="admin-dashboard-recents-grid">
+                            <div
+                                style={{
+                                    maxHeight: "300px",
+                                    overflowY: "auto",
+                                    paddingRight: "8px"
+                                }}
+                            >
 
-                                {recentProjects.map(
-                                    renderProjectCard
-                                )}
+                                <ol
+                                    style={{
+                                        margin: 0,
+                                        paddingLeft: "28px",
+                                        paddingRight: "6px"
+                                    }}
+                                >
+
+                                    {recentProjects.map(
+                                        (project, index) => (
+
+                                            <li
+                                                key={project.key}
+                                                style={{
+                                                    marginBottom: index === recentProjects.length - 1 ? 0 : "10px",
+                                                    padding: "2px 0"
+                                                }}
+                                            >
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        openProject(project)
+                                                    }
+                                                    style={{
+                                                        display: "block",
+                                                        width: "100%",
+                                                        padding: "0",
+                                                        margin: 0,
+                                                        border: "none",
+                                                        background: "transparent",
+                                                        color: "#19243a",
+                                                        fontSize: "15px",
+                                                        fontWeight: 650,
+                                                        lineHeight: 1.5,
+                                                        textAlign: "left",
+                                                        cursor: "pointer"
+                                                    }}
+                                                >
+                                                    {project.displayName}
+                                                </button>
+
+                                            </li>
+
+                                        )
+                                    )}
+
+                                </ol>
 
                             </div>
 
@@ -1560,6 +1711,20 @@ const AdminDashboard = () => {
                                             </span>
                                         </button>
 
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                navigate(
+                                                    "/production?create=true"
+                                                )
+                                            }
+                                        >
+                                            <Settings size={18} />
+                                            <span>
+                                                Production Plan
+                                            </span>
+                                        </button>
+
                                     </div>
 
                                 )
@@ -1576,16 +1741,8 @@ const AdminDashboard = () => {
                                 )
                             }
                         >
-                            {
-                                showAllProjects
-                                    ? "Show less"
-                                    : "See all projects"
-                            }
-                            <ArrowRight size={16} />
                         </button>
-
                     </div>
-
                 </div>
 
 
@@ -1603,15 +1760,15 @@ const AdminDashboard = () => {
                                     event.target.value
                                 )
                             }
-                            placeholder="Search projects"
-                            aria-label="Search projects"
+                            placeholder="Search modules"
+                            aria-label="Search modules"
                         />
 
                     </div>
 
                     <span className="admin-dashboard-project-count">
-                        {projects.length} project
-                        {projects.length === 1 ? "" : "s"}
+                        {visibleProjects.length} module
+                        {visibleProjects.length === 1 ? "" : "s"}
                     </span>
 
                 </div>
@@ -1627,11 +1784,11 @@ const AdminDashboard = () => {
                                 <FolderKanban size={38} />
 
                                 <strong>
-                                    No projects found
+                                    No modules found
                                 </strong>
 
                                 <p>
-                                    Create a project to start building your workspace.
+                                    No matching module was found.
                                 </p>
 
                             </div>

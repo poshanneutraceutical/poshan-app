@@ -18,11 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DigitalMarketingService {
 
-  public  final DigitalMarketingRepository digitalMarketingRepository;
+    public  final DigitalMarketingRepository digitalMarketingRepository;
+    private final NotificationService notificationService;
 
 
     public DigitalDTO createdigitalproject(DigitalDTO digitalDTO){
-        
+
         Digital digital = new Digital();
 
         digital.setId(digitalDTO.getId());
@@ -35,6 +36,7 @@ public class DigitalMarketingService {
         digital.setLeadgenerated(digitalDTO.getLeadgenerated());
         digital.setNotes(digitalDTO.getNotes());
         Digital savedDigital = digitalMarketingRepository.save(digital);
+        notificationService.createDigitalProjectNotifications(savedDigital);
         return mapToDTO(savedDigital);
     }
 
@@ -60,7 +62,7 @@ public class DigitalMarketingService {
         if (!digitalMarketingRepository.existsById(id)) {
             throw new RuntimeException("Task not found with id: " + id);
         }
-       digitalMarketingRepository.deleteById(id);
+        digitalMarketingRepository.deleteById(id);
     }
     public  List<DigitalDTO> getalldigitalproject(){
         return  digitalMarketingRepository.findAll()
@@ -75,7 +77,7 @@ public class DigitalMarketingService {
         return mapToDTO(digital);
     }
     private  DigitalDTO mapToDTO(Digital digital) {
-         DigitalDTO dto= new DigitalDTO();
+        DigitalDTO dto= new DigitalDTO();
         dto.setId(digital.getId());
         dto.setCompanyname(digital.getCompanyname());
         dto.setAssigndate(digital.getAssigndate());

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductionList from "./ProductionList";
 import ProductionForm from "./ProductionForm";
 import "./Production.css";
@@ -7,9 +8,29 @@ import "./Production.css";
 const Production = () => {
 
 
-    const [showForm, setShowForm] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const [selectedPlan, setSelectedPlan] = useState(null);
+    const openCreateForm =
+        searchParams.get("create") === "true";
+
+    const [showForm, setShowForm] =
+        useState(openCreateForm);
+
+    const [selectedPlan, setSelectedPlan] =
+        useState(null);
+
+
+    useEffect(() => {
+
+        if (openCreateForm) {
+
+            setSelectedPlan(null);
+
+            setShowForm(true);
+
+        }
+
+    }, [openCreateForm]);
 
 
 
@@ -43,6 +64,10 @@ const Production = () => {
         setSelectedPlan(null);
 
         setShowForm(false);
+
+        if (openCreateForm) {
+            setSearchParams({});
+        }
 
     };
 
