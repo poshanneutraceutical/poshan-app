@@ -1,0 +1,10 @@
+backend.zip
+frontend.zip
+
+backend/target/
+frontend/dist/
+
+*.jar
+*.war
+
+node_modules/
