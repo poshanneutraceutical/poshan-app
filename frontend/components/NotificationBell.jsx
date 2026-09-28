@@ -21,6 +21,9 @@ import notificationService
 import AuthService
     from "../services/AuthService";
 
+import initializePushNotifications
+    from "../services/pushNotificationService";
+
 
 /*
 ============================================================
@@ -150,6 +153,12 @@ const getNotificationTime = (value) => {
 };
 
 
+/*
+============================================================
+NOTIFICATION BELL COMPONENT
+============================================================
+*/
+
 const NotificationBell = () => {
 
     const navigate = useNavigate();
@@ -160,9 +169,9 @@ const NotificationBell = () => {
 
 
     /*
-     --------------------------------------------------------
-     STATE
-     --------------------------------------------------------
+    --------------------------------------------------------
+    STATE
+    --------------------------------------------------------
     */
 
     const [count, setCount] = useState(0);
@@ -171,9 +180,9 @@ const NotificationBell = () => {
 
 
     /*
-     --------------------------------------------------------
-     REFS
-     --------------------------------------------------------
+    --------------------------------------------------------
+    REFS
+    --------------------------------------------------------
     */
 
     const initializedRef = useRef(false);
@@ -181,6 +190,12 @@ const NotificationBell = () => {
     const popupTimerRef = useRef(null);
 
     const loadingRef = useRef(false);
+
+    /*
+     * Prevent repeated push initialization attempts while the
+     * current browser session is already being registered.
+     */
+    const pushInitializedRef = useRef(false);
 
 
     /*
@@ -202,10 +217,72 @@ SHOW POPUP
         }
 
         popupTimerRef.current = setTimeout(() => {
+
             setPopup(null);
+
         }, POPUP_DURATION);
 
     }, []);
+
+
+    /*
+============================================================
+INITIALIZE PUSH NOTIFICATIONS
+============================================================
+
+This first call is silent.
+
+It does NOT ask the browser for permission.
+
+Its purpose is to prepare Firebase push when the user is already
+allowed to receive notifications.
+
+Permission is explicitly requested from the Notification Bell
+click below.
+============================================================
+*/
+
+    useEffect(() => {
+
+        if (!userId) {
+            return;
+        }
+
+        let cancelled = false;
+
+        const setupPush = async () => {
+
+            try {
+
+                const result =
+                    await initializePushNotifications({
+                        requestPermission: false,
+                        userId
+                    });
+
+                if (!cancelled && result) {
+                    pushInitializedRef.current = true;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Silent push initialization failed:",
+                    error
+                );
+
+            }
+        };
+
+        setupPush();
+
+        return () => {
+
+            cancelled = true;
+
+        };
+
+    }, [userId]);
 
 
     /*
@@ -235,10 +312,10 @@ LOAD NOTIFICATIONS
 
 
             /*
-             --------------------------------------------------
-             Keep newest notifications first even if the backend
-             response order changes.
-             --------------------------------------------------
+            --------------------------------------------------
+            Keep newest notifications first even if the backend
+            response order changes.
+            --------------------------------------------------
             */
 
             const sortedNotifications = [
@@ -251,9 +328,9 @@ LOAD NOTIFICATIONS
 
 
             /*
-             --------------------------------------------------
-             UNREAD COUNT
-             --------------------------------------------------
+            --------------------------------------------------
+            UNREAD COUNT
+            --------------------------------------------------
             */
 
             const unreadCount =
@@ -286,13 +363,13 @@ LOAD NOTIFICATIONS
 
 
             /*
-             --------------------------------------------------
-             FIRST LOAD
+            --------------------------------------------------
+            FIRST LOAD
 
-             Establish the current DB state as the baseline.
-             This prevents old notifications from popping as soon
-             as somebody logs in.
-             --------------------------------------------------
+            Establish the current DB state as the baseline.
+            This prevents old notifications from popping as soon
+            as somebody logs in.
+            --------------------------------------------------
             */
 
             if (!initializedRef.current) {
@@ -317,9 +394,9 @@ LOAD NOTIFICATIONS
 
 
             /*
-             --------------------------------------------------
-             FIND NEW NOTIFICATIONS
-             --------------------------------------------------
+            --------------------------------------------------
+            FIND NEW NOTIFICATIONS
+            --------------------------------------------------
             */
 
             const newUnreadNotifications =
@@ -347,9 +424,9 @@ LOAD NOTIFICATIONS
 
 
             /*
-             --------------------------------------------------
-             SAVE NEWEST PROCESSED ID
-             --------------------------------------------------
+            --------------------------------------------------
+            SAVE NEWEST PROCESSED ID
+            --------------------------------------------------
             */
 
             if (newestId > lastProcessedId) {
@@ -416,7 +493,9 @@ POLLING / EVENT LISTENER
 
         const interval = setInterval(
             () => {
+
                 loadNotifications();
+
             },
             POLL_INTERVAL
         );
@@ -428,7 +507,9 @@ POLLING / EVENT LISTENER
          */
 
         const handleNotificationsUpdated = () => {
+
             loadNotifications();
+
         };
 
         window.addEventListener(
@@ -468,8 +549,11 @@ OPEN POPUP NOTIFICATION
     ) => {
 
         if (!notification?.id) {
+
             setPopup(null);
+
             navigate("/notifications");
+
             return;
         }
 
@@ -516,10 +600,77 @@ DISMISS POPUP
         setPopup(null);
 
         if (popupTimerRef.current) {
-            clearTimeout(popupTimerRef.current);
+
+            clearTimeout(
+                popupTimerRef.current
+            );
         }
     };
 
+
+    /*
+============================================================
+OPEN NOTIFICATION BELL
+============================================================
+
+This click is the important user gesture.
+
+When browser permission is still "default", this calls
+Notification.requestPermission() through the Firebase service.
+
+After permission is granted, the browser registers the Firebase
+installation and the frontend sends its FID to:
+
+POST /api/push/register
+
+============================================================
+*/
+
+    const handleNotificationBellClick = async () => {
+
+        try {
+
+            const result =
+                await initializePushNotifications({
+                    requestPermission: true,
+                    userId
+                });
+
+            if (result) {
+
+                pushInitializedRef.current = true;
+
+                console.log(
+                    "POSHAN browser push notifications are enabled."
+                );
+
+            } else {
+
+                console.warn(
+                    "POSHAN browser push notifications were not enabled."
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Notification permission / push setup error:",
+                error
+            );
+
+        } finally {
+
+            navigate("/notifications");
+
+        }
+    };
+
+
+    /*
+============================================================
+RENDER
+============================================================
+*/
 
     return (
 
@@ -531,25 +682,34 @@ DISMISS POPUP
 
             <button
                 type="button"
-                onClick={() => navigate("/notifications")}
+                onClick={handleNotificationBellClick}
                 className="relative flex items-center"
                 aria-label="Open notifications"
                 title="Notifications"
-                style={{ color: "#dc2626" }}
+                style={{
+                    color: "#dc2626"
+                }}
             >
 
-                <Bell size={26}
-                  style={{ color: "#dc2626" }}
+                <Bell
+                    size={26}
+                    style={{
+                        color: "#dc2626"
+                    }}
                 />
 
                 {count > 0 && (
 
                     <span
                         className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold text-white"
-                   style={{ color: "#dc2626" }}
+                        style={{
+                            color: "#ffffff"
+                        }}
                     >
 
-                        {count > 99 ? "99+" : count}
+                        {count > 99
+                            ? "99+"
+                            : count}
 
                     </span>
 
@@ -577,9 +737,11 @@ DISMISS POPUP
                         top: "76px",
                         right: "24px",
                         zIndex: 2147483647,
-                        width: "min(420px, calc(100vw - 28px))",
+                        width:
+                            "min(420px, calc(100vw - 28px))",
                         background: "#ffffff",
-                        border: "1px solid #d8e1ec",
+                        border:
+                            "1px solid #d8e1ec",
                         borderRadius: "18px",
                         boxShadow:
                             "0 24px 70px rgba(15, 23, 42, 0.24)",
@@ -589,7 +751,10 @@ DISMISS POPUP
                     }}
                 >
 
-                    {/* Top accent */}
+                    {/* =================================================
+                        TOP ACCENT
+                    ================================================= */}
+
                     <div
                         style={{
                             height: "4px",
@@ -600,30 +765,39 @@ DISMISS POPUP
 
                     <div
                         style={{
-                            padding: "16px 16px 15px"
+                            padding:
+                                "16px 16px 15px"
                         }}
                     >
 
                         <div
                             style={{
                                 display: "flex",
-                                alignItems: "flex-start",
+                                alignItems:
+                                    "flex-start",
                                 gap: "12px"
                             }}
                         >
 
-                            {/* Icon */}
+                            {/* =================================================
+                                ICON
+                            ================================================= */}
+
                             <div
                                 style={{
                                     width: "44px",
                                     height: "44px",
                                     minWidth: "44px",
                                     borderRadius: "13px",
-                                    background: "#eaf8f4",
-                                    color: "#0b5d48",
+                                    background:
+                                        "#eaf8f4",
+                                    color:
+                                        "#0b5d48",
                                     display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center"
+                                    alignItems:
+                                        "center",
+                                    justifyContent:
+                                        "center"
                                 }}
                             >
 
@@ -632,7 +806,10 @@ DISMISS POPUP
                             </div>
 
 
-                            {/* Content */}
+                            {/* =================================================
+                                CONTENT
+                            ================================================= */}
+
                             <div
                                 style={{
                                     flex: 1,
@@ -643,8 +820,10 @@ DISMISS POPUP
                                 <div
                                     style={{
                                         display: "flex",
-                                        alignItems: "flex-start",
-                                        justifyContent: "space-between",
+                                        alignItems:
+                                            "flex-start",
+                                        justifyContent:
+                                            "space-between",
                                         gap: "10px"
                                     }}
                                 >
@@ -653,23 +832,34 @@ DISMISS POPUP
 
                                         <div
                                             style={{
-                                                color: "#94a3b8",
-                                                fontSize: "10px",
-                                                fontWeight: 700,
-                                                textTransform: "uppercase",
-                                                letterSpacing: "0.08em",
-                                                marginBottom: "3px"
+                                                color:
+                                                    "#94a3b8",
+                                                fontSize:
+                                                    "10px",
+                                                fontWeight:
+                                                    700,
+                                                textTransform:
+                                                    "uppercase",
+                                                letterSpacing:
+                                                    "0.08em",
+                                                marginBottom:
+                                                    "3px"
                                             }}
                                         >
                                             New notification
                                         </div>
 
+
                                         <strong
                                             style={{
-                                                display: "block",
-                                                color: "#162033",
-                                                fontSize: "15px",
-                                                lineHeight: 1.35
+                                                display:
+                                                    "block",
+                                                color:
+                                                    "#162033",
+                                                fontSize:
+                                                    "15px",
+                                                lineHeight:
+                                                    1.35
                                             }}
                                         >
                                             {popup.title ||
@@ -679,35 +869,58 @@ DISMISS POPUP
                                     </div>
 
 
+                                    {/* =================================================
+                                        CLOSE
+                                    ================================================= */}
+
                                     <button
                                         type="button"
-                                        onClick={dismissPopup}
+                                        onClick={
+                                            dismissPopup
+                                        }
                                         aria-label="Dismiss notification"
                                         title="Dismiss"
                                         style={{
                                             border: 0,
-                                            background: "transparent",
-                                            color: "#94a3b8",
-                                            cursor: "pointer",
+                                            background:
+                                                "transparent",
+                                            color:
+                                                "#94a3b8",
+                                            cursor:
+                                                "pointer",
                                             padding: "1px",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center"
+                                            display:
+                                                "flex",
+                                            alignItems:
+                                                "center",
+                                            justifyContent:
+                                                "center"
                                         }}
                                     >
+
                                         <X size={18} />
+
                                     </button>
 
                                 </div>
 
 
+                                {/* =================================================
+                                    MESSAGE
+                                ================================================= */}
+
                                 <p
                                     style={{
-                                        margin: "8px 0 4px",
-                                        color: "#526176",
-                                        fontSize: "13px",
-                                        lineHeight: 1.55,
-                                        wordBreak: "break-word"
+                                        margin:
+                                            "8px 0 4px",
+                                        color:
+                                            "#526176",
+                                        fontSize:
+                                            "13px",
+                                        lineHeight:
+                                            1.55,
+                                        wordBreak:
+                                            "break-word"
                                     }}
                                 >
                                     {popup.message ||
@@ -715,10 +928,16 @@ DISMISS POPUP
                                 </p>
 
 
+                                {/* =================================================
+                                    TIME
+                                ================================================= */}
+
                                 <div
                                     style={{
-                                        color: "#94a3b8",
-                                        fontSize: "11px"
+                                        color:
+                                            "#94a3b8",
+                                        fontSize:
+                                            "11px"
                                     }}
                                 >
                                     {getNotificationTime(
@@ -727,12 +946,19 @@ DISMISS POPUP
                                 </div>
 
 
+                                {/* =================================================
+                                    ACTIONS
+                                ================================================= */}
+
                                 <div
                                     style={{
-                                        display: "flex",
-                                        alignItems: "center",
+                                        display:
+                                            "flex",
+                                        alignItems:
+                                            "center",
                                         gap: "9px",
-                                        marginTop: "12px"
+                                        marginTop:
+                                            "12px"
                                     }}
                                 >
 
@@ -744,37 +970,57 @@ DISMISS POPUP
                                             )
                                         }
                                         style={{
-                                            display: "inline-flex",
-                                            alignItems: "center",
+                                            display:
+                                                "inline-flex",
+                                            alignItems:
+                                                "center",
                                             gap: "6px",
                                             border: 0,
-                                            borderRadius: "10px",
-                                            background: "#0b3d2e",
-                                            color: "#ffffff",
-                                            padding: "8px 13px",
-                                            fontSize: "12px",
-                                            fontWeight: 700,
-                                            cursor: "pointer"
+                                            borderRadius:
+                                                "10px",
+                                            background:
+                                                "#0b3d2e",
+                                            color:
+                                                "#ffffff",
+                                            padding:
+                                                "8px 13px",
+                                            fontSize:
+                                                "12px",
+                                            fontWeight:
+                                                700,
+                                            cursor:
+                                                "pointer"
                                         }}
                                     >
+
                                         Open
+
                                         <ExternalLink
                                             size={14}
                                         />
+
                                     </button>
 
 
                                     <button
                                         type="button"
-                                        onClick={dismissPopup}
+                                        onClick={
+                                            dismissPopup
+                                        }
                                         style={{
                                             border: 0,
-                                            background: "transparent",
-                                            color: "#64748b",
-                                            padding: "8px 4px",
-                                            fontSize: "12px",
-                                            fontWeight: 600,
-                                            cursor: "pointer"
+                                            background:
+                                                "transparent",
+                                            color:
+                                                "#64748b",
+                                            padding:
+                                                "8px 4px",
+                                            fontSize:
+                                                "12px",
+                                            fontWeight:
+                                                600,
+                                            cursor:
+                                                "pointer"
                                         }}
                                     >
                                         Dismiss
@@ -800,16 +1046,24 @@ DISMISS POPUP
             <style>
                 {`
                     @keyframes poshanNotificationSlideIn {
+
                         from {
                             opacity: 0;
-                            transform: translateY(-14px) translateX(18px);
+                            transform:
+                                translateY(-14px)
+                                translateX(18px);
                         }
+
                         to {
                             opacity: 1;
-                            transform: translateY(0) translateX(0);
+                            transform:
+                                translateY(0)
+                                translateX(0);
                         }
                     }
+
                     @media (max-width: 640px) {
+
                         .poshan-notification-popup {
                             right: 12px;
                             left: 12px;
@@ -818,7 +1072,9 @@ DISMISS POPUP
                     }
                 `}
             </style>
+
         </>
+
     );
 };
 

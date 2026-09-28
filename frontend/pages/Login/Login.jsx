@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../context/AuthContext";
 import AuthService from "../../services/AuthService";
+import initializePushNotifications
+    from "../../services/pushNotificationService";
+
 import "./Login.css";
 
 
@@ -13,16 +17,28 @@ const Login = () => {
     const { login } = useAuth();
 
 
+    /*
+    ============================================================
+    FORM
+    ============================================================
+    */
+
     const [form, setForm] = useState({
 
         username: "",
 
         password: "",
 
-        rememberMe: false
+        rememberMe: true
 
     });
 
+
+    /*
+    ============================================================
+    STATE
+    ============================================================
+    */
 
     const [showPassword, setShowPassword] =
         useState(false);
@@ -33,6 +49,12 @@ const Login = () => {
     const [error, setError] =
         useState("");
 
+
+    /*
+    ============================================================
+    INPUT CHANGE
+    ============================================================
+    */
 
     const handleChange = (e) => {
 
@@ -58,9 +80,19 @@ const Login = () => {
     };
 
 
+    /*
+    ============================================================
+    LOGIN
+    ============================================================
+    */
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+
+        if (loading) {
+            return;
+        }
 
         setLoading(true);
 
@@ -69,11 +101,17 @@ const Login = () => {
 
         try {
 
+            /*
+            ====================================================
+            CALL BACKEND LOGIN API
+            ====================================================
+            */
+
             const response =
                 await AuthService.login({
 
                     username:
-                        form.username,
+                        form.username.trim(),
 
                     password:
                         form.password
@@ -81,54 +119,82 @@ const Login = () => {
                 });
 
 
+            /*
+            ====================================================
+            VALIDATE TOKEN
+            ====================================================
+            */
+
+            if (!response?.token) {
+
+                throw new Error(
+                    "Login succeeded but no authentication token was received."
+                );
+
+            }
+
+
+            /*
+            ====================================================
+            ROLES
+            ====================================================
+            */
+
             let roles = [];
 
 
             if (Array.isArray(response.roles)) {
 
-                roles = response.roles
-                    .map((role) => {
+                roles =
+                    response.roles
+                        .map((role) => {
 
-                        if (
-                            typeof role === "string"
-                        ) {
+                            if (
+                                typeof role === "string"
+                            ) {
 
-                            return role
-                                .replace(
-                                    "ROLE_",
+                                return role
+                                    .replace(
+                                        "ROLE_",
+                                        ""
+                                    )
+                                    .toUpperCase();
+
+                            }
+
+
+                            if (
+                                role &&
+                                typeof role === "object"
+                            ) {
+
+                                return (
+                                    role.name ||
+                                    role.authority ||
                                     ""
                                 )
-                                .toUpperCase();
+                                    .replace(
+                                        "ROLE_",
+                                        ""
+                                    )
+                                    .toUpperCase();
 
-                        }
-
-
-                        if (
-                            role &&
-                            typeof role === "object"
-                        ) {
-
-                            return (
-                                role.name ||
-                                role.authority ||
-                                ""
-                            )
-                                .replace(
-                                    "ROLE_",
-                                    ""
-                                )
-                                .toUpperCase();
-
-                        }
+                            }
 
 
-                        return "";
+                            return "";
 
-                    })
-                    .filter(Boolean);
+                        })
+                        .filter(Boolean);
 
             }
 
+
+            /*
+            ====================================================
+            FALLBACK ROLE
+            ====================================================
+            */
 
             if (
                 roles.length === 0 &&
@@ -149,6 +215,12 @@ const Login = () => {
             }
 
 
+            /*
+            ====================================================
+            PRIMARY ROLE
+            ====================================================
+            */
+
             const primaryRole =
                 roles.length > 0
                     ? roles[0]
@@ -156,10 +228,10 @@ const Login = () => {
 
 
             /*
-             ==========================================
-             USER DATA
-             ==========================================
-             */
+            ====================================================
+            USER DATA
+            ====================================================
+            */
 
             const userData = {
 
@@ -193,11 +265,94 @@ const Login = () => {
             );
 
 
+            /*
+            ====================================================
+            IMPORTANT
+
+            AuthContext.login() stores both:
+
+                token -> localStorage
+                user  -> localStorage
+
+            Therefore closing/reopening the ERP does not remove
+            the login information.
+
+            Logout still removes them normally.
+            ====================================================
+            */
+
             login(
                 userData,
                 response.token
             );
 
+
+            /*
+            ====================================================
+            PUSH REGISTRATION
+
+            Do NOT request permission automatically here.
+
+            If notification permission has already been granted,
+            Firebase can register the device immediately.
+
+            If permission is still "default", the NotificationBell
+            will request permission later from the user's click.
+
+            The Firebase installation/device registration is stored
+            on the backend against this ERP user, so it can receive
+            push notifications even while the ERP page is closed.
+            ====================================================
+            */
+
+            try {
+
+                await initializePushNotifications({
+
+                    requestPermission: false,
+
+                    userId:
+                        userData.id
+
+                });
+
+            } catch (pushError) {
+
+                /*
+                 * Push failure must NOT prevent the user from
+                 * entering the ERP.
+                 */
+
+                console.error(
+                    "Push initialization after login failed:",
+                    pushError
+                );
+
+            }
+
+
+            /*
+            ====================================================
+            SAVE LOGIN PREFERENCE
+
+            We do NOT save the password.
+
+            Authentication itself is persisted through the JWT
+            and user information stored by AuthContext/AuthService.
+            ====================================================
+            */
+
+            localStorage.setItem(
+                "poshan-remember-me",
+                "true"
+            );
+
+
+            /*
+            ====================================================
+            OPEN DASHBOARD
+            ====================================================
+            */
 
             navigate(
                 "/dashboard",
@@ -217,6 +372,7 @@ const Login = () => {
 
             setError(
                 err.response?.data?.message ||
+                err.message ||
                 "Invalid username or password."
             );
 
@@ -229,6 +385,12 @@ const Login = () => {
 
     };
 
+
+    /*
+    ============================================================
+    RENDER
+    ============================================================
+    */
 
     return (
 
@@ -264,6 +426,10 @@ const Login = () => {
                     onSubmit={handleSubmit}
                 >
 
+                    {/* =================================================
+                        USERNAME
+                    ================================================= */}
+
                     <div className="login-form-group">
 
                         <label>
@@ -283,6 +449,10 @@ const Login = () => {
 
                     </div>
 
+
+                    {/* =================================================
+                        PASSWORD
+                    ================================================= */}
 
                     <div className="login-form-group">
 
@@ -316,7 +486,8 @@ const Login = () => {
                                     if (!loading) {
 
                                         setShowPassword(
-                                            !showPassword
+                                            (previous) =>
+                                                !previous
                                         );
 
                                     }
@@ -345,6 +516,10 @@ const Login = () => {
                     </div>
 
 
+                    {/* =================================================
+                        REMEMBER ME
+                    ================================================= */}
+
                     <div className="login-options">
 
                         <label>
@@ -355,9 +530,7 @@ const Login = () => {
                                 checked={
                                     form.rememberMe
                                 }
-                                onChange={
-                                    handleChange
-                                }
+                                onChange={handleChange}
                                 disabled={loading}
                             />
 
@@ -368,6 +541,10 @@ const Login = () => {
 
                     </div>
 
+
+                    {/* =================================================
+                        LOGIN BUTTON
+                    ================================================= */}
 
                     <button
                         type="submit"

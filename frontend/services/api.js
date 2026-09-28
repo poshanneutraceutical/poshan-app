@@ -8,50 +8,48 @@ const api = axios.create({
 });
 
 
+/*
+============================================================
+ATTACH JWT
+============================================================
+*/
+
 api.interceptors.request.use(
     (config) => {
 
         const token =
-            localStorage.getItem("token");
+            localStorage.getItem(
+                "token"
+            );
 
         if (token) {
 
             config.headers.Authorization =
                 `Bearer ${token}`;
-
         }
+
 
         /*
          ==========================================
          FORM DATA
          ==========================================
+
+         Browser/Axios creates the multipart boundary.
          */
 
-        if (config.data instanceof FormData) {
+        if (
+            config.data instanceof FormData
+        ) {
 
-            /*
-             Do NOT set Content-Type manually.
-             Browser/Axios will automatically set:
+            delete config.headers[
+                "Content-Type"
+            ];
 
-             multipart/form-data;
-             boundary=....
-            */
+        } else {
 
-            delete config.headers["Content-Type"];
-
-        }
-
-        /*
-         ==========================================
-         NORMAL JSON REQUESTS
-         ==========================================
-         */
-
-        else {
-
-            config.headers["Content-Type"] =
-                "application/json";
-
+            config.headers[
+                "Content-Type"
+            ] = "application/json";
         }
 
         return config;
@@ -62,6 +60,19 @@ api.interceptors.request.use(
         Promise.reject(error)
 );
 
+
+/*
+============================================================
+AUTHENTICATION FAILURE
+============================================================
+
+A 401 means the server rejected the JWT. This is different from
+closing the browser/PWA: closing it does not clear localStorage.
+
+The redirect is corrected to the actual login route used by
+AppRoutes: "/".
+============================================================
+*/
 
 api.interceptors.response.use(
 
@@ -74,27 +85,39 @@ api.interceptors.response.use(
             error.response?.status === 401
         ) {
 
-            localStorage.removeItem("token");
+            localStorage.removeItem(
+                "token"
+            );
 
-            localStorage.removeItem("user");
+            localStorage.removeItem(
+                "user"
+            );
+
+            /*
+             * Let AuthContext update React state immediately when
+             * possible. The storage removal above also protects a
+             * full page reload where React state no longer exists.
+             */
+
+            window.dispatchEvent(
+                new Event(
+                    "poshan-auth-expired"
+                )
+            );
 
 
             if (
-                window.location.pathname !==
-                "/login"
+                window.location.pathname !== "/"
+                    &&
+                window.location.pathname !== "/login"
             ) {
 
-                window.location.href =
-                    "/login";
-
+                window.location.href = "/";
             }
-
         }
 
         return Promise.reject(error);
-
     }
-
 );
 
 

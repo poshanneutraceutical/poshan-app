@@ -16,6 +16,7 @@ com\poshan\controller\TaskController.class
 com\poshan\service\OpeningService.class
 com\poshan\controller\AttendanceController.class
 com\poshan\dto\InventoryCategorySummaryDTO.class
+com\poshan\service\PushNotificationService.class
 com\poshan\entity\Digital.class
 com\poshan\dto\PurchaseOrderDTO.class
 com\poshan\repository\BoxDimensionRepository.class
@@ -35,7 +36,9 @@ com\poshan\entity\Task.class
 com\poshan\dto\PR_PageDTO.class
 com\poshan\service\TaskService$1.class
 com\poshan\dto\DigitalDTO.class
+com\poshan\service\NotificationService$GenericNotificationRule.class
 com\poshan\dto\AttendanceDTO.class
+com\poshan\aspect\CreationNotificationAspect.class
 com\poshan\entity\ReceivingMaterial.class
 com\poshan\dto\ManualAttendanceRequestDTO.class
 com\poshan\dto\WebDevelopmentDTO.class
@@ -78,6 +81,7 @@ com\poshan\controller\InventoryCategoryController.class
 com\poshan\service\PRService.class
 com\poshan\entity\DeliveryStatus.class
 com\poshan\repository\CompanyRepository.class
+com\poshan\entity\PushDevice$PushDeviceBuilder.class
 com\poshan\controller\UserManagementController.class
 com\poshan\entity\ProductionEntity.class
 com\poshan\controller\WebDashboardController.class
@@ -112,9 +116,11 @@ com\poshan\service\SalesService.class
 com\poshan\service\DeliveryService.class
 com\poshan\config\CorsConfig.class
 com\poshan\dto\DesigningDTO.class
+com\poshan\entity\PushDevice.class
 com\poshan\entity\Material.class
 com\poshan\entity\Delivery.class
 com\poshan\service\AttendanceService.class
+com\poshan\controller\PushNotificationController.class
 com\poshan\service\FileStorageService.class
 com\poshan\controller\WebDevelopmentController.class
 com\poshan\repository\CompanyDetailRepository.class
@@ -196,6 +202,7 @@ com\poshan\dto\PurchaseOrderResponseDTO.class
 com\poshan\entity\AssignedBy.class
 com\poshan\service\EmailService.class
 com\poshan\controller\InventoryController.class
+com\poshan\repository\PushDeviceRepository.class
 com\poshan\security\PositionAuthorizationFilter$1.class
 com\poshan\service\PurchaseOrderService.class
 com\poshan\controller\NotificationController.class
@@ -220,8 +227,10 @@ com\poshan\entity\AllowedNetwork.class
 com\poshan\repository\DesigningRepository.class
 com\poshan\repository\EmployeeRepository.class
 com\poshan\entity\Vendor.class
+com\poshan\dto\PushRegistrationRequest.class
 com\poshan\dto\PurchaseOrderItemDTO.class
 com\poshan\entity\WebDevelopment.class
 com\poshan\dto\DeliveryCompanySummaryDTO.class
+com\poshan\dto\PushConfigDTO.class
 com\poshan\service\PurchaseOrderPdfService.class
 com\poshan\dto\UpdateProfileRequest.class

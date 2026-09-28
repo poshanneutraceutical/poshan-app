@@ -18,11 +18,24 @@ const PUSH_SCOPE =
 const SW_URL =
     "/firebase-messaging-sw.js";
 
-let setupPromise = null;
+const FID_STORAGE_KEY =
+    "poshan-push-fid";
+
+
 let messagingInstance = null;
 let serviceWorkerRegistration = null;
 let listenersInitialized = false;
 let currentUserId = null;
+
+let setupPromise = null;
+let setupUserId = null;
+
+
+/*
+============================================================
+JWT FOR PUSH API
+============================================================
+*/
 
 const getToken = () => {
 
@@ -34,7 +47,11 @@ const getToken = () => {
     ];
 
     for (const key of keys) {
-        const value = localStorage.getItem(key);
+
+        const value =
+            localStorage.getItem(
+                key
+            );
 
         if (value) {
             return value;
@@ -44,7 +61,11 @@ const getToken = () => {
     return "";
 };
 
-const apiRequest = async (url, options = {}) => {
+
+const apiRequest = async (
+    url,
+    options = {}
+) => {
 
     const token = getToken();
 
@@ -54,9 +75,11 @@ const apiRequest = async (url, options = {}) => {
     };
 
     if (token) {
-        headers.Authorization = token.startsWith("Bearer ")
-            ? token
-            : `Bearer ${token}`;
+
+        headers.Authorization =
+            token.startsWith("Bearer ")
+                ? token
+                : `Bearer ${token}`;
     }
 
     const response =
@@ -69,18 +92,26 @@ const apiRequest = async (url, options = {}) => {
         );
 
     if (!response.ok) {
+
         const body =
-            await response.text().catch(() => "");
+            await response.text()
+                .catch(() => "");
 
         throw new Error(
-            body
-                ||
+            body ||
             `Push API request failed: ${response.status}`
         );
     }
 
     return response;
 };
+
+
+/*
+============================================================
+PUBLIC FIREBASE CONFIG
+============================================================
+*/
 
 const getWebConfig = async () => {
 
@@ -93,6 +124,7 @@ const getWebConfig = async () => {
         );
 
     if (!response.ok) {
+
         throw new Error(
             "Unable to load push notification configuration."
         );
@@ -101,65 +133,159 @@ const getWebConfig = async () => {
     return response.json();
 };
 
+
+/*
+============================================================
+SERVICE WORKER
+============================================================
+*/
+
 const registerServiceWorker = async () => {
 
-    if (!("serviceWorker" in navigator)) {
+    if (
+        !("serviceWorker" in navigator)
+    ) {
+
         throw new Error(
             "Service workers are not supported."
         );
     }
 
-    return navigator.serviceWorker.register(
-        SW_URL,
-        {
-            scope: PUSH_SCOPE
-        }
-    );
+
+    /*
+     * updateViaCache="none" helps the browser check the FCM
+     * service-worker script for updates instead of keeping an old
+     * cached copy indefinitely.
+     */
+
+    const registration =
+        await navigator.serviceWorker.register(
+            SW_URL,
+            {
+                scope: PUSH_SCOPE,
+                updateViaCache: "none"
+            }
+        );
+
+
+    try {
+
+        await registration.update();
+
+    } catch (error) {
+
+        console.warn(
+            "POSHAN push service-worker update check failed:",
+            error
+        );
+    }
+
+
+    return registration;
 };
 
-const ensureListeners = () => {
 
-    if (listenersInitialized || !messagingInstance) {
+/*
+============================================================
+SEND FID TO BACKEND
+============================================================
+*/
+
+const registerFidForCurrentUser = async (
+    installationId
+) => {
+
+    if (!installationId) {
         return;
     }
 
+
+    localStorage.setItem(
+        FID_STORAGE_KEY,
+        installationId
+    );
+
+
+    if (!currentUserId) {
+        return;
+    }
+
+
+    try {
+
+        await apiRequest(
+            "/api/push/register",
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    fid: installationId
+                })
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Push installation registration failed:",
+            error
+        );
+    }
+};
+
+
+/*
+============================================================
+FCM EVENT LISTENERS
+============================================================
+*/
+
+const ensureListeners = () => {
+
+    if (
+        listenersInitialized ||
+        !messagingInstance
+    ) {
+        return;
+    }
+
+
     onRegistered(
         messagingInstance,
-        async (installationId) => {
-
-            if (!installationId || !currentUserId) {
-                return;
-            }
-
-            try {
-
-                await apiRequest(
-                    "/api/push/register",
-                    {
-                        method: "POST",
-                        body: JSON.stringify({
-                            fid: installationId
-                        })
-                    }
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Push installation registration failed:",
-                    error
-                );
-            }
-        }
+        registerFidForCurrentUser
     );
+
 
     onUnregistered(
         messagingInstance,
         async (installationId) => {
 
+            if (
+                installationId &&
+                localStorage.getItem(
+                    FID_STORAGE_KEY
+                ) === installationId
+            ) {
+
+                localStorage.removeItem(
+                    FID_STORAGE_KEY
+                );
+            }
+
+
             if (!installationId) {
                 return;
             }
+
+
+            /*
+             * When Firebase reports that an installation is no
+             * longer active, remove it from our server as well.
+             */
+
+            if (!currentUserId) {
+                return;
+            }
+
 
             try {
 
@@ -183,29 +309,26 @@ const ensureListeners = () => {
         }
     );
 
+
     onMessage(
         messagingInstance,
         (payload) => {
 
             const title =
-                payload?.data?.title
-                    ||
-                payload?.notification?.title
-                    ||
+                payload?.data?.title ||
+                payload?.notification?.title ||
                 "POSHAN ERP";
 
             const body =
-                payload?.data?.body
-                    ||
-                payload?.notification?.body
-                    ||
+                payload?.data?.body ||
+                payload?.notification?.body ||
                 "You have a new notification.";
+
 
             try {
 
                 if (
-                    typeof Notification !== "undefined"
-                        &&
+                    typeof Notification !== "undefined" &&
                     Notification.permission === "granted"
                 ) {
 
@@ -214,11 +337,19 @@ const ensureListeners = () => {
                         {
                             body,
                             icon: "/pwa-192.png",
-                            tag: `poshan-${payload?.data?.type || "notification"}`
+                            badge: "/pwa-192.png",
+                            tag:
+                                `poshan-${
+                                    payload?.data?.targetType ||
+                                    payload?.data?.type ||
+                                    "notification"
+                                }-${
+                                    payload?.data?.targetId ||
+                                    Date.now()
+                                }`
                         }
                     );
                 }
-
             } catch (error) {
 
                 console.error(
@@ -229,8 +360,16 @@ const ensureListeners = () => {
         }
     );
 
+
     listenersInitialized = true;
 };
+
+
+/*
+============================================================
+SETUP PUSH
+============================================================
+*/
 
 const setup = async ({
     requestPermission = false,
@@ -241,81 +380,123 @@ const setup = async ({
         return false;
     }
 
-    if (typeof window === "undefined") {
+
+    if (
+        typeof window === "undefined"
+    ) {
         return false;
     }
 
-    if (!("Notification" in window)) {
+
+    if (
+        !("Notification" in window)
+    ) {
         return false;
     }
+
 
     currentUserId = userId;
 
+
     const supported =
-        await isSupported().catch(() => false);
+        await isSupported()
+            .catch(() => false);
+
 
     if (!supported) {
         return false;
     }
 
-    if (Notification.permission === "denied") {
+
+    if (
+        Notification.permission === "denied"
+    ) {
         return false;
     }
 
+
     if (
-        requestPermission
-            &&
+        requestPermission &&
         Notification.permission !== "granted"
     ) {
 
         const permission =
             await Notification.requestPermission();
 
-        if (permission !== "granted") {
+
+        if (
+            permission !== "granted"
+        ) {
             return false;
         }
     }
 
-    if (Notification.permission !== "granted") {
+
+    if (
+        Notification.permission !== "granted"
+    ) {
         return false;
     }
+
 
     const config =
         await getWebConfig();
 
+
     if (
-        !config?.apiKey
-            || !config?.projectId
-            || !config?.messagingSenderId
-            || !config?.appId
-            || !config?.vapidKey
+        !config?.apiKey ||
+        !config?.projectId ||
+        !config?.messagingSenderId ||
+        !config?.appId ||
+        !config?.vapidKey
     ) {
+
         throw new Error(
             "Firebase web push configuration is incomplete."
         );
     }
+
 
     const firebaseConfig = {
         apiKey: config.apiKey,
         authDomain: config.authDomain,
         projectId: config.projectId,
         storageBucket: config.storageBucket,
-        messagingSenderId: config.messagingSenderId,
+        messagingSenderId:
+            config.messagingSenderId,
         appId: config.appId
     };
+
 
     const app =
         getApps().length > 0
             ? getApps()[0]
-            : initializeApp(firebaseConfig);
+            : initializeApp(
+                firebaseConfig
+            );
+
 
     messagingInstance =
         getMessaging(app);
 
-    serviceWorkerRegistration =
-        await registerServiceWorker();
+
+    if (!serviceWorkerRegistration) {
+
+        serviceWorkerRegistration =
+            await registerServiceWorker();
+    }
+
 
     ensureListeners();
+
+
+    /*
+     * Firebase's FID API stores the installation registration in the
+     * browser. Calling register() again after a login/app startup is
+     * safe and causes onRegistered() to provide the current FID.
+     * This is what reconnects the browser installation to the current
+     * ERP user after an app reopen or user change.
+     */
 
     await register(
         messagingInstance,
@@ -325,8 +506,16 @@ const setup = async ({
         }
     );
 
+
     return true;
 };
+
+
+/*
+============================================================
+PUBLIC INITIALIZER
+============================================================
+*/
 
 const initializePushNotifications = async ({
     requestPermission = false,
@@ -334,25 +523,38 @@ const initializePushNotifications = async ({
 } = {}) => {
 
     if (!userId) {
+
         currentUserId = null;
         return false;
     }
 
+
     currentUserId = userId;
 
+
+    const normalizedUserId =
+        String(userId);
+
+
     /*
-     * The silent startup call is intentionally not cached when the
-     * browser is still at permission=default. This allows the user to
-     * tap the bell later and receive the permission prompt in the click
-     * gesture, which is important for iOS Home Screen web apps.
+     * Do not reuse a setup promise that belongs to another ERP user.
+     * This matters when the same browser logs out and another user
+     * logs in later.
      */
+
     if (
-        setupPromise
-            &&
+        setupPromise &&
+        setupUserId === normalizedUserId &&
         Notification.permission === "granted"
     ) {
+
         return setupPromise;
     }
+
+
+    setupUserId =
+        normalizedUserId;
+
 
     setupPromise =
         setup({
@@ -368,7 +570,73 @@ const initializePushNotifications = async ({
             return false;
         });
 
+
     return setupPromise;
 };
 
+
+/*
+============================================================
+REMOVE DEVICE ON EXPLICIT LOGOUT
+============================================================
+
+Closing the app/PWA never calls this function.
+
+It only removes the server association when the user explicitly
+logs out. The Firebase browser registration itself is kept so the
+next login can register the same/new FID again.
+============================================================
+*/
+
+export const unregisterCurrentPushDevice = async () => {
+
+    const fid =
+        localStorage.getItem(
+            FID_STORAGE_KEY
+        );
+
+
+    if (!fid) {
+
+        currentUserId = null;
+        return;
+    }
+
+
+    try {
+
+        if (
+            getToken() &&
+            currentUserId
+        ) {
+
+            await apiRequest(
+                "/api/push/register",
+                {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        fid
+                    })
+                }
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Unable to remove the current push device during logout:",
+            error
+        );
+
+    } finally {
+
+        localStorage.removeItem(
+            FID_STORAGE_KEY
+        );
+
+        currentUserId = null;
+        setupPromise = null;
+        setupUserId = null;
+    }
+};
 export default initializePushNotifications;
