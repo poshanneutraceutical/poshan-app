@@ -65,6 +65,8 @@ public class PositionAuthorizationFilter
                 uri.startsWith("/api/auth/")
                         ||
                         uri.startsWith("/api/uploads/")
+                        ||
+                        uri.equals("/api/push/config")
         ) {
 
             filterChain.doFilter(
@@ -152,7 +154,6 @@ public class PositionAuthorizationFilter
             return;
         }
 
-
         /*
          ==========================================
          NOTIFICATIONS
@@ -217,6 +218,64 @@ public class PositionAuthorizationFilter
             sendForbidden(
                     response,
                     "User position is not assigned."
+            );
+
+            return;
+        }
+
+
+        /*
+         ==========================================
+         PUSH REGISTRATION
+
+         Authenticated users register the Firebase Installation ID
+         belonging to the current browser/device.
+         ==========================================
+         */
+
+        if (
+                uri.equals("/api/push/register")
+        ) {
+
+            filterChain.doFilter(
+                    request,
+                    response
+            );
+
+            return;
+        }
+
+
+        /*
+         ==========================================
+         STICKER
+
+         MRP_PRINTING POSITION ONLY
+         ADMIN already handled above
+         ==========================================
+         */
+
+        if (
+                uri.equals("/api/stickers")
+                        ||
+                        uri.startsWith("/api/stickers/")
+        ) {
+
+            if (
+                    position == UserPosition.MRP_PRINTING
+            ) {
+
+                filterChain.doFilter(
+                        request,
+                        response
+                );
+
+                return;
+            }
+
+            sendForbidden(
+                    response,
+                    "You are not allowed to access Sticker."
             );
 
             return;
@@ -352,6 +411,111 @@ public class PositionAuthorizationFilter
             sendForbidden(
                     response,
                     "You do not have permission to access Digital Marketing."
+            );
+
+            return;
+        }
+
+                /*
+     ==========================================
+     DELIVERY
+
+     MRP_PRINTING POSITION
+     ADMIN already handled above
+     ==========================================
+     */
+
+        if (
+                uri.equals("/api/sales/delivery")
+                        ||
+                        uri.startsWith("/api/sales/delivery/")
+        ) {
+
+            if (
+                    position ==
+                            UserPosition.MRP_PRINTING
+            ) {
+
+                filterChain.doFilter(
+                        request,
+                        response
+                );
+
+                return;
+            }
+
+
+            sendForbidden(
+                    response,
+                    "You do not have permission to access Delivery."
+            );
+
+            return;
+        }
+
+
+    /*
+     ==========================================
+     DELIVERY SUPPORTING INVENTORY ENDPOINTS
+
+     Required by Delivery screen for:
+     - Inventory Categories
+     - Materials by Category
+
+     MRP_PRINTING POSITION
+     ==========================================
+     */
+
+        if (
+                uri.equals("/api/inventory-categories")
+        ) {
+
+            if (
+                    position ==
+                            UserPosition.MRP_PRINTING
+            ) {
+
+                filterChain.doFilter(
+                        request,
+                        response
+                );
+
+                return;
+            }
+
+
+            sendForbidden(
+                    response,
+                    "You do not have permission to access Inventory Categories."
+            );
+
+            return;
+        }
+
+
+        if (
+                uri.startsWith(
+                        "/api/inventory/materials/category/"
+                )
+        ) {
+
+            if (
+                    position ==
+                            UserPosition.MRP_PRINTING
+            ) {
+
+                filterChain.doFilter(
+                        request,
+                        response
+                );
+
+                return;
+            }
+
+
+            sendForbidden(
+                    response,
+                    "You do not have permission to access Inventory Materials."
             );
 
             return;
@@ -666,5 +830,4 @@ public class PositionAuthorizationFilter
         );
 
     }
-
 }

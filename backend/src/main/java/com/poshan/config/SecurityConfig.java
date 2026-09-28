@@ -202,6 +202,16 @@ public class SecurityConfig {
                                         "/api/auth/**"
                                 )
                                 .permitAll()
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/push/config"
+                                )
+                                .permitAll()
+
+                                .requestMatchers(
+                                        "/api/push/**"
+                                )
+                                .authenticated()
 
 
                                 /*

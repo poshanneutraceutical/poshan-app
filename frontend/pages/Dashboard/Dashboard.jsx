@@ -18,6 +18,7 @@ import {
     ChevronDown,
     ChevronRight,
     ClipboardList,
+    Images,
     Code2,
     FileText,
     FolderKanban,
@@ -208,6 +209,14 @@ const getAllModules = (isAdmin) => {
             <Tag size={22} strokeWidth={2} />,
             "Production"
         ),
+         createModule(
+             "sticker",
+             "Sticker",
+             "Manage sticker printing references",
+             "/stickers",
+             <Images size={22} strokeWidth={2} />,
+             "Production"
+         ),
 
         createModule(
             "production",
@@ -544,20 +553,37 @@ const getAllowedModules = (user) => {
 
         ],
 
-        MRP_PRINTING: [
+       MRP_PRINTING: [
 
-            createModule(
-                "mrp",
-                "MRP Master",
-                "Manage MRP master information",
-                "/mrp",
-                <Tag size={22} strokeWidth={2} />,
-                "Production"
-            ),
+           createModule(
+               "mrp",
+               "MRP Master",
+               "Manage MRP master information",
+               "/mrp",
+               <Tag size={22} strokeWidth={2} />,
+               "Production"
+           ),
 
-            getAttendanceModule(false)
+       createModule(
+           "sticker",
+           "Sticker",
+           "Manage sticker printing references",
+           "/stickers",
+           <Images size={22} strokeWidth={2} />,
+           "Production"
+       ),
 
-        ],
+           createModule(
+               "delivery",
+               "Delivery",
+               "Manage delivery records",
+               "/sales/delivery",
+               <Truck size={22} strokeWidth={2} />,
+               "Sales"
+           ),
+
+           getAttendanceModule(false)
+       ],
 
         LABOUR: [
 

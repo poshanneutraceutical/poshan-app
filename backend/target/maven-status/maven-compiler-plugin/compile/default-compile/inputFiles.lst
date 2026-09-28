@@ -3,6 +3,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\D
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\FileStorageConfig.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\InventoryDataInitializer.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\SecurityConfig.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\StickerWebConfig.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\config\WebConfig.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\ApprovalController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\AttendanceController.java
@@ -29,6 +30,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controll
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\ReceivingMaterialController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\SalesController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\SalesDashboardController.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\StickerController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\TaskController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\UserController.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\controller\UserManagementController.java
@@ -83,6 +85,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\Rece
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\ReceivingMaterialPageDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\RegisterRequest.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\SalesDashboardDTO.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\StickerDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\TaskDTO.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\UpdateProfileRequest.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\dto\UserProfileResponse.java
@@ -130,6 +133,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\P
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\ReceivingMaterial.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\ReceivingMaterialItem.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Role.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\StickerEntity.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Task.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\Taskstatus.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\entity\User.java
@@ -166,6 +170,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\reposito
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\ReceivingMaterialItemRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\ReceivingMaterialRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\RoleRepository.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\StickerRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\TaskRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\UserRepository.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\repository\VendorRepository.java
@@ -203,6 +208,7 @@ C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\ReceivingMaterialService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\SalesDashboardService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\SalesService.java
+C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\StickerService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\TaskService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\UserService.java
 C:\Users\jatin\Downloads\poshan\poshan\backend\src\main\java\com\poshan\service\VendorService.java

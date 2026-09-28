@@ -1,3 +1,5 @@
+com\poshan\dto\StickerDTO.class
+com\poshan\entity\StickerEntity.class
 com\poshan\service\InventoryService.class
 com\poshan\controller\BoxDimensionController.class
 com\poshan\entity\CompanyDetail.class
@@ -37,6 +39,7 @@ com\poshan\dto\AttendanceDTO.class
 com\poshan\entity\ReceivingMaterial.class
 com\poshan\dto\ManualAttendanceRequestDTO.class
 com\poshan\dto\WebDevelopmentDTO.class
+com\poshan\controller\StickerController.class
 com\poshan\entity\BoxType.class
 com\poshan\service\SalesDashboardService.class
 com\poshan\service\DesigningService.class
@@ -100,6 +103,7 @@ com\poshan\service\BoxDimensionService.class
 com\poshan\dto\DesignDashboardDTO.class
 com\poshan\dto\SalesDashboardDTO$InventoryCategoryDTO.class
 com\poshan\dto\ReceivingMaterialPageDTO.class
+com\poshan\service\StickerService.class
 com\poshan\entity\UserPosition.class
 com\poshan\entity\DesigningEntity.class
 com\poshan\repository\ReceivingMaterialRepository.class
@@ -128,6 +132,7 @@ com\poshan\entity\PR.class
 com\poshan\dto\InventoryDTO.class
 com\poshan\service\ProductionService.class
 com\poshan\dto\ApprovalRequestDTO.class
+com\poshan\repository\StickerRepository.class
 com\poshan\dto\RegisterRequest.class
 com\poshan\repository\AttendanceWorkerRepository.class
 com\poshan\entity\Inventory.class
@@ -171,6 +176,7 @@ com\poshan\dto\NotificationDTO.class
 com\poshan\repository\AttendanceRepository.class
 com\poshan\repository\AllowedNetworkRepository.class
 com\poshan\controller\OpeningController.class
+com\poshan\config\StickerWebConfig.class
 com\poshan\controller\EmployeeController.class
 com\poshan\repository\DigitalMarketingRepository.class
 com\poshan\service\NotificationService.class

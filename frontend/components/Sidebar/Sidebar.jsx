@@ -4,6 +4,7 @@ import {
     LayoutDashboard,
     Building2,
     Boxes,
+    Images,
     Truck,
     Users,
     FileText,
@@ -392,6 +393,22 @@ function Sidebar({ open = false, onClose = () => {} }) {
                 />
 
                 <SidebarItem
+                    item={{
+                        name: "Delivery",
+                        path: "/sales/delivery",
+                        icon: <Truck size={20} />
+                    }}
+                />
+
+                <SidebarItem
+                    item={{
+                        name: "Sticker",
+                        path: "/stickers",
+                        icon: <Images size={20} />
+                    }}
+                />
+
+                <SidebarItem
                     item={attendanceItem}
                 />
 
@@ -596,6 +613,12 @@ function getAllMenuItems(
             icon: <Truck size={20} />
         },
 
+         {
+             name: "Sticker",
+             path: "/stickers",
+             icon: <Images size={20} />
+         },
+
         {
             name: "Vendor",
             path: "/procurement/vendors",
@@ -697,6 +720,4 @@ function getAllMenuItems(
     ];
 
 }
-
-
 export default Sidebar;

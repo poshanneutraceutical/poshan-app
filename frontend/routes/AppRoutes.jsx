@@ -134,7 +134,8 @@ import MRPForm
 
 import MRPDetails
     from "../pages/Mrp/MRPDetails";
-
+import Sticker
+    from "../pages/Sticker/Sticker";
 
 function AppRoutes() {
 
@@ -209,6 +210,23 @@ function AppRoutes() {
 
                 }
             >
+            <Route
+                path="/stickers/*"
+                element={
+
+                    <PositionBasedRoute
+                        allowedPositions={[
+                            "ADMIN",
+                            "MRP_PRINTING"
+                        ]}
+                    >
+
+                        <Sticker />
+
+                    </PositionBasedRoute>
+
+                }
+            />
 
 
                 {/* =================================================
@@ -461,21 +479,27 @@ function AppRoutes() {
                     }
                 />
 
-
                 {/* =================================================
-                    SALES
-                    ADMIN ONLY
+                    SALES / DELIVERY
+
+                    ADMIN
+                    MRP_PRINTING
                 ================================================= */}
 
                 <Route
                     path="/sales/delivery/*"
                     element={
 
-                        <RoleBasedRoute role="ADMIN">
+                        <PositionBasedRoute
+                            allowedPositions={[
+                                "ADMIN",
+                                "MRP_PRINTING"
+                            ]}
+                        >
 
                             <Delivery />
 
-                        </RoleBasedRoute>
+                        </PositionBasedRoute>
 
                     }
                 />

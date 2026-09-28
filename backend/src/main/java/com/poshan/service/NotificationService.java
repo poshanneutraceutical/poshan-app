@@ -21,12 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +33,8 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
 
     private final UserRepository userRepository;
+
+    private final PushNotificationService pushNotificationService;
 
 
     /*
@@ -81,7 +78,7 @@ public class NotificationService {
                         .build();
 
         Notification saved =
-                notificationRepository.save(notification);
+                saveNotificationAndPush(notification);
 
         return mapToDTO(saved);
     }
@@ -209,7 +206,7 @@ public class NotificationService {
                 );
             }
 
-            notificationRepository.saveAll(notifications);
+            saveNotificationsAndPush(notifications);
 
         } catch (Exception error) {
 
@@ -402,7 +399,7 @@ public class NotificationService {
                 );
             }
 
-            notificationRepository.saveAll(notifications);
+            saveNotificationsAndPush(notifications);
 
         } catch (Exception error) {
 
@@ -413,6 +410,235 @@ public class NotificationService {
                     error
             );
         }
+    }
+
+
+    /*
+     =========================================================
+     GENERIC CREATE NOTIFICATIONS
+     =========================================================
+     The generic layer is used for successful POST create operations
+     that do not already have a dedicated notification flow.
+     Tasks and Web/Design/Digital projects keep their existing precise
+     recipient logic above.
+     =========================================================
+     */
+    @Transactional
+    public void createGenericCreationNotifications(
+            String uri
+    ) {
+
+        if (uri == null || uri.isBlank()) {
+            return;
+        }
+
+        try {
+
+            GenericNotificationRule rule =
+                    genericRuleForUri(uri);
+
+            if (rule == null) {
+                return;
+            }
+
+            List<Notification> notifications =
+                    new ArrayList<>();
+
+            for (User user : userRepository.findAll()) {
+
+                if (user.getId() == null) {
+                    continue;
+                }
+
+                boolean isRecipient =
+                        rule.adminOnly
+                                ? isAdmin(user)
+                                : isAdmin(user)
+                                || rule.positions.contains(
+                                user.getPosition()
+                        );
+
+                if (!isRecipient) {
+                    continue;
+                }
+
+                notifications.add(
+                        buildNotification(
+                                user,
+                                "New " + rule.moduleLabel + " Record",
+                                "A new " + rule.moduleLabel + " record has been created.",
+                                "RECORD_CREATED",
+                                null,
+                                null
+                        )
+                );
+            }
+
+            saveNotificationsAndPush(notifications);
+
+        } catch (Exception error) {
+
+            log.error(
+                    "Unable to create generic creation notifications for {}",
+                    uri,
+                    error
+            );
+        }
+    }
+
+    private GenericNotificationRule genericRuleForUri(
+            String uri
+    ) {
+
+        if (uri.startsWith("/api/stickers")) {
+            return new GenericNotificationRule(
+                    "Sticker",
+                    true,
+                    Set.of(UserPosition.MRP_PRINTING)
+            );
+        }
+
+        if (uri.startsWith("/api/sales/delivery")) {
+            return new GenericNotificationRule(
+                    "Delivery",
+                    true,
+                    Set.of(UserPosition.MRP_PRINTING)
+            );
+        }
+
+        if (uri.startsWith("/api/mrp")) {
+            return new GenericNotificationRule(
+                    "MRP",
+                    true,
+                    Set.of(UserPosition.MRP_PRINTING)
+            );
+        }
+
+        if (uri.startsWith("/api/box-dimensions")) {
+            return new GenericNotificationRule(
+                    "Box Dimensions",
+                    true,
+                    Set.of(UserPosition.DESIGN)
+            );
+        }
+
+        if (uri.startsWith("/api/hr/openings")) {
+            return new GenericNotificationRule(
+                    "Job Opening",
+                    false,
+                    Set.of(
+                            UserPosition.WEB_DEVELOPMENT,
+                            UserPosition.DESIGN,
+                            UserPosition.MARKETING,
+                            UserPosition.MRP_PRINTING
+                    )
+            );
+        }
+
+        if (uri.startsWith("/api/hr/manual-attendance/workers")) {
+            return new GenericNotificationRule(
+                    "Manual Attendance Worker",
+                    true,
+                    Set.of()
+            );
+        }
+
+        if (uri.startsWith("/api/company")) {
+            return adminOnlyRule("Company");
+        }
+
+        if (uri.startsWith("/api/production")) {
+            return adminOnlyRule("Production");
+        }
+
+        if (uri.startsWith("/api/inventory")) {
+            return adminOnlyRule("Inventory");
+        }
+
+        if (uri.startsWith("/api/procurement/receiving-material")) {
+            return adminOnlyRule("Receiving Material");
+        }
+
+        if (uri.startsWith("/api/procurement/vendors")) {
+            return adminOnlyRule("Vendor");
+        }
+
+        if (uri.startsWith("/api/procurement/purchase-requisition")) {
+            return adminOnlyRule("Purchase Requisition");
+        }
+
+        if (uri.startsWith("/api/procurement/purchase-order")) {
+            return adminOnlyRule("Purchase Order");
+        }
+
+        if (uri.startsWith("/api/approval")) {
+            return adminOnlyRule("Approval");
+        }
+
+        if (uri.startsWith("/api/sales") && !uri.startsWith("/api/sales/dashboard")) {
+            return adminOnlyRule("Sales");
+        }
+
+        if (uri.startsWith("/api/users") || uri.startsWith("/api/user-management")) {
+            return adminOnlyRule("User");
+        }
+
+        if (uri.startsWith("/api/hr/employees")) {
+            return adminOnlyRule("Employee");
+        }
+
+        return new GenericNotificationRule(
+                "ERP",
+                true,
+                Set.of()
+        );
+    }
+
+    private GenericNotificationRule adminOnlyRule(
+            String label
+    ) {
+        return new GenericNotificationRule(
+                label,
+                true,
+                Set.of()
+        );
+    }
+
+    private record GenericNotificationRule(
+            String moduleLabel,
+            boolean adminOnly,
+            Set<UserPosition> positions
+    ) {}
+
+    private Notification saveNotificationAndPush(
+            Notification notification
+    ) {
+
+        if (notification == null) {
+            return null;
+        }
+
+        Notification saved =
+                notificationRepository.save(notification);
+
+        pushNotificationService.sendPushNotifications(
+                List.of(saved)
+        );
+        return saved;
+    }
+
+    private void saveNotificationsAndPush(
+            List<Notification> notifications
+    ) {
+
+        if (notifications == null || notifications.isEmpty()) {
+            return;
+        }
+
+        List<Notification> saved =
+                notificationRepository.saveAll(notifications);
+
+        pushNotificationService.sendPushNotifications(saved);
     }
 
 
@@ -732,7 +958,7 @@ public class NotificationService {
                             .isRead(false)
                             .build();
 
-            notificationRepository.save(notification);
+            saveNotificationAndPush(notification);
         }
     }
 

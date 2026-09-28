@@ -25,7 +25,7 @@ public class TaskDTO {
      ADMIN creates/updates the complete task,
      while EMPLOYEE updates only the status.
 
-     Therefore an employee request can legally be:
+      therefore an employee request can legally be:
 
      {
          "status": "COMPLETE"

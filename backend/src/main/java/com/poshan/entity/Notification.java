@@ -39,7 +39,16 @@ public class Notification {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    
+    /*
+     * Target information lets the frontend open the related
+     * task or project when the notification is clicked.
+     *
+     * Examples:
+     * TASK / 25
+     * WEB_DEVELOPMENT_PROJECT / 12
+     * DESIGN_PROJECT / 7
+     * DIGITAL_MARKETING_PROJECT / 9
+     */
     @Column(name = "target_type")
     private String targetType;
 

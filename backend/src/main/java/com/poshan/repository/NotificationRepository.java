@@ -1,34 +1,23 @@
 package com.poshan.repository;
 
-
 import com.poshan.entity.Notification;
 import com.poshan.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 
 import java.util.List;
 
+public interface NotificationRepository
+        extends JpaRepository<Notification, Long> {
 
+    List<Notification> findByUserIdOrderByCreatedAtDesc(Long userId);
 
-@Repository
-public interface NotificationRepository extends JpaRepository<Notification, Long> {
+    List<Notification> findByUserIdAndIsReadFalseOrderByCreatedAtDesc(Long userId);
 
+    long countByUserIdAndIsReadFalse(Long userId);
 
-
-    // Get notifications for specific user
     List<Notification> findByUserOrderByCreatedAtDesc(User user);
 
-
-
-    // Count unread notifications
-    long countByUserAndIsReadFalse(User user);
-
-
-
-    // Get unread notifications only
     List<Notification> findByUserAndIsReadFalseOrderByCreatedAtDesc(User user);
 
-
-
+    long countByUserAndIsReadFalse(User user);
 }
