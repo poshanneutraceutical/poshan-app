@@ -9,10 +9,16 @@ import java.time.LocalDateTime;
 @Table(
         name = "push_devices",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_push_device_fid", columnNames = "fid")
+                @UniqueConstraint(
+                        name = "uk_push_device_fid",
+                        columnNames = "fid"
+                )
         },
         indexes = {
-                @Index(name = "idx_push_device_user", columnList = "user_id")
+                @Index(
+                        name = "idx_push_device_user",
+                        columnList = "user_id"
+                )
         }
 )
 @Getter
@@ -26,14 +32,36 @@ public class PushDevice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(
+            name = "user_id",
+            nullable = false
+    )
     private User user;
 
-    @Column(nullable = false, length = 255, unique = true)
+
+    /*
+     * IMPORTANT:
+     *
+     * The database column is still called "fid" for compatibility
+     * with the current database/API.
+     *
+     * The VALUE stored here is now the actual Firebase Cloud
+     * Messaging registration token.
+     *
+     * Firebase FID is NOT used for sending push messages.
+     */
+    @Column(
+            nullable = false,
+            length = 512,
+            unique = true
+    )
     private String fid;
+
 
     @Column(nullable = false)
     @Builder.Default
-    private LocalDateTime lastSeenAt = LocalDateTime.now();
+    private LocalDateTime lastSeenAt =
+            LocalDateTime.now();
 }

@@ -123,8 +123,6 @@ self.addEventListener(
         );
     }
 );
-
-
 /*
 ============================================================
 NOTIFICATION CLICK
@@ -147,47 +145,62 @@ self.addEventListener(
                 self.location.origin
             ).href;
 
-
         event.waitUntil(
             clients
                 .matchAll({
                     type: "window",
                     includeUncontrolled: true
                 })
-                .then(windowClients => {
+                .then(async windowClients => {
 
                     for (
-                        const client of windowClients
+                        const client
+                        of windowClients
                     ) {
 
                         if (
-                            "focus" in client &&
-                            client.url.startsWith(
+                            !client.url.startsWith(
                                 self.location.origin
                             )
                         ) {
+                            continue;
+                        }
 
-                            if (
-                                "navigate" in client
-                            ) {
+                        if (
+                            "focus" in client
+                        ) {
 
-                                return client
-                                    .navigate(
-                                        targetUrl
-                                    )
-                                    .then(
-                                        () =>
-                                            client.focus()
-                                    );
+                            await client
+                                .focus()
+                                .catch(
+                                    () => {}
+                                );
+                        }
+
+                        if (
+                            "navigate" in client
+                        ) {
+
+                            try {
+
+                                await client.navigate(
+                                    targetUrl
+                                );
+
+                                return;
+
+                            } catch (error) {
+
+                                console.warn(
+                                    "POSHAN notification navigation failed:",
+                                    error
+                                );
                             }
-
-                            return client.focus();
                         }
                     }
 
-
                     if (
-                        clients.openWindow
+                        "openWindow" in clients
                     ) {
 
                         return clients.openWindow(

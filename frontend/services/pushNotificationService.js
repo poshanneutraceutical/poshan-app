@@ -5,12 +5,11 @@ import {
 
 import {
     getMessaging,
+    getToken,
     isSupported,
-    onMessage,
-    onRegistered,
-    onUnregistered,
-    register
+    onMessage
 } from "firebase/messaging";
+
 
 const PUSH_SCOPE =
     "/firebase-cloud-messaging-push-scope/";
@@ -18,8 +17,12 @@ const PUSH_SCOPE =
 const SW_URL =
     "/firebase-messaging-sw.js";
 
-const FID_STORAGE_KEY =
-    "poshan-push-fid";
+
+// IMPORTANT:
+// This now stores the actual FCM registration token,
+// NOT the Firebase Installation ID (FID).
+const FCM_TOKEN_STORAGE_KEY =
+    "poshan-fcm-token";
 
 
 let messagingInstance = null;
@@ -37,7 +40,7 @@ JWT FOR PUSH API
 ============================================================
 */
 
-const getToken = () => {
+const getTokenFromStorage = () => {
 
     const keys = [
         "token",
@@ -49,9 +52,7 @@ const getToken = () => {
     for (const key of keys) {
 
         const value =
-            localStorage.getItem(
-                key
-            );
+            localStorage.getItem(key);
 
         if (value) {
             return value;
@@ -62,12 +63,19 @@ const getToken = () => {
 };
 
 
+/*
+============================================================
+API REQUEST
+============================================================
+*/
+
 const apiRequest = async (
     url,
     options = {}
 ) => {
 
-    const token = getToken();
+    const token =
+        getTokenFromStorage();
 
     const headers = {
         "Content-Type": "application/json",
@@ -152,12 +160,6 @@ const registerServiceWorker = async () => {
     }
 
 
-    /*
-     * updateViaCache="none" helps the browser check the FCM
-     * service-worker script for updates instead of keeping an old
-     * cached copy indefinitely.
-     */
-
     const registration =
         await navigator.serviceWorker.register(
             SW_URL,
@@ -187,22 +189,36 @@ const registerServiceWorker = async () => {
 
 /*
 ============================================================
-SEND FID TO BACKEND
+REGISTER ACTUAL FCM TOKEN WITH BACKEND
+============================================================
+
+IMPORTANT:
+
+Firebase has two different things:
+
+1. FID
+   Firebase Installation ID
+
+2. FCM registration token
+   The actual destination Firebase Cloud Messaging uses
+   to deliver a push notification.
+
+The backend MUST store/use the FCM registration token.
 ============================================================
 */
 
-const registerFidForCurrentUser = async (
-    installationId
+const registerFcmTokenForCurrentUser = async (
+    fcmToken
 ) => {
 
-    if (!installationId) {
+    if (!fcmToken) {
         return;
     }
 
 
     localStorage.setItem(
-        FID_STORAGE_KEY,
-        installationId
+        FCM_TOKEN_STORAGE_KEY,
+        fcmToken
     );
 
 
@@ -217,16 +233,29 @@ const registerFidForCurrentUser = async (
             "/api/push/register",
             {
                 method: "POST",
+
                 body: JSON.stringify({
-                    fid: installationId
+                    /*
+                     * We intentionally keep the existing
+                     * backend property name "fid" so that
+                     * we don't need to change the API contract.
+                     *
+                     * The VALUE is now the real FCM token.
+                     */
+                    fid: fcmToken
                 })
             }
+        );
+
+
+        console.log(
+            "POSHAN FCM device registered successfully."
         );
 
     } catch (error) {
 
         console.error(
-            "Push installation registration failed:",
+            "POSHAN FCM token registration failed:",
             error
         );
     }
@@ -235,7 +264,7 @@ const registerFidForCurrentUser = async (
 
 /*
 ============================================================
-FCM EVENT LISTENERS
+FOREGROUND FCM MESSAGE
 ============================================================
 */
 
@@ -245,69 +274,9 @@ const ensureListeners = () => {
         listenersInitialized ||
         !messagingInstance
     ) {
+
         return;
     }
-
-
-    onRegistered(
-        messagingInstance,
-        registerFidForCurrentUser
-    );
-
-
-    onUnregistered(
-        messagingInstance,
-        async (installationId) => {
-
-            if (
-                installationId &&
-                localStorage.getItem(
-                    FID_STORAGE_KEY
-                ) === installationId
-            ) {
-
-                localStorage.removeItem(
-                    FID_STORAGE_KEY
-                );
-            }
-
-
-            if (!installationId) {
-                return;
-            }
-
-
-            /*
-             * When Firebase reports that an installation is no
-             * longer active, remove it from our server as well.
-             */
-
-            if (!currentUserId) {
-                return;
-            }
-
-
-            try {
-
-                await apiRequest(
-                    "/api/push/register",
-                    {
-                        method: "DELETE",
-                        body: JSON.stringify({
-                            fid: installationId
-                        })
-                    }
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Push installation removal failed:",
-                    error
-                );
-            }
-        }
-    );
 
 
     onMessage(
@@ -336,8 +305,13 @@ const ensureListeners = () => {
                         title,
                         {
                             body,
-                            icon: "/pwa-192.png",
-                            badge: "/pwa-192.png",
+
+                            icon:
+                                "/pwa-192.png",
+
+                            badge:
+                                "/pwa-192.png",
+
                             tag:
                                 `poshan-${
                                     payload?.data?.targetType ||
@@ -350,6 +324,7 @@ const ensureListeners = () => {
                         }
                     );
                 }
+
             } catch (error) {
 
                 console.error(
@@ -384,6 +359,7 @@ const setup = async ({
     if (
         typeof window === "undefined"
     ) {
+
         return false;
     }
 
@@ -391,12 +367,18 @@ const setup = async ({
     if (
         !("Notification" in window)
     ) {
+
         return false;
     }
 
 
-    currentUserId = userId;
+    currentUserId =
+        userId;
 
+
+    /*
+     * Check browser support.
+     */
 
     const supported =
         await isSupported()
@@ -404,16 +386,34 @@ const setup = async ({
 
 
     if (!supported) {
+
+        console.warn(
+            "POSHAN push notifications are not supported in this browser."
+        );
+
         return false;
     }
 
+
+    /*
+     * Permission already denied.
+     */
 
     if (
         Notification.permission === "denied"
     ) {
+
+        console.warn(
+            "POSHAN notification permission is denied."
+        );
+
         return false;
     }
 
+
+    /*
+     * Ask permission only when requested.
+     */
 
     if (
         requestPermission &&
@@ -427,17 +427,27 @@ const setup = async ({
         if (
             permission !== "granted"
         ) {
+
             return false;
         }
     }
 
 
+    /*
+     * Push requires notification permission.
+     */
+
     if (
         Notification.permission !== "granted"
     ) {
+
         return false;
     }
 
+
+    /*
+     * Get Firebase configuration.
+     */
 
     const config =
         await getWebConfig();
@@ -458,15 +468,30 @@ const setup = async ({
 
 
     const firebaseConfig = {
-        apiKey: config.apiKey,
-        authDomain: config.authDomain,
-        projectId: config.projectId,
-        storageBucket: config.storageBucket,
+
+        apiKey:
+            config.apiKey,
+
+        authDomain:
+            config.authDomain,
+
+        projectId:
+            config.projectId,
+
+        storageBucket:
+            config.storageBucket,
+
         messagingSenderId:
             config.messagingSenderId,
-        appId: config.appId
+
+        appId:
+            config.appId
     };
 
+
+    /*
+     * Initialize Firebase only once.
+     */
 
     const app =
         getApps().length > 0
@@ -480,6 +505,10 @@ const setup = async ({
         getMessaging(app);
 
 
+    /*
+     * Register service worker.
+     */
+
     if (!serviceWorkerRegistration) {
 
         serviceWorkerRegistration =
@@ -487,23 +516,58 @@ const setup = async ({
     }
 
 
+    /*
+     * Foreground listener.
+     */
+
     ensureListeners();
 
 
     /*
-     * Firebase's FID API stores the installation registration in the
-     * browser. Calling register() again after a login/app startup is
-     * safe and causes onRegistered() to provide the current FID.
-     * This is what reconnects the browser installation to the current
-     * ERP user after an app reopen or user change.
+     ========================================================
+     IMPORTANT FIX
+     ========================================================
+
+     DO NOT use Firebase "register()" here.
+
+     That gives us the Firebase Installation ID (FID).
+
+     We need getToken() because the backend needs the
+     actual FCM registration token.
+     ========================================================
+    */
+
+    const fcmToken =
+        await getToken(
+            messagingInstance,
+            {
+                vapidKey:
+                    config.vapidKey,
+
+                serviceWorkerRegistration
+            }
+        );
+
+
+    if (!fcmToken) {
+
+        throw new Error(
+            "Firebase did not return an FCM registration token."
+        );
+    }
+
+
+    console.log(
+        "POSHAN FCM token obtained successfully."
+    );
+
+
+    /*
+     * Save + register actual FCM token.
      */
 
-    await register(
-        messagingInstance,
-        {
-            vapidKey: config.vapidKey,
-            serviceWorkerRegistration
-        }
+    await registerFcmTokenForCurrentUser(
+        fcmToken
     );
 
 
@@ -524,12 +588,15 @@ const initializePushNotifications = async ({
 
     if (!userId) {
 
-        currentUserId = null;
+        currentUserId =
+            null;
+
         return false;
     }
 
 
-    currentUserId = userId;
+    currentUserId =
+        userId;
 
 
     const normalizedUserId =
@@ -537,14 +604,13 @@ const initializePushNotifications = async ({
 
 
     /*
-     * Do not reuse a setup promise that belongs to another ERP user.
-     * This matters when the same browser logs out and another user
-     * logs in later.
+     * Reuse setup for the same user.
      */
 
     if (
         setupPromise &&
         setupUserId === normalizedUserId &&
+        typeof Notification !== "undefined" &&
         Notification.permission === "granted"
     ) {
 
@@ -560,7 +626,8 @@ const initializePushNotifications = async ({
         setup({
             requestPermission,
             userId
-        }).catch(error => {
+        })
+        .catch(error => {
 
             console.error(
                 "POSHAN push notification setup failed:",
@@ -580,63 +647,86 @@ const initializePushNotifications = async ({
 REMOVE DEVICE ON EXPLICIT LOGOUT
 ============================================================
 
-Closing the app/PWA never calls this function.
+Closing the app DOES NOT call this.
 
-It only removes the server association when the user explicitly
-logs out. The Firebase browser registration itself is kept so the
-next login can register the same/new FID again.
+The device remains registered with the backend.
+
+This is important because we want:
+
+Aakash closes POSHAN
+        ↓
+Admin assigns task
+        ↓
+Aakash still receives push notification
 ============================================================
 */
 
-export const unregisterCurrentPushDevice = async () => {
+export const unregisterCurrentPushDevice =
+    async () => {
 
-    const fid =
-        localStorage.getItem(
-            FID_STORAGE_KEY
-        );
-
-
-    if (!fid) {
-
-        currentUserId = null;
-        return;
-    }
-
-
-    try {
-
-        if (
-            getToken() &&
-            currentUserId
-        ) {
-
-            await apiRequest(
-                "/api/push/register",
-                {
-                    method: "DELETE",
-                    body: JSON.stringify({
-                        fid
-                    })
-                }
+        const fcmToken =
+            localStorage.getItem(
+                FCM_TOKEN_STORAGE_KEY
             );
+
+
+        if (!fcmToken) {
+
+            currentUserId =
+                null;
+
+            setupPromise =
+                null;
+
+            setupUserId =
+                null;
+
+            return;
         }
 
-    } catch (error) {
 
-        console.error(
-            "Unable to remove the current push device during logout:",
-            error
-        );
+        try {
 
-    } finally {
+            if (
+                getTokenFromStorage() &&
+                currentUserId
+            ) {
 
-        localStorage.removeItem(
-            FID_STORAGE_KEY
-        );
+                await apiRequest(
+                    "/api/push/register",
+                    {
+                        method: "DELETE",
 
-        currentUserId = null;
-        setupPromise = null;
-        setupUserId = null;
-    }
-};
+                        body: JSON.stringify({
+                            fid: fcmToken
+                        })
+                    }
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Unable to remove the current push device during logout:",
+                error
+            );
+
+        } finally {
+
+            localStorage.removeItem(
+                FCM_TOKEN_STORAGE_KEY
+            );
+
+            currentUserId =
+                null;
+
+            setupPromise =
+                null;
+
+            setupUserId =
+                null;
+        }
+    };
+
+
 export default initializePushNotifications;

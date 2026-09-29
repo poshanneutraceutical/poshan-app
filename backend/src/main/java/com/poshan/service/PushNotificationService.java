@@ -565,7 +565,7 @@ public class PushNotificationService {
                                      ---------------------------------
                                      */
 
-                                    .setFid(
+                                    .setToken(
                                             fid
                                     )
 
@@ -736,6 +736,17 @@ public class PushNotificationService {
                 FirebaseMessagingException exception =
                         sendResponse.getException();
 
+                log.error(
+                        "POSHAN FCM SEND FAILED | tokenLength={} | errorCode={} | message={}",
+                        fids.get(index) == null ? 0 : fids.get(index).length(),
+                        exception == null
+                                ? "UNKNOWN"
+                                : exception.getMessagingErrorCode(),
+                        exception == null
+                                ? "Unknown Firebase error"
+                                : exception.getMessage(),
+                        exception
+                );
 
                 if (
                         exception == null
